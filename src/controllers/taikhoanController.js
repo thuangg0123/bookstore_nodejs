@@ -56,9 +56,6 @@ const register = async (req, res) => {
 const deleteTaiKhoan = async (req, res) => {
     const { idTaiKhoan } = req.params;
     try {
-        if (req.role !== 'admin') {
-            return res.status(403).json({ success: false, message: 'Bạn không có quyền thực hiện thao tác này' });
-        }
         const response = await TaiKhoan.findByIdAndDelete(idTaiKhoan);
         return res.status(200).json({
             success: response ? true : false,
@@ -126,15 +123,6 @@ const updateTaiKhoan = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        // Lấy cookie từ request
-        const jwtCookie = req.cookies && req.cookies.jwt;
-
-        // Kiểm tra xem cookie "jwt" có tồn tại không
-        if (!jwtCookie) {
-            throw new Error("Không có Token trong Cookies");
-        }
-
-        // Xóa cookie "jwt" bằng cách đặt thời gian hết hạn trước đó
         res.clearCookie("jwt", { httpOnly: true, secure: true });
 
         return res.status(200).json({

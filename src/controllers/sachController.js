@@ -38,9 +38,6 @@ const getOneSach = async (req, res) => {
 const deleteSach = async (req, res) => {
     const { idSach } = req.params;
     try {
-        if (req.role !== 'admin') {
-            return res.status(403).json({ success: false, message: 'Bạn không có quyền thực hiện thao tác này' });
-        }
         const response = await Sach.findByIdAndDelete(idSach);
         return res.status(200).json({
             success: response ? true : false,
@@ -60,10 +57,6 @@ const updateSach = async (req, res) => {
     const { ID, ten, hinhAnh, tacGia, nhaXuatBan, gia, daBan, tonKho, trongLuong, kichThuoc, gioiThieu } = req.body;
 
     try {
-        if (req.role !== 'admin') {
-            return res.status(403).json({ success: false, message: 'Bạn không có quyền thực hiện thao tác này' });
-        }
-
         if (!idSach) {
             return res.status(404).json({
                 success: false,
@@ -81,6 +74,7 @@ const updateSach = async (req, res) => {
 
         return res.status(200).json({
             success: true,
+            data: response ? response : [],
             message: `Cập nhật thông tin sách có id: ${idSach} thành công`
         });
     } catch (error) {
@@ -94,10 +88,6 @@ const updateSach = async (req, res) => {
 
 const createSach = async (req, res) => {
     try {
-        if (req.role !== 'admin') {
-            return res.status(403).json({ success: false, message: 'Bạn không có quyền thực hiện thao tác này' });
-        }
-
         if (Object.keys(req.body).length === 0) {
             throw new Error("Không được để trống")
         }

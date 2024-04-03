@@ -4,19 +4,19 @@ const secretKey = 'mySecretKey123!@#';
 const authenticateJWT = (req, res, next) => {
     const token = req.headers?.authorization?.split(' ')[1];
 
-    if (token) {
-        jwt.verify(token, secretKey, (err, decoded) => {
-            if (err) {
-                return res.status(403).json({ success: false, message: 'Xác thực JWT không thành công' });
-            } else {
-                req.userId = decoded.userId;
-                req.role = decoded.role;
-                next();
-            }
-        });
-    } else {
+    if (!token) {
         return res.status(401).json({ success: false, message: 'Token không được cung cấp' });
     }
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ success: false, message: 'Xác thực JWT không thành công' });
+        } else {
+            req.userId = decoded.userId;
+            req.role = decoded.role;
+            next();
+        }
+    });
 };
 
 const isAdmin = (req, res, next) => {
@@ -25,6 +25,5 @@ const isAdmin = (req, res, next) => {
     }
     next();
 };
-
 
 module.exports = { authenticateJWT, isAdmin };
