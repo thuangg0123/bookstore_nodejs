@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="icon" href="/public/img/logo/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="/public/js/slide.js"></script>
+    <script src="/public/js/validate.js"></script>
+
+    <title>Nhà sách trực tuyến TikiTaka- Admin</title>
+</head>
+
+<body>
+    <div class="header">
+        <nav class="nav">
+            <div class="menu-icon" onclick="toggleSidebar()">
+                <i class="toggle-icon fa-solid fa-bars" id="toggleIcon"></i>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Tìm kiếm ...">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <a href="/trangchu"><img src="/public/img/logo/logo.png" alt="" class="logo"></a>
+        </nav>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li class="btn-close-sidebar" onclick="closeSidebar()"><i class="fa-solid fa-x"></i></li>
+            <li><a href="#" class="sidebar-link" onclick="goToAdminHome()"><i class="fa-solid fa-home"></i> Trang chủ
+                    Admin</a>
+            </li>
+            <li><a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct"><i class="fa-brands fa-shopify"></i>
+                    Quản lý
+                    sản phẩm</a></li>
+            <li><a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder"><i class="fa-solid fa-box"></i>Quản lý
+                    đơn
+                    hàng</a></li>
+            <li><a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount"><i class="fa-solid fa-users"></i>
+                    Quản
+                    lý
+                    tài khoản</a></li>
+        </ul>
+    </div>
+
+    <div class="container container-m-order">
+        <h1>Quản lý đơn hàng</h1>
+
+        <div class="container-order-card clear-fix">
+            <div class="order-card" th:each="order : ${orderList}">
+                <div class="order-image">
+                    <img th:src="${order.orderFirstBook.bookImage}" alt="Product img">
+                </div>
+                <div class="order-details">
+                    <div>
+                        <span style="font-weight: bold;">Mã đơn hàng:</span>
+                        <span class="order-code" th:text="${order.orderID}"></span>
+                    </div>
+                    <div>
+                        <span style="font-weight: bold;">Tên sản phẩm:</span>
+                        <span class="order-name" th:text="${order.orderFirstBook.bookName}"></span>
+                    </div>
+                    <div>
+                        <span class="order-name" th:text="'Và ' + ${order.orderItemQuantity - 1} + ' cuốn sách khác'"
+                            th:style="${order.orderItemQuantity - 1 == 0 ? 'display: none;' : ''}"></span>
+                    </div>
+                    <div>
+                        <span style="font-weight: bold;">Giá:</span>
+                        <span class="order-price" th:text="${order.orderPrice}"></span>
+                    </div>
+                    <div>
+                        <span style="font-weight: bold;">Trạng thái đơn hàng:</span>
+                        <span class="order-state" th:text="${order.orderStatus}"></span>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)"
+                            th:id="${order.orderID}"
+                            th:style="${order.orderStatus == 'Đã hoàn thành' or order.orderStatus == 'Đã hủy' ? 'opacity: 0.5;' : ''}"
+                            th:disabled="${order.orderStatus == 'Đã hoàn thành' or order.orderStatus == 'Đã hủy'}">
+                            Cập nhật trạng thái
+                        </button>
+                        <a th:href="@{'/quantri/donhang/' + ${order.orderID}}">
+                            <button class=" btn btn-view-order" onclick="showOrderDetail()">Xem chi tiết</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="updateStatusModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeUpdateStatusModal()">&times;</span>
+                    <h2>Cập nhật trạng thái</h2>
+                    <form id="updateStatusForm" action="/quantri/donhang/capnhantrangthai" method="post">
+                        <label for="orderStatus">Trạng thái đơn hàng:</label>
+                        <select id="orderStatus" name="orderStatus">
+                            <option value="0">Chưa xác nhận</option>
+                            <option value="1">Đã xác nhận</option>
+                            <option value="2">Đang vận chuyển</option>
+                            <option value="3">Hoàn thành</option>
+                            <option value="10">Hủy</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-save">Lưu</button>
+                        <button type="button" class="btn btn-cancel" onclick="closeUpdateStatusModal()">Hủy</button>
+                        <input type="text" name="ID" id="ID" style="display: none;" value="">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="../public/js/admin.js"></script>
+<script>
+    var sidebar = document.getElementById("sidebarOrder");
+    sidebar.classList.add('active');
+</script>
+
+</html>

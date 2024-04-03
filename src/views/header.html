@@ -1,0 +1,57 @@
+<header class="header">
+    <nav class="container navbar">
+        <div class="logo-container">
+            <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="logo"></a>
+        </div>
+        <div class="box-search">
+            <input type="text" placeholder="Tìm kiếm">
+            <span><i class="fa-solid fa-magnifying-glass"></i></span>
+        </div>
+        <div class="user-cart-container">
+            <div class="cart-item">
+                <a href="/giohang" style="color: #7A7E7F">
+                    <div>
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                    <div>
+                        <a href="/giohang" style="color: #7A7E7F;">Giỏ hàng</a>
+                    </div>
+                </a>
+            </div>
+            <div class="user-item">
+                <div class="account" id="accountSection" th:style="${accountSection ? 'display: none;' : ''}">
+                    <div>
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div>
+                        <span>Tài khoản</span>
+                    </div>
+                    <div class="account-options">
+                        <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
+                                khoản</button></a>
+                        <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
+                    </div>
+                </div>
+                <div class="admin" id="adminSection" th:style="${adminSection ? 'display: none;' : ''}">
+                    <div>
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div>
+                        <span>Quản trị</span>
+                    </div>
+                    <div class="admin-options">
+                        <a href="/quantri"><button id="btnAdminManage" class="btn">Quản lý</button></a>
+                        <a href="/dangxuat"><button id="btnLogoutAdmin" class="btn">Đăng xuất</button></a>
+                    </div>
+                </div>
+                <div class="user-options" id="userOptionsSection"
+                    th:style="${userOptionsSection ? 'display: none;' : ''}">
+                    <div class="login-register">
+                        <a href="/dangnhap" class="btn-director-login">Đăng nhập</a>
+                        <a href="/dangky" class="btn-director-register">Đăng ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
