@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const secretKey = 'mySecretKey123!@#';
 
 const authenticateJWT = (req, res, next) => {
-    // Kiểm tra xem header authorization có chứa token không
     const token = req.headers?.authorization?.split(' ')[1];
 
     if (token) {

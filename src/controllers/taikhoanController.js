@@ -8,13 +8,13 @@ const getAllTaiKhoans = async (req, res) => {
         const response = await TaiKhoan.find();
         return res.status(200).json({
             success: true,
-            message: "Get all users success",
+            message: "Lấy ra toàn bộ người dùng thành công",
             data: response
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Something wrong, please try again ...",
+            message: "Có lỗi, vui lòng thử lại sau ...",
             error: error.message
         });
     }
@@ -25,7 +25,7 @@ const getOneTaiKhoan = async (req, res) => {
     const response = await TaiKhoan.findById(idTaiKhoan)
     return res.status(200).json({
         success: response ? true : false,
-        data: response ? response : 'cannot get user'
+        data: response ? response : 'Không thể lấy ra người dùng này'
     })
 }
 
@@ -90,7 +90,11 @@ const login = async (req, res) => {
             { expiresIn: '1h' }
         );
         res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
-        return res.status(200).json({ success: true, message: 'Đăng nhập thành công', token });
+        return res.status(200).json({
+            success: true,
+            message: 'Đăng nhập thành công',
+            token
+        });
     } catch (error) {
         return res.status(500).json({ success: false, message: 'Đã xảy ra lỗi khi đăng nhập', error: error.message });
     }
@@ -110,18 +114,43 @@ const updateTaiKhoan = async (req, res) => {
 
         await user.save();
 
-        return res.status(200).json({ success: true, message: 'Cập nhật thông tin người dùng thành công', data: user });
+        return res.status(200).json({
+            success: true,
+            message: 'Cập nhật thông tin người dùng thành công',
+            data: user
+        });
     } catch (error) {
         return res.status(500).json({ success: false, message: 'Đã xảy ra lỗi khi cập nhật thông tin người dùng', error: error.message });
     }
 };
 
+const logout = async (req, res) => {
+    try {
+        // Lấy cookie từ request
+        const jwtCookie = req.cookies && req.cookies.jwt;
+
+        // Kiểm tra xem cookie "jwt" có tồn tại không
+        if (!jwtCookie) {
+            throw new Error("Không có Token trong Cookies");
+        }
+
+        // Xóa cookie "jwt" bằng cách đặt thời gian hết hạn trước đó
+        res.clearCookie("jwt", { httpOnly: true, secure: true });
+
+        return res.status(200).json({
+            success: true,
+            message: "Đăng xuất thành công"
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Đã xảy ra lỗi khi đăng xuất",
+            error: error.message
+        });
+    }
+};
 
 module.exports = {
-    getAllTaiKhoans,
-    getOneTaiKhoan,
-    register,
-    deleteTaiKhoan,
-    login,
-    updateTaiKhoan
+    getAllTaiKhoans, getOneTaiKhoan, register, deleteTaiKhoan, login, updateTaiKhoan,
+    logout
 }
