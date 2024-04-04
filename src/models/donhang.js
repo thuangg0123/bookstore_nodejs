@@ -10,7 +10,6 @@ const donHangSchema = new mongoose.Schema({
         {
             idSach: { type: mongoose.Schema.Types.ObjectId, ref: 'Sach', required: true },
             soLuong: { type: Number, required: true },
-            gia: { type: Number, required: true }
         }
     ],
     thanhTien: { type: Number, required: true },
