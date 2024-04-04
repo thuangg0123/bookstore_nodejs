@@ -7,7 +7,7 @@ const dbConnect = async () => {
     // 2: connecting
     // 3: disconnecting
     try {
-        const connection = await mongoose.connect(`mongodb://localhost:27017/book_Store`)
+        const connection = await mongoose.connect(`mongodb://localhost:27017/BookStore`)
         if (connection.connection.readyState === 1) {
             console.log("DB connection is successfully !")
         }

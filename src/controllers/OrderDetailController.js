@@ -1,4 +1,4 @@
-const OrderDetail = require('../models/orderDetail');
+const ORDER_DETAILS = require('../models/OrderDetail');
 
 const getAllOrderDetail = async (req, res) => {
     try {
@@ -11,7 +11,7 @@ const getAllOrderDetail = async (req, res) => {
             query = { userID: userId };
         }
 
-        let response = await OrderDetail.find(query).populate('orderID');
+        let response = await ORDER_DETAILS.find(query).populate('orderID');
 
         return res.status(200).json({
             success: true,
@@ -26,7 +26,7 @@ const getAllOrderDetail = async (req, res) => {
     }
 };
 
-const getOneOrderDetail = async (req, res) => {
+const getOrderDetail = async (req, res) => {
     try {
         const { orderId } = req.params;
         const { userId, role } = req;
@@ -37,7 +37,7 @@ const getOneOrderDetail = async (req, res) => {
             query.userID = userId;
         }
 
-        let response = await OrderDetail.findOne(query).populate('orderID');
+        let response = await ORDER_DETAILS.findOne(query).populate('orderID');
 
         if (!response) {
             return res.status(404).json({
@@ -72,9 +72,9 @@ const createOrderDetail = async (req, res) => {
         const data = req.body;
         data.userID = userId;
 
-        const response = await OrderDetail.create(data);
+        const response = await ORDER_DETAILS.create(data);
 
-        const populatedResponse = await OrderDetail.findById(response._id)
+        const populatedResponse = await ORDER_DETAILS.findById(response._id)
             .populate({
                 path: 'orderID',
                 select: '-__v -createdAt -updatedAt -userID'
@@ -94,5 +94,5 @@ const createOrderDetail = async (req, res) => {
 };
 
 module.exports = {
-    getAllOrderDetail, createOrderDetail, getOneOrderDetail
+    getAllOrderDetail, createOrderDetail, getOneOrderDetail: getOrderDetail
 };

@@ -1,5 +1,5 @@
-const Order = require('../models/order');
-const Book = require('../models/book');
+const ORDER = require('../models/Order');
+const BOOK = require('../models/Book');
 
 const getAllOrders = async (req, res) => {
     try {
@@ -12,7 +12,7 @@ const getAllOrders = async (req, res) => {
             query = { userID: userId };
         }
 
-        let response = await Order.find(query)
+        let response = await ORDER.find(query)
             .populate({
                 path: "userID",
                 select: "-isAdmin -userPassword -createdAt -updatedAt -__v"
@@ -35,7 +35,7 @@ const getAllOrders = async (req, res) => {
     }
 };
 
-const getOneOrder = async (req, res) => {
+const getOrder = async (req, res) => {
     try {
         const orderId = req.params.orderId;
         const { userId, role } = req;
@@ -46,7 +46,7 @@ const getOneOrder = async (req, res) => {
             query.userID = userId;
         }
 
-        const response = await Order.findOne(query)
+        const response = await ORDER.findOne(query)
             .populate({
                 path: "userID",
                 select: "-isAdmin -userPassword -createdAt -updatedAt -__v"
@@ -85,7 +85,7 @@ const createOrder = async (req, res) => {
         let totalPrice = 0;
         let totalItems = 0;
         for (const item of data.books) {
-            const book = await Book.findById(item.bookID);
+            const book = await BOOK.findById(item.bookID);
             if (!book) {
                 throw new Error(`Book with ID: ${item.bookID} not found`);
             }
@@ -93,14 +93,14 @@ const createOrder = async (req, res) => {
             totalItems += item.quantity;
         }
 
-        const newOrder = await Order.create({
+        const newOrder = await ORDER.create({
             ...data,
             orderTotal: totalPrice,
             orderItemQuantity: totalItems,
             userID: req.userId
         });
 
-        const populatedOrder = await Order.findById(newOrder._id)
+        const populatedOrder = await ORDER.findById(newOrder._id)
             .populate({
                 path: "books.bookID",
                 select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroducion -__v -createdAt -updatedAt"
@@ -128,7 +128,7 @@ const updateOrderStatus = async (req, res) => {
             throw new Error("Please provide a new status for the order");
         }
 
-        let order = await Order.findById(orderId);
+        let order = await ORDER.findById(orderId);
 
         if (!order) {
             return res.status(404).json({
@@ -154,5 +154,5 @@ const updateOrderStatus = async (req, res) => {
 };
 
 module.exports = {
-    getAllOrders, getOneOrder, createOrder, updateOrderStatus
+    getAllOrders, getOrder, createOrder, updateOrderStatus
 };

@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const OrderController = require('../../controllers/OrderController');
+const orderController = require('../../controllers/OrderController');
 const { authenticateJWT, isAdmin } = require('../../middleware/jwt');
 
-router.get('/', authenticateJWT, OrderController.getAllOrders);
-router.post('/', authenticateJWT, OrderController.createOrder);
+router.get('/', authenticateJWT, orderController.getAllOrders);
+router.post('/', authenticateJWT, orderController.createOrder);
 
-router.put('/:orderId', authenticateJWT, isAdmin, OrderController.updateOrderStatus);
-router.get('/:orderId', authenticateJWT, OrderController.getOneOrder);
+router.put('/:orderId', authenticateJWT, isAdmin, orderController.updateOrderStatus);
+router.get('/:orderId', authenticateJWT, orderController.getOrder);
 
 module.exports = router;

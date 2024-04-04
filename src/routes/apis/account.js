@@ -1,13 +1,13 @@
 const router = require('express').Router();
-const AccountController = require('../../controllers/AccountController');
+const accountController = require('../../controllers/AccountController');
 const { authenticateJWT, isAdmin } = require('../../middleware/jwt');
 
-router.post('/login', AccountController.login);
-router.post('/logout', authenticateJWT, AccountController.logout);
-router.post('/', AccountController.register);
-router.get('/', authenticateJWT, isAdmin, AccountController.getAllAccounts);
-router.put('/:idAccount', authenticateJWT, AccountController.updateAccount);
-router.delete('/:idAccount', authenticateJWT, isAdmin, AccountController.deleteAccount);
-router.get('/:idAccount', authenticateJWT, AccountController.getOneAccount);
+router.post('/login', accountController.login);
+router.post('/logout', authenticateJWT, accountController.logout);
+router.post('/', accountController.register);
+router.get('/', authenticateJWT, isAdmin, accountController.getAllAccounts);
+router.put('/:idAccount', authenticateJWT, accountController.updateAccount);
+router.delete('/:idAccount', authenticateJWT, isAdmin, accountController.deleteAccount);
+router.get('/:idAccount', authenticateJWT, accountController.getOneAccount);
 
 module.exports = router;
