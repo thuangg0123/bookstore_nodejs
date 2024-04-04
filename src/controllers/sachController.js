@@ -1,58 +1,58 @@
-const Sach = require('../models/sach')
+const Sach = require('../models/sach');
 
-const getAllSachs = async (req, res) => {
+const getAllBooks = async (req, res) => {
     try {
-        const response = await Sach.find().select("-__v")
+        const response = await Sach.find().select("-__v");
         return res.status(200).json({
             success: response ? true : false,
-            message: response ? "Lấy ra tất cả sách thành công" : "Lỗi khi lấy ra tất cả sách",
+            message: response ? "Successfully retrieved all books" : "Error while retrieving all books",
             data: response ? response : []
-        })
+        });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Có lỗi, vui lòng thử lại sau ...",
+            message: "An error occurred, please try again later...",
             error: error.message
         });
     }
-}
+};
 
-const getOneSach = async (req, res) => {
+const getOneBook = async (req, res) => {
     try {
-        const { idSach } = req.params
-        const response = await Sach.findById(idSach).select("-__v")
+        const { idSach } = req.params;
+        const response = await Sach.findById(idSach).select("-__v");
         return res.status(200).json({
             success: response ? true : false,
-            message: response ? `Lấy ra sách có id: ${idSach} thành công` : `Lỗi khi lấy ra sách có id: ${idSach}`,
+            message: response ? `Successfully retrieved book with id: ${idSach}` : `Error while retrieving book with id: ${idSach}`,
             data: response ? response : []
-        })
+        });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Có lỗi, vui lòng thử lại sau ...",
+            message: "An error occurred, please try again later...",
             error: error.message
         });
     }
-}
+};
 
-const deleteSach = async (req, res) => {
+const deleteBook = async (req, res) => {
     const { idSach } = req.params;
     try {
         const response = await Sach.findByIdAndDelete(idSach);
         return res.status(200).json({
             success: response ? true : false,
-            data: response ? `Xóa sách id: ${idSach} thành công` : `Không thể xóa sách id: ${idSach} tài khoản`
+            data: response ? `Successfully deleted book with id: ${idSach}` : `Unable to delete book with id: ${idSach}`
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Đã xảy ra lỗi khi xóa sách",
+            message: "An error occurred while deleting the book",
             error: error.message
         });
     }
-}
+};
 
-const updateSach = async (req, res) => {
+const updateBook = async (req, res) => {
     const { idSach } = req.params;
     const { ID, ten, hinhAnh, tacGia, nhaXuatBan, gia, daBan, tonKho, trongLuong, kichThuoc, gioiThieu } = req.body;
 
@@ -60,12 +60,12 @@ const updateSach = async (req, res) => {
         if (!idSach) {
             return res.status(404).json({
                 success: false,
-                message: `Không tìm thấy sách có id: ${idSach}`
+                message: `Book with id: ${idSach} not found`
             });
         }
 
         if (!ID || !ten || !hinhAnh || !tacGia || !gia || !tonKho) {
-            return res.status(400).json({ success: false, message: 'Vui lòng cung cấp đầy đủ thông tin sách để cập nhật' });
+            return res.status(400).json({ success: false, message: 'Please provide complete book information for updating' });
         }
 
         const response = await Sach.findByIdAndUpdate(idSach, {
@@ -75,48 +75,48 @@ const updateSach = async (req, res) => {
         return res.status(200).json({
             success: true,
             data: response ? response : [],
-            message: `Cập nhật thông tin sách có id: ${idSach} thành công`
+            message: `Successfully updated book information with id: ${idSach}`
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Đã xảy ra lỗi khi cập nhật sách",
+            message: "An error occurred while updating the book",
             error: error.message
         });
     }
 };
 
-const createSach = async (req, res) => {
+const createBook = async (req, res) => {
     try {
         if (Object.keys(req.body).length === 0) {
-            throw new Error("Không được để trống")
+            throw new Error("Body cannot be empty")
         }
 
-        const existingSach = await Sach.findOne({ ID: req.body.ID });
-        if (existingSach) {
-            throw new Error("ID đã tồn tại trong dữ liệu");
+        const existingBook = await Sach.findOne({ ID: req.body.ID });
+        if (existingBook) {
+            throw new Error("ID already exists in the data");
         }
 
-        const newSach = await Sach.create(req.body);
+        const newBook = await Sach.create(req.body);
 
         return res.status(200).json({
-            success: newSach ? true : false,
-            dataProduct: newSach ? newSach : 'Không thể thêm sách'
+            success: newBook ? true : false,
+            dataProduct: newBook ? newBook : 'Unable to add book'
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Đã xảy ra lỗi khi thêm sách",
+            message: "An error occurred while adding the book",
             error: error.message
         });
     }
 };
 
-const uploadImageSach = async (req, res) => {
+const uploadBookImage = async (req, res) => {
     try {
         const { idSach } = req.params;
         if (!req.files || req.files.length === 0) {
-            throw new Error("Không có hình ảnh được tải lên");
+            throw new Error("No images uploaded");
         }
 
         const imagesPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
@@ -127,19 +127,18 @@ const uploadImageSach = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: `Cập nhật hình ảnh cho sách có id: ${idSach} thành công`,
+            message: `Successfully updated images for book with id: ${idSach}`,
             data: response
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Đã xảy ra lỗi khi tải lên hình ảnh sách",
+            message: "An error occurred while uploading book images",
             error: error.message
         });
     }
 };
 
-
 module.exports = {
-    getAllSachs, getOneSach, deleteSach, updateSach, createSach, uploadImageSach
-}
+    getAllBooks, getOneBook, deleteBook, updateBook, createBook, uploadBookImage
+};

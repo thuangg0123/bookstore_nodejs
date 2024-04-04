@@ -1,5 +1,5 @@
 const DonHang = require('../models/donhang');
-const Sach = require('../models/sach')
+const Sach = require('../models/sach');
 
 const getAllDonHangs = async (req, res) => {
     try {
@@ -29,7 +29,7 @@ const getAllDonHangs = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Có lỗi, vui lòng thử lại sau ...",
+            message: "An error occurred, please try again later...",
             error: error.message
         });
     }
@@ -58,7 +58,7 @@ const getOneDonHang = async (req, res) => {
 
         if (!response) {
             return res.status(404).json({
-                success: false, message: 'Không tìm thấy đơn hàng'
+                success: false, message: 'Order not found'
             });
         }
 
@@ -69,7 +69,7 @@ const getOneDonHang = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'Có lỗi, vui lòng thử lại sau...',
+            message: 'An error occurred, please try again later...',
             error: error.message
         });
     }
@@ -79,7 +79,7 @@ const createDonHang = async (req, res) => {
     try {
         const data = req.body;
         if (!data.sanPham || data.sanPham.length === 0) {
-            throw new Error("Danh sách sản phẩm không được để trống");
+            throw new Error("Product list cannot be empty");
         }
 
         let thanhTien = 0;
@@ -87,7 +87,7 @@ const createDonHang = async (req, res) => {
         for (const item of data.sanPham) {
             const sach = await Sach.findById(item.idSach);
             if (!sach) {
-                throw new Error(`Không tìm thấy sách với ID: ${item.idSach}`);
+                throw new Error(`Book with ID: ${item.idSach} not found`);
             }
             thanhTien += item.soLuong * sach.gia;
             soSanPham += item.soLuong;
@@ -100,11 +100,10 @@ const createDonHang = async (req, res) => {
             idNguoiDat: req.userId
         });
 
-        // Lấy lại đơn hàng đã tạo và populate thông tin sách
         const populatedDonHang = await DonHang.findById(newDonHang._id)
             .populate({
                 path: "sanPham.idSach",
-                select: "-tacGia -nhaXuatBan -daBan -tonKho -trongLuong -gioiThieu -kichThuoc -__v -createdAt -updatedAt" // Bỏ các trường không mong muốn
+                select: "-tacGia -nhaXuatBan -daBan -tonKho -trongLuong -gioiThieu -kichThuoc -__v -createdAt -updatedAt"
             });
 
         return res.status(200).json({
@@ -114,19 +113,19 @@ const createDonHang = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'Có lỗi, vui lòng thử lại sau...',
+            message: 'An error occurred, please try again later...',
             error: error.message
         });
     }
-}
+};
 
 const updateStateDonHang = async (req, res) => {
     try {
         const idDonHang = req.params.idDonHang;
         const { trangThai } = req.body;
 
-        if (trangThai === undefined) {
-            throw new Error("Vui lòng cung cấp trạng thái mới cho đơn hàng");
+        if (!trangThai) {
+            throw new Error("Please provide a new status for the order");
         }
 
         let donHang = await DonHang.findById(idDonHang);
@@ -134,7 +133,7 @@ const updateStateDonHang = async (req, res) => {
         if (!donHang) {
             return res.status(404).json({
                 success: false,
-                message: "Không tìm thấy đơn hàng"
+                message: "Order not found"
             });
         }
 
@@ -143,12 +142,12 @@ const updateStateDonHang = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: "Cập nhật trạng thái đơn hàng thành công"
+            message: "Order status updated successfully"
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Có lỗi, vui lòng thử lại sau...",
+            message: "An error occurred, please try again later...",
             error: error.message
         });
     }

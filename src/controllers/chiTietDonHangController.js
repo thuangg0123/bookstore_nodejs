@@ -1,4 +1,4 @@
-const ChiTietDonHang = require('../models/chitietdonhang')
+const ChiTietDonHang = require('../models/chitietdonhang');
 
 const getAllChiTietDonHangs = async (req, res) => {
     try {
@@ -11,7 +11,7 @@ const getAllChiTietDonHangs = async (req, res) => {
             query = { idNguoiDat: userId };
         }
 
-        let response = await ChiTietDonHang.find(query).populate('maDonHang')
+        let response = await ChiTietDonHang.find(query).populate('maDonHang');
 
         return res.status(200).json({
             success: true,
@@ -20,11 +20,11 @@ const getAllChiTietDonHangs = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Có lỗi, vui lòng thử lại sau ...",
+            message: "An error occurred, please try again later...",
             error: error.message
         });
     }
-}
+};
 
 const getOneChiTietDonHang = async (req, res) => {
     try {
@@ -42,7 +42,7 @@ const getOneChiTietDonHang = async (req, res) => {
         if (!response) {
             return res.status(404).json({
                 success: false,
-                message: 'Không tìm thấy chi tiết đơn hàng'
+                message: 'Detail order not found'
             });
         }
 
@@ -53,11 +53,11 @@ const getOneChiTietDonHang = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'Có lỗi, vui lòng thử lại sau...',
+            message: 'An error occurred, please try again later...',
             error: error.message
         });
     }
-}
+};
 
 const createChiTietDonHang = async (req, res) => {
     try {
@@ -65,12 +65,12 @@ const createChiTietDonHang = async (req, res) => {
         if (!userId) {
             return res.status(403).json({
                 success: false,
-                message: "Bạn cần đăng nhập để thực hiện hành động này"
+                message: "You need to login to perform this action"
             });
         }
 
         const data = req.body;
-        data.idNguoiDat = userId; // Gán userId cho trường idNguoiDat
+        data.idNguoiDat = userId;
 
         const response = await ChiTietDonHang.create(data);
 
@@ -87,12 +87,12 @@ const createChiTietDonHang = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Có lỗi, vui lòng thử lại sau ...",
+            message: "An error occurred, please try again later...",
             error: error.message
         });
     }
-}
+};
 
 module.exports = {
     getAllChiTietDonHangs, createChiTietDonHang, getOneChiTietDonHang
-}
+};

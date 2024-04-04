@@ -1,33 +1,33 @@
-const TaiKhoan = require('../models/taikhoan')
+const TaiKhoan = require('../models/taikhoan');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secretKey = 'mySecretKey123!@#';
 
-const getAllTaiKhoans = async (req, res) => {
+const getAllAccounts = async (req, res) => {
     try {
         const response = await TaiKhoan.find();
         return res.status(200).json({
             success: true,
-            message: "Lấy ra toàn bộ người dùng thành công",
+            message: "Successfully retrieved all users",
             data: response
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Có lỗi, vui lòng thử lại sau ...",
+            message: "An error occurred, please try again later...",
             error: error.message
         });
     }
-}
+};
 
-const getOneTaiKhoan = async (req, res) => {
-    const { idTaiKhoan } = req.params
-    const response = await TaiKhoan.findById(idTaiKhoan)
+const getOneAccount = async (req, res) => {
+    const { idTaiKhoan } = req.params;
+    const response = await TaiKhoan.findById(idTaiKhoan);
     return res.status(200).json({
         success: response ? true : false,
-        data: response ? response : 'Không thể lấy ra người dùng này'
-    })
-}
+        data: response ? response : 'Unable to retrieve this user'
+    });
+};
 
 const register = async (req, res) => {
     const { tenTaiKhoan, hoTen, soDienThoai, diaChi, matKhau } = req.body;
@@ -35,7 +35,7 @@ const register = async (req, res) => {
     try {
         const existingUser = await TaiKhoan.findOne({ tenTaiKhoan });
         if (existingUser) {
-            return res.status(400).json({ success: false, message: "Tài khoản đã tồn tại" });
+            return res.status(400).json({ success: false, message: "Account already exists" });
         }
         const newUser = new TaiKhoan({
             tenTaiKhoan,
@@ -47,24 +47,24 @@ const register = async (req, res) => {
         });
         await newUser.save();
 
-        return res.status(201).json({ success: true, message: "Tạo tài khoản mới thành công", data: newUser });
+        return res.status(201).json({ success: true, message: "Successfully created new account", data: newUser });
     } catch (error) {
-        return res.status(500).json({ success: false, message: "Đã xảy ra lỗi khi tạo tài khoản mới", error: error.message });
+        return res.status(500).json({ success: false, message: "An error occurred while creating new account", error: error.message });
     }
 };
 
-const deleteTaiKhoan = async (req, res) => {
+const deleteAccount = async (req, res) => {
     const { idTaiKhoan } = req.params;
     try {
         const response = await TaiKhoan.findByIdAndDelete(idTaiKhoan);
         return res.status(200).json({
             success: response ? true : false,
-            data: response ? 'Xóa tài khoản thành công' : 'Không thể xóa tài khoản'
+            data: response ? 'Successfully deleted account' : 'Unable to delete account'
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Đã xảy ra lỗi khi xóa tài khoản",
+            message: "An error occurred while deleting the account",
             error: error.message
         });
     }
@@ -73,13 +73,13 @@ const deleteTaiKhoan = async (req, res) => {
 const login = async (req, res) => {
     const { tenTaiKhoan, matKhau } = req.body;
     try {
-        const user = await TaiKhoan.findOne({ tenTaiKhoan })
+        const user = await TaiKhoan.findOne({ tenTaiKhoan });
         if (!user) {
-            return res.status(404).json({ success: false, message: 'Tài khoản không tồn tại' });
+            return res.status(404).json({ success: false, message: 'Account does not exist' });
         }
         const isCorrectPassword = await bcrypt.compare(matKhau, user.matKhau);
         if (!isCorrectPassword) {
-            return res.status(401).json({ success: false, message: 'Sai mật khẩu' });
+            return res.status(401).json({ success: false, message: 'Incorrect password' });
         }
         const token = jwt.sign(
             { userId: user._id, role: user.isAdmin ? 'admin' : 'user' },
@@ -89,22 +89,22 @@ const login = async (req, res) => {
         res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
         return res.status(200).json({
             success: true,
-            message: 'Đăng nhập thành công',
+            message: 'Login successful',
             token
         });
     } catch (error) {
-        return res.status(500).json({ success: false, message: 'Đã xảy ra lỗi khi đăng nhập', error: error.message });
+        return res.status(500).json({ success: false, message: 'An error occurred while logging in', error: error.message });
     }
-}
+};
 
-const updateTaiKhoan = async (req, res) => {
+const updateAccount = async (req, res) => {
     const { idTaiKhoan } = req.params;
     const { hoTen, soDienThoai, diaChi, matKhau } = req.body;
 
     try {
         const user = await TaiKhoan.findById(idTaiKhoan);
         if (!user) {
-            return res.status(404).json({ success: false, message: 'Người dùng không tồn tại' });
+            return res.status(404).json({ success: false, message: 'User not found' });
         }
 
         Object.assign(user, { hoTen, soDienThoai, diaChi, matKhau });
@@ -113,11 +113,11 @@ const updateTaiKhoan = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: 'Cập nhật thông tin người dùng thành công',
+            message: 'Successfully updated user information',
             data: user
         });
     } catch (error) {
-        return res.status(500).json({ success: false, message: 'Đã xảy ra lỗi khi cập nhật thông tin người dùng', error: error.message });
+        return res.status(500).json({ success: false, message: 'An error occurred while updating user information', error: error.message });
     }
 };
 
@@ -127,18 +127,18 @@ const logout = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: "Đăng xuất thành công"
+            message: "Logout successful"
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Đã xảy ra lỗi khi đăng xuất",
+            message: "An error occurred while logging out",
             error: error.message
         });
     }
 };
 
 module.exports = {
-    getAllTaiKhoans, getOneTaiKhoan, register, deleteTaiKhoan, login, updateTaiKhoan,
+    getAllAccounts, getOneAccount, register, deleteAccount, login, updateAccount,
     logout
-}
+};
