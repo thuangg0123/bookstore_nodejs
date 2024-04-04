@@ -1,11 +1,11 @@
-const TaiKhoan = require('../models/taikhoan');
+const Account = require('../models/account');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secretKey = 'mySecretKey123!@#';
 
 const getAllAccounts = async (req, res) => {
     try {
-        const response = await TaiKhoan.find();
+        const response = await Account.find();
         return res.status(200).json({
             success: true,
             message: "Successfully retrieved all users",
@@ -21,8 +21,8 @@ const getAllAccounts = async (req, res) => {
 };
 
 const getOneAccount = async (req, res) => {
-    const { idTaiKhoan } = req.params;
-    const response = await TaiKhoan.findById(idTaiKhoan);
+    const { idAccount } = req.params;
+    const response = await Account.findById(idAccount);
     return res.status(200).json({
         success: response ? true : false,
         data: response ? response : 'Unable to retrieve this user'
@@ -30,20 +30,20 @@ const getOneAccount = async (req, res) => {
 };
 
 const register = async (req, res) => {
-    const { tenTaiKhoan, hoTen, soDienThoai, diaChi, matKhau } = req.body;
+    const { userName, fullName, userPhone, userAddress, userPassword } = req.body;
 
     try {
-        const existingUser = await TaiKhoan.findOne({ tenTaiKhoan });
+        const existingUser = await Account.findOne({ userName });
         if (existingUser) {
             return res.status(400).json({ success: false, message: "Account already exists" });
         }
-        const newUser = new TaiKhoan({
-            tenTaiKhoan,
-            hoTen,
-            soDienThoai,
-            diaChi,
+        const newUser = new Account({
+            userName,
+            fullName,
+            userPhone,
+            userAddress,
             isAdmin: false,
-            matKhau
+            userPassword
         });
         await newUser.save();
 
@@ -54,9 +54,9 @@ const register = async (req, res) => {
 };
 
 const deleteAccount = async (req, res) => {
-    const { idTaiKhoan } = req.params;
+    const { idAccount } = req.params;
     try {
-        const response = await TaiKhoan.findByIdAndDelete(idTaiKhoan);
+        const response = await Account.findByIdAndDelete(idAccount);
         return res.status(200).json({
             success: response ? true : false,
             data: response ? 'Successfully deleted account' : 'Unable to delete account'
@@ -71,13 +71,13 @@ const deleteAccount = async (req, res) => {
 };
 
 const login = async (req, res) => {
-    const { tenTaiKhoan, matKhau } = req.body;
+    const { userName, userPassword } = req.body;
     try {
-        const user = await TaiKhoan.findOne({ tenTaiKhoan });
+        const user = await Account.findOne({ userName });
         if (!user) {
             return res.status(404).json({ success: false, message: 'Account does not exist' });
         }
-        const isCorrectPassword = await bcrypt.compare(matKhau, user.matKhau);
+        const isCorrectPassword = await bcrypt.compare(userPassword, user.userPassword);
         if (!isCorrectPassword) {
             return res.status(401).json({ success: false, message: 'Incorrect password' });
         }
@@ -98,16 +98,27 @@ const login = async (req, res) => {
 };
 
 const updateAccount = async (req, res) => {
-    const { idTaiKhoan } = req.params;
-    const { hoTen, soDienThoai, diaChi, matKhau } = req.body;
+    const { idAccount } = req.params;
+    const { fullName, userPhone, userAddress, userPassword } = req.body;
+    const { role } = req;
 
     try {
-        const user = await TaiKhoan.findById(idTaiKhoan);
+        const user = await Account.findById(idAccount);
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
 
-        Object.assign(user, { hoTen, soDienThoai, diaChi, matKhau });
+        if (role !== 'admin' && role === 'user') {
+            if (!userPassword) {
+                return res.status(400).json({ success: false, message: 'Password is required for updating' });
+            }
+            user.userPassword = userPassword;
+        } else {
+            if (fullName) user.fullName = fullName;
+            if (userPhone) user.userPhone = userPhone;
+            if (userAddress) user.userAddress = userAddress;
+            if (userPassword) user.userPassword = userPassword;
+        }
 
         await user.save();
 
@@ -117,9 +128,15 @@ const updateAccount = async (req, res) => {
             data: user
         });
     } catch (error) {
-        return res.status(500).json({ success: false, message: 'An error occurred while updating user information', error: error.message });
+        return res.status(500).json({
+            success: false,
+            message: 'An error occurred while updating user information',
+            error: error.message
+        });
     }
 };
+
+
 
 const logout = async (req, res) => {
     try {

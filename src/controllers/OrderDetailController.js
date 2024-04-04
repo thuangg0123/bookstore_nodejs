@@ -1,6 +1,6 @@
-const ChiTietDonHang = require('../models/chitietdonhang');
+const OrderDetail = require('../models/orderDetail');
 
-const getAllChiTietDonHangs = async (req, res) => {
+const getAllOrderDetail = async (req, res) => {
     try {
         let query = {};
 
@@ -8,10 +8,10 @@ const getAllChiTietDonHangs = async (req, res) => {
         if (role === 'admin') {
             query = {};
         } else {
-            query = { idNguoiDat: userId };
+            query = { userID: userId };
         }
 
-        let response = await ChiTietDonHang.find(query).populate('maDonHang');
+        let response = await OrderDetail.find(query).populate('orderID');
 
         return res.status(200).json({
             success: true,
@@ -26,18 +26,18 @@ const getAllChiTietDonHangs = async (req, res) => {
     }
 };
 
-const getOneChiTietDonHang = async (req, res) => {
+const getOneOrderDetail = async (req, res) => {
     try {
-        const { idDonHang } = req.params;
+        const { orderId } = req.params;
         const { userId, role } = req;
 
-        let query = { maDonHang: idDonHang };
+        let query = { orderID: orderId };
 
         if (role !== 'admin') {
-            query.idNguoiDat = userId;
+            query.userID = userId;
         }
 
-        let response = await ChiTietDonHang.findOne(query).populate('maDonHang');
+        let response = await OrderDetail.findOne(query).populate('orderID');
 
         if (!response) {
             return res.status(404).json({
@@ -59,7 +59,7 @@ const getOneChiTietDonHang = async (req, res) => {
     }
 };
 
-const createChiTietDonHang = async (req, res) => {
+const createOrderDetail = async (req, res) => {
     try {
         const { userId } = req;
         if (!userId) {
@@ -70,14 +70,14 @@ const createChiTietDonHang = async (req, res) => {
         }
 
         const data = req.body;
-        data.idNguoiDat = userId;
+        data.userID = userId;
 
-        const response = await ChiTietDonHang.create(data);
+        const response = await OrderDetail.create(data);
 
-        const populatedResponse = await ChiTietDonHang.findById(response._id)
+        const populatedResponse = await OrderDetail.findById(response._id)
             .populate({
-                path: 'maDonHang',
-                select: '-__v -createdAt -updatedAt -idNguoiDat'
+                path: 'orderID',
+                select: '-__v -createdAt -updatedAt -userID'
             });
 
         return res.status(200).json({
@@ -94,5 +94,5 @@ const createChiTietDonHang = async (req, res) => {
 };
 
 module.exports = {
-    getAllChiTietDonHangs, createChiTietDonHang, getOneChiTietDonHang
+    getAllOrderDetail, createOrderDetail, getOneOrderDetail
 };

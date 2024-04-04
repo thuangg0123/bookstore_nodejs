@@ -1,13 +1,13 @@
-const taiKhoanRouter = require('./taikhoan')
-const sachRouter = require('./sach')
-const donhangRouter = require('./donhang')
-const chitietdonhangRouter = require('./chitietdonhang')
+const accountRouter = require('./account')
+const bookRouter = require('./book')
+const orderRouter = require('./order')
+const orderDetailRouter = require('./orderDetail')
 
 const initRoutes = (app) => {
-    app.use('/api/taikhoan', taiKhoanRouter)
-    app.use('/api/sach', sachRouter)
-    app.use('/api/don-hang', donhangRouter)
-    app.use('/api/chi-tiet-don-hang', chitietdonhangRouter)
+    app.use('/api/account', accountRouter)
+    app.use('/api/book', bookRouter)
+    app.use('/api/order', orderRouter)
+    app.use('/api/order-detail', orderDetailRouter)
 }
 
 module.exports = {

@@ -1,7 +1,7 @@
-const DonHang = require('../models/donhang');
-const Sach = require('../models/sach');
+const Order = require('../models/order');
+const Book = require('../models/book');
 
-const getAllDonHangs = async (req, res) => {
+const getAllOrders = async (req, res) => {
     try {
         let query = {};
 
@@ -9,17 +9,17 @@ const getAllDonHangs = async (req, res) => {
         if (role === 'admin') {
             query = {};
         } else {
-            query = { idNguoiDat: userId };
+            query = { userID: userId };
         }
 
-        let response = await DonHang.find(query)
+        let response = await Order.find(query)
             .populate({
-                path: "idNguoiDat",
-                select: "-isAdmin -matKhau -createdAt -updatedAt -__v"
+                path: "userID",
+                select: "-isAdmin -userPassword -createdAt -updatedAt -__v"
             })
             .populate({
-                path: "sanPham.idSach",
-                select: "-tacGia -nhaXuatBan -daBan -tonKho -trongLuong -kichThuoc -gioiThieu -__v -createdAt -updatedAt"
+                path: "books.bookID",
+                select: "-tacGia -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
             });
 
         return res.status(200).json({
@@ -35,25 +35,25 @@ const getAllDonHangs = async (req, res) => {
     }
 };
 
-const getOneDonHang = async (req, res) => {
+const getOneOrder = async (req, res) => {
     try {
-        const idDonHang = req.params.idDonHang;
+        const orderId = req.params.orderId;
         const { userId, role } = req;
 
-        let query = { _id: idDonHang };
+        let query = { _id: orderId };
 
         if (role !== 'admin') {
-            query.idNguoiDat = userId;
+            query.userID = userId;
         }
 
-        const response = await DonHang.findOne(query)
+        const response = await Order.findOne(query)
             .populate({
-                path: "idNguoiDat",
-                select: "-isAdmin -matKhau -createdAt -updatedAt -__v"
+                path: "userID",
+                select: "-isAdmin -userPassword -createdAt -updatedAt -__v"
             })
             .populate({
-                path: "sanPham.idSach",
-                select: "-tacGia -nhaXuatBan -daBan -tonKho -trongLuong -kichThuoc -gioiThieu -__v -createdAt -updatedAt"
+                path: "books.bookID",
+                select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
             });
 
         if (!response) {
@@ -75,40 +75,40 @@ const getOneDonHang = async (req, res) => {
     }
 };
 
-const createDonHang = async (req, res) => {
+const createOrder = async (req, res) => {
     try {
         const data = req.body;
-        if (!data.sanPham || data.sanPham.length === 0) {
+        if (!data.books || data.books.length === 0) {
             throw new Error("Product list cannot be empty");
         }
 
-        let thanhTien = 0;
-        let soSanPham = 0;
-        for (const item of data.sanPham) {
-            const sach = await Sach.findById(item.idSach);
-            if (!sach) {
-                throw new Error(`Book with ID: ${item.idSach} not found`);
+        let totalPrice = 0;
+        let totalItems = 0;
+        for (const item of data.books) {
+            const book = await Book.findById(item.bookID);
+            if (!book) {
+                throw new Error(`Book with ID: ${item.bookID} not found`);
             }
-            thanhTien += item.soLuong * sach.gia;
-            soSanPham += item.soLuong;
+            totalPrice += item.quantity * book.price;
+            totalItems += item.quantity;
         }
 
-        const newDonHang = await DonHang.create({
+        const newOrder = await Order.create({
             ...data,
-            thanhTien: thanhTien,
-            soSanPham: soSanPham,
-            idNguoiDat: req.userId
+            orderTotal: totalPrice,
+            orderItemQuantity: totalItems,
+            userID: req.userId
         });
 
-        const populatedDonHang = await DonHang.findById(newDonHang._id)
+        const populatedOrder = await Order.findById(newOrder._id)
             .populate({
-                path: "sanPham.idSach",
-                select: "-tacGia -nhaXuatBan -daBan -tonKho -trongLuong -gioiThieu -kichThuoc -__v -createdAt -updatedAt"
+                path: "books.bookID",
+                select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroducion -__v -createdAt -updatedAt"
             });
 
         return res.status(200).json({
             success: true,
-            dataProduct: populatedDonHang
+            data: populatedOrder
         });
     } catch (error) {
         return res.status(500).json({
@@ -119,26 +119,26 @@ const createDonHang = async (req, res) => {
     }
 };
 
-const updateStateDonHang = async (req, res) => {
+const updateOrderStatus = async (req, res) => {
     try {
-        const idDonHang = req.params.idDonHang;
-        const { trangThai } = req.body;
+        const orderId = req.params.orderId;
+        const { orderStatus } = req.body;
 
-        if (!trangThai) {
+        if (!orderStatus) {
             throw new Error("Please provide a new status for the order");
         }
 
-        let donHang = await DonHang.findById(idDonHang);
+        let order = await Order.findById(orderId);
 
-        if (!donHang) {
+        if (!order) {
             return res.status(404).json({
                 success: false,
                 message: "Order not found"
             });
         }
 
-        donHang.trangThai = trangThai;
-        await donHang.save();
+        order.orderStatus = orderStatus;
+        await order.save();
 
         return res.status(200).json({
             success: true,
@@ -154,5 +154,5 @@ const updateStateDonHang = async (req, res) => {
 };
 
 module.exports = {
-    getAllDonHangs, getOneDonHang, createDonHang, updateStateDonHang
+    getAllOrders, getOneOrder, createOrder, updateOrderStatus
 };
