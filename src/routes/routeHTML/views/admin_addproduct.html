@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/css/style.css">
-    <link rel="stylesheet" href="/public/css/admin.css">
-    <link rel="icon" href="/public/img/logo/logo.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="icon" href="/img/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -15,8 +15,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/public/js/slide.js"></script>
-    <script src="/public/js/validate.js"></script>
+    <script src="/js/slide.js"></script>
+    <script src="/js/validate.js"></script>
 
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
 </head>
@@ -31,7 +31,7 @@
                 <input type="text" class="search-input" placeholder="Tìm kiếm ...">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <a href="/trangchu"><img src="/public/img/logo/logo.png" alt="" class="logo"></a>
+            <a href="/"><img src="/img/logo/logo.png" alt="" class="logo"></a>
         </nav>
     </div>
     <div class="sidebar" id="sidebar">
@@ -53,62 +53,61 @@
         </ul>
     </div>
 
-    <div class="container-edit">
-        <h2>Chỉnh Sửa Sản Phẩm</h2>
-        <form th:action="'/quantri/sanpham/chinhsua/' + ${book.bookID}" class="form-container" method="post"
-            enctype="multipart/form-data">
+    <div class="container-add">
+        <h2>Thêm sản phẩm</h2>
+        <form action="/quantri/sanpham/them" class="form-container" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="add_image">Hình Ảnh:</label>
-                <input type="file" name="image" id="image" class="add_image" accept="image/*"
+                <input type="file" name="image" id="image" class="add_image" accept="image/*" required
                     onchange="validateImageFile()">
-                <input type="text" name="path" id="path" th:value="${book.bookImage}" style="display: none;">
                 <div id="error-message"></div>
             </div>
             <div class="form-group">
                 <label for="add_name">Tên:</label>
-                <input type="text" name="name" id="name" class="add_name" required th:value="${book.bookName}">
+                <input type="text" name="name" id="name" class="add_name" value="" required>
             </div>
             <div class="form-group">
                 <label for="add_price">Giá (vnđ):</label>
-                <input type="text" name="price" id="price" class="add_price" required oninput="formatNumber(this)"
-                    th:value="${book.bookPrice}">
+                <input type="text" name="price" id="price" class="add_price" value="" required
+                    oninput="formatNumber(this)">
             </div>
             <div class="form-group">
                 <label for="add_author">Tác Giả:</label>
-                <input type="text" name="author" id="author" class="add_author" th:value="${book.bookAuthor}">
+                <input type="text" name="author" id="author" class="add_author" value="">
             </div>
             <div class="form-group">
                 <label for="add_publisher">Nhà xuất bản:</label>
-                <input type="text" name="publisher" id="publisher" class="add_publisher"
-                    th:value="${book.bookPublisher}">
+                <input type="text" name="publisher" id="publisher" class="add_publisher" value="">
             </div>
             <div class="form-group">
                 <label for="add_weight">Trọng Lượng (kg):</label>
-                <input type="number" name="weight" id="weight" class="add_weight" th:value="${book.bookWeight}">
+                <input type="number" name="weight" id="weight" class="add_weight" value="">
             </div>
             <div class="form-group">
                 <label for="add_size">Kích Thước:</label>
-                <input type="text" name="size" id="size" class="add_size" th:value="${book.bookSize}">
+                <input type="text" name="size" id="size" class="add_size" value="">
             </div>
             <div class="form-group">
                 <label for="add_size">Số tồn kho:</label>
-                <input type="number" name="stock" id="stock" class="add_size" th:value="${book.bookStock}">
+                <input type="number" name="stock" id="stock" class="add_size" value="" required>
             </div>
             <div class="form-group">
                 <label for="add_size">Giới thiệu:</label>
-                <input type="text" name="introduction" id="introduction" class="add_size"
-                    th:value="${book.bookIntroduction}">
+                <input type="text" name="introduction" id="introduction" class="add_size" value="">
             </div>
             <div class="button-container">
-                <button class="button add-button" type="submit" onclick="">Lưu</button>
-                <button class="button cancel-button">Hủy</button>
+                <button class="button add-button" type="submit" onclick="">Thêm</button>
+                <button class="button cancel-button" id="cancel-button">Hủy</button>
             </div>
         </form>
     </div>
 </body>
-<script src="../public/js/admin.js"></script>
-
+<script src="../js/admin.js"></script>
 <script>
+    document.getElementById("cancel-button").addEventListener("click", () => {
+        history.back();
+    })
+
     var sidebar = document.getElementById("sidebarProduct");
     sidebar.classList.add('active');
 

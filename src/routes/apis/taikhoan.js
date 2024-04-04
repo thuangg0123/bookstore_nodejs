@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const taikhoanController = require('../controllers/taikhoanController');
-const { authenticateJWT, isAdmin } = require('../middleware/jwt');
+const taikhoanController = require('../../controllers/taikhoanController');
+const { authenticateJWT, isAdmin } = require('../../middleware/jwt');
 
 router.post('/login', taikhoanController.login);
 router.post('/logout', authenticateJWT, taikhoanController.logout);

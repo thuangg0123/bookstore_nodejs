@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/css/style.css">
-    <link rel="stylesheet" href="/public/css/admin.css">
-    <link rel="icon" href="/public/img/logo/logo.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="icon" href="/img/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -15,8 +15,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/public/js/slide.js"></script>
-    <script src="/public/js/validate.js"></script>
+    <script src="/js/slide.js"></script>
+    <script src="/js/validate.js"></script>
 
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
 </head>
@@ -31,7 +31,7 @@
                 <input type="text" class="search-input" placeholder="Tìm kiếm ...">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <a href="/trangchu"><img src="/public/img/logo/logo.png" alt="" class="logo"></a>
+            <a href="/"><img src="/img/logo/logo.png" alt="" class="logo"></a>
         </nav>
     </div>
     <div class="sidebar" id="sidebar">
@@ -78,7 +78,7 @@
                         <span class="product-price" th:text="${book.bookPrice}"></span>
                     </div>
                     <div class="product-actions">
-                        <a th:href="@{'/quantri/sanpham/chinhsua/' + ${book.bookID}}">
+                        <a href="'/quantri/sanpham/chinhsua">
                             <button class="btn btn-edit-product" onclick="">Chỉnh sửa thông tin</button>
                         </a>
                         <a th:href="@{'/quantri/sanpham/' + ${book.bookID}}">
@@ -93,7 +93,7 @@
         </div>
     </div>
 </body>
-<script src="../public/js/admin.js"></script>
+<script src="../js/admin.js"></script>
 <script>
     var sidebar = document.getElementById("sidebarProduct");
     sidebar.classList.add('active');

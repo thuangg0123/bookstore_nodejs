@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const sachController = require('../controllers/sachController');
-const { authenticateJWT, isAdmin } = require('../middleware/jwt');
-const uploader = require('../config/uploadImg')
+const sachController = require('../../controllers/sachController');
+const { authenticateJWT, isAdmin } = require('../../middleware/jwt');
+const uploader = require('../../config/uploadImg')
 
 router.get('/', sachController.getAllSachs);
 router.post('/', authenticateJWT, isAdmin, sachController.createSach);
