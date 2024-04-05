@@ -32,7 +32,6 @@ const getOrderDetail = async (req, res) => {
         const { userId, role } = req;
 
         let query = { orderID: orderId };
-        console.log(query)
 
         if (role !== 'admin') {
             query.userID = userId;
