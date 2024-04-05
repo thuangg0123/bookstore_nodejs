@@ -18,8 +18,8 @@ const getAllOrders = async (req, res) => {
                 select: "-isAdmin -userPassword -createdAt -updatedAt -__v"
             })
             .populate({
-                path: "orderFirstBookID",
-                select: "-tacGia -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
+                path: "orderFirstBook",
+                select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
             });
 
         return res.status(200).json({
@@ -52,7 +52,7 @@ const getOrder = async (req, res) => {
                 select: "-isAdmin -userPassword -createdAt -updatedAt -__v"
             })
             .populate({
-                path: "orderFirstBookID",
+                path: "orderFirstBook",
                 select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
             });
 
@@ -78,7 +78,7 @@ const getOrder = async (req, res) => {
 const createOrder = async (req, res) => {
     try {
         const data = req.body;
-        if (!data.orderFirstBookID) {
+        if (!data.orderFirstBook) {
             throw new Error("Product list cannot be empty");
         }
 
@@ -88,7 +88,7 @@ const createOrder = async (req, res) => {
             userID: req.userId,
             orderTime: new Date(),
             orderStatus: 0,
-            orderFirstBookID: data.orderFirstBookID,
+            orderFirstBook: data.orderFirstBook,
             orderTotal: data.orderTotal,
             orderItemQuantity: data.orderItemQuantity,
             orderPhone: data.orderPhone,
@@ -97,7 +97,7 @@ const createOrder = async (req, res) => {
 
         const populatedOrder = await ORDER.findById(newOrder._id)
             .populate({
-                path: "orderFirstBookID",
+                path: "orderFirstBook",
                 select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
             });
 

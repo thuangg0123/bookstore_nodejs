@@ -1,7 +1,4 @@
 [{
-  "_id": {
-    "$oid": "660f5cadeacad9bce842a401"
-  },
   "userID": "user",
   "userName": "user",
   "userPhone": "",
@@ -17,9 +14,6 @@
   "__v": 0
 },
 {
-  "_id": {
-    "$oid": "660f5cdceacad9bce842a404"
-  },
   "userID": "admin",
   "userName": "admin",
   "userPhone": "",

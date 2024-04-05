@@ -38,7 +38,6 @@ const getOrderDetail = async (req, res) => {
         }
 
         let response = await ORDER_DETAILS.findOne(query).populate('orderID');
-        console.log(response)
 
         if (!response) {
             return res.status(404).json({
