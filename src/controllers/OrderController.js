@@ -18,7 +18,7 @@ const getAllOrders = async (req, res) => {
                 select: "-isAdmin -userPassword -createdAt -updatedAt -__v"
             })
             .populate({
-                path: "books.bookID",
+                path: "orderFirstBookID",
                 select: "-tacGia -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
             });
 
@@ -52,7 +52,7 @@ const getOrder = async (req, res) => {
                 select: "-isAdmin -userPassword -createdAt -updatedAt -__v"
             })
             .populate({
-                path: "books.bookID",
+                path: "orderFirstBookID",
                 select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
             });
 
@@ -78,32 +78,27 @@ const getOrder = async (req, res) => {
 const createOrder = async (req, res) => {
     try {
         const data = req.body;
-        if (!data.books || data.books.length === 0) {
+        if (!data.orderFirstBookID) {
             throw new Error("Product list cannot be empty");
         }
 
-        let totalPrice = 0;
-        let totalItems = 0;
-        for (const item of data.books) {
-            const book = await BOOK.findById(item.bookID);
-            if (!book) {
-                throw new Error(`Book with ID: ${item.bookID} not found`);
-            }
-            totalPrice += item.quantity * book.price;
-            totalItems += item.quantity;
-        }
-
         const newOrder = await ORDER.create({
-            ...data,
-            orderTotal: totalPrice,
-            orderItemQuantity: totalItems,
-            userID: req.userId
+            // orderID: generateOrderID(),
+            orderID: data.orderID,
+            userID: req.userId,
+            orderTime: new Date(),
+            orderStatus: 0,
+            orderFirstBookID: data.orderFirstBookID,
+            orderTotal: data.orderTotal,
+            orderItemQuantity: data.orderItemQuantity,
+            orderPhone: data.orderPhone,
+            orderAddress: data.orderAddress
         });
 
         const populatedOrder = await ORDER.findById(newOrder._id)
             .populate({
-                path: "books.bookID",
-                select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroducion -__v -createdAt -updatedAt"
+                path: "orderFirstBookID",
+                select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
             });
 
         return res.status(200).json({

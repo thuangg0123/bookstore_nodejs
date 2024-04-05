@@ -84,7 +84,7 @@ const login = async (req, res) => {
         const token = jwt.sign(
             { userId: user._id, role: user.isAdmin ? 'admin' : 'user' },
             secretKey,
-            { expiresIn: '1h' }
+            { expiresIn: '24h' }
         );
         res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
         return res.status(200).json({

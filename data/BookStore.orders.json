@@ -1,0 +1,139 @@
+[{
+  "_id": {
+    "$oid": "660f639a535b339571cb7ad4"
+  },
+  "orderID": "OCFEI004",
+  "userID": "user1",
+  "orderTime": {
+    "$date": "2023-03-01T00:00:00.000Z"
+  },
+  "orderStatus": 0,
+  "orderFirstBookID": "BLYVL195",
+  "orderTotal": 360000,
+  "orderItemQuantity": 3,
+  "orderPhone": "0123456789",
+  "orderAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM"
+},
+{
+  "_id": {
+    "$oid": "660f639a535b339571cb7ad5"
+  },
+  "orderID": "ORCYN789",
+  "userID": "user1",
+  "orderTime": {
+    "$date": "2023-03-02T00:00:00.000Z"
+  },
+  "orderStatus": 1,
+  "orderFirstBookID": "BXFLU747",
+  "orderTotal": 900000,
+  "orderItemQuantity": 3,
+  "orderPhone": "0123456789",
+  "orderAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM"
+},
+{
+  "_id": {
+    "$oid": "660f639a535b339571cb7ad6"
+  },
+  "orderID": "ORCYN729",
+  "userID": "user1",
+  "orderTime": {
+    "$date": "2023-03-03T00:00:00.000Z"
+  },
+  "orderStatus": 3,
+  "orderFirstBookID": "BEVKS715",
+  "orderTotal": 900000,
+  "orderItemQuantity": 3,
+  "orderPhone": "0123456789",
+  "orderAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM"
+},
+{
+  "_id": {
+    "$oid": "660f639a535b339571cb7ad7"
+  },
+  "orderID": "OCFEI084",
+  "userID": "user1",
+  "orderTime": {
+    "$date": "2023-03-04T00:00:00.000Z"
+  },
+  "orderStatus": 3,
+  "orderFirstBookID": "BHKKX073",
+  "orderTotal": 360000,
+  "orderItemQuantity": 3,
+  "orderPhone": "0123456789",
+  "orderAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM"
+},
+{
+  "_id": {
+    "$oid": "660f639a535b339571cb7ad8"
+  },
+  "orderID": "OCFEI584",
+  "userID": "user1",
+  "orderTime": {
+    "$date": "2023-03-05T00:00:00.000Z"
+  },
+  "orderStatus": 0,
+  "orderFirstBookID": "BPNOW492",
+  "orderTotal": 360000,
+  "orderItemQuantity": 3,
+  "orderPhone": "0123456789",
+  "orderAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM"
+},
+{
+  "_id": {
+    "$oid": "660f639a535b339571cb7ad9"
+  },
+  "orderID": "OCFGI084",
+  "userID": "user1",
+  "orderTime": {
+    "$date": "2023-03-06T00:00:00.000Z"
+  },
+  "orderStatus": 1,
+  "orderFirstBookID": "BGRMC730",
+  "orderTotal": 360000,
+  "orderItemQuantity": 3,
+  "orderPhone": "0123456789",
+  "orderAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM"
+},
+{
+  "_id": {
+    "$oid": "660f639a535b339571cb7ada"
+  },
+  "orderID": "OCBEI084",
+  "userID": "user1",
+  "orderTime": {
+    "$date": "2023-03-07T00:00:00.000Z"
+  },
+  "orderStatus": 2,
+  "orderFirstBookID": "BGEHN704",
+  "orderTotal": 360000,
+  "orderItemQuantity": 3,
+  "orderPhone": "0123456789",
+  "orderAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM"
+},
+{
+  "_id": {
+    "$oid": "660f66f903614d7a2992256c"
+  },
+  "orderID": "ORD123456789",
+  "userID": {
+    "$oid": "660f5cadeacad9bce842a401"
+  },
+  "orderTime": {
+    "$date": "2024-04-05T02:50:33.593Z"
+  },
+  "orderStatus": 1,
+  "orderFirstBookID": {
+    "$oid": "660f590a535b339571cb7ab9"
+  },
+  "orderTotal": 150000,
+  "orderItemQuantity": 3,
+  "orderPhone": "0123456789",
+  "orderAddress": "123 Đường ABC, Quận XYZ, Thành phố HCM",
+  "createdAt": {
+    "$date": "2024-04-05T02:50:33.596Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-05T02:53:50.257Z"
+  },
+  "__v": 0
+}]
