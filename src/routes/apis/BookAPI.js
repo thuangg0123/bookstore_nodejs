@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bookController = require('../../controllers/BookController');
 const { authenticateJWT, isAdmin } = require('../../middleware/jwt');
-const uploader = require('../../config/uploadImg')
+const uploader = require('../../config/UploadImage')
 
 router.get('/', bookController.getAllBook);
 router.post('/', authenticateJWT, isAdmin, bookController.addBook);
