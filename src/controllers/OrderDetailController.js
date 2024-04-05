@@ -32,14 +32,12 @@ const getOrderDetail = async (req, res) => {
         const { userId, role } = req;
 
         let query = { orderID: orderId };
-        console.log(query)
 
         if (role !== 'admin') {
             query.userID = userId;
         }
 
         let response = await ORDER_DETAILS.findOne(query).populate('orderID');
-        console.log(response)
 
         if (!response) {
             return res.status(404).json({

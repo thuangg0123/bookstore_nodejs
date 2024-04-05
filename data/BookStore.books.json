@@ -2,7 +2,6 @@
   "_id": {
     "$oid": "660f590a535b339571cb7ab9"
   },
-  "bookID": "BLYVL195",
   "bookName": "The Clean Coder: A Code of Conduct for Professional Programmers",
   "bookImage": "/img/product/CleanCode.jpg",
   "bookPrice": 60000,
@@ -16,7 +15,6 @@
   "_id": {
     "$oid": "660f590a535b339571cb7aba"
   },
-  "bookID": "BXFLU747",
   "bookName": "Code Complete: A Practical Handbook of Software Construction, Second Edition",
   "bookImage": "/img/product/CodeComplete.jpg",
   "bookPrice": 60000,
@@ -30,7 +28,6 @@
   "_id": {
     "$oid": "660f590a535b339571cb7abb"
   },
-  "bookID": "BEVKS715",
   "bookName": "Computer Networking: Principles, Protocols and Practice",
   "bookImage": "/img/product/ComputerNetworking.jpg",
   "bookPrice": 60000,
@@ -44,7 +41,6 @@
   "_id": {
     "$oid": "660f590a535b339571cb7abc"
   },
-  "bookID": "BHKKX073",
   "bookName": "Network Warrior: Everything You Need to Know That Wasn't on the CCNA Exam",
   "bookImage": "/img/product/NetworkWarrior.jpg",
   "bookPrice": 60000,
@@ -58,7 +54,6 @@
   "_id": {
     "$oid": "660f590a535b339571cb7abd"
   },
-  "bookID": "BPNOW492",
   "bookName": "The Web Application Hacker's Handbook: Finding and Exploiting Security Flaws",
   "bookImage": "/img/product/HackerHandbook.jpg",
   "bookPrice": 60000,
@@ -72,7 +67,6 @@
   "_id": {
     "$oid": "660f590a535b339571cb7abe"
   },
-  "bookID": "BGRMC730",
   "bookName": "Hacking: The Art of Exploitation, 2nd Edition",
   "bookImage": "/img/product/Hacking.jpg",
   "bookPrice": 60000,
@@ -86,7 +80,6 @@
   "_id": {
     "$oid": "660f590a535b339571cb7abf"
   },
-  "bookID": "BGEHN704",
   "bookName": "Data Science for Business: What You Need to Know about Data Mining and Data-Analytic Thinking",
   "bookImage": "/img/product/DataScience.jpg",
   "bookPrice": 60000,
@@ -100,7 +93,6 @@
   "_id": {
     "$oid": "660f590a535b339571cb7ac0"
   },
-  "bookID": "BWNPW735",
   "bookName": "Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython",
   "bookImage": "/img/product/DataAnalysis.jpg",
   "bookPrice": 60000,
@@ -114,7 +106,6 @@
   "_id": {
     "$oid": "660f590a535b339571cb7ac1"
   },
-  "bookID": "BHXGU988",
   "bookName": "Artificial Intelligence: A Modern Approach, Global Edition",
   "bookImage": "/img/product/ArtificialIntelligence.jpg",
   "bookPrice": 60000,
@@ -128,7 +119,6 @@
   "_id": {
     "$oid": "660f590a535b339571cb7ac2"
   },
-  "bookID": "BLSVL608",
   "bookName": "Life 3.0: Being Human in the Age of Artificial Intelligence",
   "bookImage": "/img/product/Life3.jpg",
   "bookPrice": 60000,

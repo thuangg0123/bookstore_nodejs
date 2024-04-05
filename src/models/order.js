@@ -6,7 +6,7 @@ const orderSchema = new Schema({
     userID: { type: mongoose.Schema.Types.ObjectId, ref: 'Account', required: true },
     orderTime: { type: Date, default: Date.now },
     orderStatus: { type: Number, default: 0 },
-    orderFirstBookID: { type: mongoose.Schema.Types.ObjectId, ref: 'Book', required: true },
+    orderFirstBook: { type: mongoose.Schema.Types.ObjectId, ref: 'Book', required: true },
     orderTotal: { type: Number, required: true },
     orderItemQuantity: { type: Number, required: true },
     orderPhone: { type: String, required: true },
