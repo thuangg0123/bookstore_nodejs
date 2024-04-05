@@ -12,7 +12,7 @@ const authenticateJWT = (req, res, next) => {
         if (err) {
             return res.status(403).json({ success: false, message: 'JWT authentication failed' });
         } else {
-            req.userId = decoded.userId;
+            req.userID = decoded.userID;
             req.role = decoded.role;
             next();
         }

@@ -1,10 +1,13 @@
 [{
-  "userID": "user",
-  "userName": "user",
+  "_id": {
+    "$oid": "660f5cadeacad9bce842a401"
+  },
+  "userID": "user1",
+  "userName": "Tester1",
   "userPhone": "",
   "userAddress": "",
   "isAdmin": false,
-  "userPassword": "$2b$10$cRfF2psyELIUyHD3WQ5VFeoX4ML0l/LJIi/mezOtASDPmvsxc4Olq",
+  "userPassword": "$2b$10$m32flMccJBj/uvonwB2INOGQf6/NryrSBypXseAnieqb22l2FdA4O",
   "createdAt": {
     "$date": "2024-04-05T02:06:37.536Z"
   },
@@ -14,6 +17,9 @@
   "__v": 0
 },
 {
+  "_id": {
+    "$oid": "660f5cdceacad9bce842a404"
+  },
   "userID": "admin",
   "userName": "admin",
   "userPhone": "",

@@ -1,9 +1,9 @@
-const ACCOUNT = require('../models/Account');
+const ACCOUNT = require('../models/AccountModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secretKey = 'mySecretKey123!@#';
 
-const getAllAccounts = async (req, res) => {
+const getAllAccount = async (req, res) => {
     try {
         const response = await ACCOUNT.find();
         return res.status(200).json({
@@ -20,9 +20,9 @@ const getAllAccounts = async (req, res) => {
     }
 };
 
-const getOneAccount = async (req, res) => {
-    const { idAccount } = req.params;
-    const response = await ACCOUNT.findById(idAccount);
+const getAccount = async (req, res) => {
+    const { accountID } = req.params;
+    const response = await ACCOUNT.findOne({userID: accountID});
     return res.status(200).json({
         success: response ? true : false,
         data: response ? response : 'Unable to retrieve this user'
@@ -30,19 +30,18 @@ const getOneAccount = async (req, res) => {
 };
 
 const register = async (req, res) => {
-    const { userName, userID, userPhone, userAddress, userPassword } = req.body;
+    const { userID, userPassword } = req.body;
 
     try {
-        const existingUser = await ACCOUNT.findOne({ userName });
+        const existingUser = await ACCOUNT.findOne({ userID });
         if (existingUser) {
             return res.status(400).json({ success: false, message: "Account already exists" });
         }
         const newUser = new ACCOUNT({
-            userName,
             userID,
-            userPhone,
-            userAddress,
-            isAdmin: false,
+            userName: "",
+            userPhone: "",
+            userAddress: "",
             userPassword
         });
         await newUser.save();
@@ -54,9 +53,9 @@ const register = async (req, res) => {
 };
 
 const deleteAccount = async (req, res) => {
-    const { idAccount } = req.params;
+    const { accountID } = req.params;
     try {
-        const response = await ACCOUNT.findByIdAndDelete(idAccount);
+        const response = await ACCOUNT.findOneAndDelete({userID: accountID});
         return res.status(200).json({
             success: response ? true : false,
             data: response ? 'Successfully deleted account' : 'Unable to delete account'
@@ -71,9 +70,9 @@ const deleteAccount = async (req, res) => {
 };
 
 const login = async (req, res) => {
-    const { userName, userPassword } = req.body;
+    const { userID, userPassword } = req.body;
     try {
-        const user = await ACCOUNT.findOne({ userName });
+        const user = await ACCOUNT.findOne({ userID });
         if (!user) {
             return res.status(404).json({ success: false, message: 'Account does not exist' });
         }
@@ -82,7 +81,7 @@ const login = async (req, res) => {
             return res.status(401).json({ success: false, message: 'Incorrect password' });
         }
         const token = jwt.sign(
-            { userId: user._id, role: user.isAdmin ? 'admin' : 'user' },
+            { userID: user._id, role: user.isAdmin ? 'admin' : 'user' },
             secretKey,
             { expiresIn: '24h' }
         );
@@ -98,27 +97,15 @@ const login = async (req, res) => {
 };
 
 const updateAccount = async (req, res) => {
-    const { idAccount } = req.params;
-    const { fullName, userPhone, userAddress, userPassword } = req.body;
-    const { role } = req;
+    const { accountID } = req.params;
+    const { userName, userPhone, userAddress } = req.body;
 
     try {
-        const user = await ACCOUNT.findById(idAccount);
-        if (!user) {
-            return res.status(404).json({ success: false, message: 'User not found' });
-        }
+        const user = await ACCOUNT.findOne({userID: accountID});
 
-        if (role !== 'admin' && role === 'user') {
-            if (!userPassword) {
-                return res.status(400).json({ success: false, message: 'Password is required for updating' });
-            }
-            user.userPassword = userPassword;
-        } else {
-            if (fullName) user.userName = fullName;
-            if (userPhone) user.userPhone = userPhone;
-            if (userAddress) user.userAddress = userAddress;
-            if (userPassword) user.userPassword = userPassword;
-        }
+        if (userName) user.userName = userName;
+        if (userPhone) user.userPhone = userPhone;
+        if (userAddress) user.userAddress = userAddress;
 
         await user.save();
 
@@ -156,6 +143,5 @@ const logout = async (req, res) => {
 };
 
 module.exports = {
-    getAllAccounts, getOneAccount, register, deleteAccount, login, updateAccount,
-    logout
+    getAllAccount, getAccount, register, deleteAccount, login, updateAccount, logout
 };

@@ -3,11 +3,11 @@ const bookController = require('../../controllers/BookController');
 const { authenticateJWT, isAdmin } = require('../../middleware/jwt');
 const uploader = require('../../config/uploadImg')
 
-router.get('/', bookController.getAllBooks);
+router.get('/', bookController.getAllBook);
 router.post('/', authenticateJWT, isAdmin, bookController.addBook);
-router.put('/upload-image/:bookIDParams', authenticateJWT, isAdmin, uploader.array('images', 10), bookController.uploadBookImage)
-router.put('/:bookIDParams', authenticateJWT, isAdmin, bookController.updateBook);
-router.get('/:bookIDParams', bookController.getBook);
-router.delete('/:bookIDParams', authenticateJWT, isAdmin, bookController.deleteBook);
+router.put('/upload-image/:bookID', authenticateJWT, isAdmin, uploader.array('images', 10), bookController.uploadBookImage)
+router.put('/:bookID', authenticateJWT, isAdmin, bookController.updateBook);
+router.get('/:bookID', bookController.getBook);
+router.delete('/:bookID', authenticateJWT, isAdmin, bookController.deleteBook);
 
 module.exports = router;
