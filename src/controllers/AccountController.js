@@ -30,7 +30,7 @@ const getOneAccount = async (req, res) => {
 };
 
 const register = async (req, res) => {
-    const { userName, fullName, userPhone, userAddress, userPassword } = req.body;
+    const { userName, userID, userPhone, userAddress, userPassword } = req.body;
 
     try {
         const existingUser = await ACCOUNT.findOne({ userName });
@@ -39,7 +39,7 @@ const register = async (req, res) => {
         }
         const newUser = new ACCOUNT({
             userName,
-            fullName,
+            userID,
             userPhone,
             userAddress,
             isAdmin: false,
