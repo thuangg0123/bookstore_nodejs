@@ -14,6 +14,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="/js/main.js"></script>
     <script src="/js/slide.js"></script>
 
     <title>Nhà sách trực tuyến TikiTaka- TikiTaka.com</title>
@@ -27,13 +28,13 @@
             </div>
             <div class="box-search">
                 <input type="text" placeholder="Tìm kiếm">
-                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                <span><i class="fas fa-search"></i></span>
             </div>
             <div class="user-cart-container">
                 <div class="cart-item">
                     <a href="/giohang" style="color: #7A7E7F">
                         <div>
-                            <i class="fa-solid fa-cart-shopping"></i>
+                            <i class="fas fa-shopping-cart"></i>
                         </div>
                         <div>
                             <a href="/giohang" style="color: #7A7E7F;">Giỏ hàng</a>
@@ -41,33 +42,7 @@
                     </a>
                 </div>
                 <div class="user-item">
-                    <!-- <div class="account" id="accountSection" th:style="${accountSection ? 'display: none;' : ''}">
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div>
-                                    <span>Tài khoản</span>
-                                </div>
-                                <div class="account-options">
-                                    <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
-                                            khoản</button></a>
-                                    <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
-                                </div>
-                            </div> -->
-                    <!-- <div class="admin" id="adminSection" th:style="${adminSection ? 'display: none;' : ''}">
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div>
-                                    <span>Quản trị</span>
-                                </div>
-                                <div class="admin-options">
-                                    <a href="/quantri"><button id="btnAdminManage" class="btn">Quản lý</button></a>
-                                    <a href="/dangxuat"><button id="btnLogoutAdmin" class="btn">Đăng xuất</button></a>
-                                </div>
-                            </div> -->
-                    <div class="user-options" id="userOptionsSection"
-                        th:style="${userOptionsSection ? 'display: none;' : ''}">
+                    <div class="user-options" id="userOptionsSection">
                         <div class="login-register">
                             <a href="/dangnhap" class="btn-director-login">Đăng nhập</a>
                             <a href="/dangky" class="btn-director-register">Đăng ký</a>
@@ -109,24 +84,7 @@
         </div>
 
         <div>
-            <div class="product-wrapper">
-                <div class="product-item" th:each="book : ${bookList}">
-                    <div class="product-img">
-                        <a th:href="@{'/sach/' + ${book.bookID}}">
-                            <img th:src="${book.bookImage}" alt="">
-                        </a>
-                    </div>
-                    <h3 class="product-name">
-                        <a th:href="@{'/sach/' + ${book.bookID}}" th:text="${book.bookName}"></a>
-                    </h3>
-                    <div class="product-price">
-                        <p><span th:text="${book.bookPrice}"></span></p>
-                    </div>
-                    <div class="product-sold">
-                        <p>Đã bán <span th:text="${book.bookSold}"></span></p>
-                    </div>
-                </div>
-            </div>
+            <div class="product-wrapper" id="productWrapper"></div>
         </div>
         <button class="shopping-now" id="directToDanhSach">Xem thêm</button>
     </div>
@@ -153,22 +111,22 @@
             </div>
             <div class="social-group">
                 <div class="social-item">
-                    <a href=""><i class="fa-brands fa-facebook" style="color: #3b5998;"></i></a>
+                    <a href=""><i class="fab fa-facebook" style="color: #3b5998;"></i></a>
                 </div>
                 <div class="social-item">
-                    <a href=""><i class="fa-brands fa-square-instagram" style="color: #dd2a7b"></i></a>
+                    <a href=""><i class="fab fa-instagram-square" style="color: #dd2a7b"></i></a>
                 </div>
                 <div class="social-item">
-                    <a href=""><i class="fa-brands fa-youtube" style="color: #ff0000"></i></a>
+                    <a href=""><i class="fab fa-youtube" style="color: #ff0000"></i></a>
                 </div>
                 <div class="social-item">
-                    <a href=""><i class="fa-brands fa-tumblr" style="color: #36356d"></i></a>
+                    <a href=""><i class="fab fa-tumblr" style="color: #36356d"></i></a>
                 </div>
                 <div class="social-item">
-                    <a href=""><i class="fa-brands fa-twitter" style="color: #08a0e9"></i></a>
+                    <a href=""><i class="fab fa-twitter" style="color: #08a0e9"></i></a>
                 </div>
                 <div class="social-item">
-                    <a href=""><i class="fa-brands fa-pinterest" style="color: #bd081c"></i></a>
+                    <a href=""><i class="fab fa-pinterest" style="color: #bd081c"></i></a>
                 </div>
             </div>
             <div class="download-app">
@@ -215,10 +173,10 @@
                     <div class="footer-info-item">
                         <h2>LIÊN HỆ</h2>
                         <ul>
-                            <li><a href=""><i class="fa-solid fa-location-dot"></i> 371 Nguyễn Kiệm, P.3, Q.Gò Vấp,
+                            <li><a href=""><i class="fas fa-map-marker-alt"></i> 371 Nguyễn Kiệm, P.3, Q.Gò Vấp,
                                     TP.HCM</a></li>
-                            <li><a href=""><i class="fa-solid fa-envelope"></i> cskh@nhom1.com.vn</a></li>
-                            <li><a href=""><i class="fa-solid fa-phone"></i> 19003636</a></li>
+                            <li><a href=""><i class="fas fa-envelope"></i> cskh@nhom1.com.vn</a></li>
+                            <li><a href=""><i class="fas fa-phone"></i> 19003636</a></li>
                         </ul>
                     </div>
                     <div class="footer-info-item">
@@ -230,12 +188,54 @@
             </div>
         </div>
     </footer>
-</body>
 
-<script>
-    document.getElementById("directToDanhSach").addEventListener("click", () => {
-        window.location.href = 'danhsach'
-    })
-</script>
+    <script>
+        document.getElementById("directToDanhSach").addEventListener("click", () => {
+            window.location.href = '/danhsach'
+        })
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('http://localhost:8080/api/book/')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    renderProducts(data);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+
+            function renderProducts(products) {
+                const productWrapper = document.getElementById("productWrapper");
+                products.data.forEach(product => {
+                    const productItem = document.createElement("div");
+                    productItem.classList.add("product-item");
+                    productItem.innerHTML = `
+                    <div class="product-img">
+                        <a href="/danhsach/sach/${product.bookID}">
+                            <img src="${product.bookImage}" alt="Product Image">
+                        </a>
+                    </div>
+                    <h3 class="product-name">
+                        <a href="danhsach/sach/${product.bookID}">${product.bookName}</a>
+                    </h3>
+                    <div class="product-price">
+                        <p><span>${formatNumber(product.bookPrice)} đ</span></p>
+                    </div>
+                    <div class="product-sold">
+                        <p>Đã bán: ${product.bookSold}</p>
+                    </div>
+                `;
+                    productWrapper.appendChild(productItem);
+                });
+            }
+        });
+    </script>
+
+</body>
 
 </html>

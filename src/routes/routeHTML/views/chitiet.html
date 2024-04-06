@@ -14,6 +14,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="/js/main.js"></script>
     <script src="/js/editCart.js"></script>
     <script src="/js/quantity.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- TikiTaka.com</title>
@@ -41,33 +42,7 @@
                     </a>
                 </div>
                 <div class="user-item">
-                    <!-- <div class="account" id="accountSection" th:style="${accountSection ? 'display: none;' : ''}">
-                        <div>
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <div>
-                            <span>Tài khoản</span>
-                        </div>
-                        <div class="account-options">
-                            <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
-                                    khoản</button></a>
-                            <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
-                        </div>
-                    </div> -->
-                    <!-- <div class="admin" id="adminSection" th:style="${adminSection ? 'display: none;' : ''}">
-                        <div>
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <div>
-                            <span>Quản trị</span>
-                        </div>
-                        <div class="admin-options">
-                            <a href="/quantri"><button id="btnAdminManage" class="btn">Quản lý</button></a>
-                            <a href="/dangxuat"><button id="btnLogoutAdmin" class="btn">Đăng xuất</button></a>
-                        </div>
-                    </div> -->
-                    <div class="user-options" id="userOptionsSection"
-                        th:style="${userOptionsSection ? 'display: none;' : ''}">
+                    <div class="user-options" id="userOptionsSection">
                         <div class="login-register">
                             <a href="/dangnhap" class="btn-director-login">Đăng nhập</a>
                             <a href="/dangky" class="btn-director-register">Đăng ký</a>
@@ -84,7 +59,7 @@
             <i class="fa-solid fa-angle-right"></i>
             <a href="/danhsach" style="color: #C92127;">Danh sách sản phẩm</a>
             <i class="fa-solid fa-angle-right"></i>
-            <a href="" style="color: #000;" th:text="${book.bookName}"></a>
+            <a href="" style="color: #000;"></a>
         </div>
         <div class="product-essential-container">
             <div class="product-essential">
@@ -93,20 +68,22 @@
                         <div class="product-view-thumbnail">
                             <div id="lightgallery-product-media" class="lightgallery">
                                 <a href="" id="lightgallery-item">
-                                    <img th:src="${book.bookImage}" alt="">
+                                    <img alt="" id="productImgSmall">
                                 </a>
                             </div>
                             <div class="product-view-image-product">
-                                <img th:src="${book.bookImage}" alt="" id="Hinh">
+                                <img alt="" id="productImgThumb">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="product-info">
-                    <h1 th:text="${book.bookName}" id="Ten"></h1>
+                    <h1 id="productName"></h1>
                     <div>
-                        <p class="product-info-supplier" th:text="'Nhà cung cấp: ' + ${book.bookPublisher}"></p>
-                        <p class="product-info-author">Tác giả: <span th:text="${book.bookAuthor}"></span></p>
+                        <p class="product-info-supplier">
+                            Nhà cung cấp: <span></span>
+                        </p>
+                        <p class="product-info-author">Tác giả: <span></span></p>
                     </div>
                     <div class="rating">
                         <i class="fa-solid fa-star"></i>
@@ -116,17 +93,16 @@
                         <i class="fa-regular fa-star"></i>
                         <span>Đánh Giá: 4/5</span>
                     </div>
-                    <div class="product-info-price" th:text="${book.bookPrice}" id="Gia"></div>
+                    <div class="product-info-price" id="productPrice"></div>
                     <div class="product-info-quantity">
                         <button class="product-info-btn-quantity product-info-btn-minus" id="btn-minus-quantity"><i
                                 class="fa-solid fa-minus"></i></button>
-                        <input class="product-info-quantity-input" type="number" value="1" min="1"
-                            th:max="${book.bookStock}" id="quantityInput">
+                        <input class="product-info-quantity-input" type="number" value="1" min="1" id="quantityInput">
                         <button class="product-info-btn-quantity product-info-btn-plus" id="btn-plus-quantity"><i
                                 class="fa-solid fa-plus"></i></button>
                     </div>
                     <div class="product_view_add_box">
-                        <button class="add-to-cart" onclick="addToCart()">
+                        <button class="add-to-cart">
                             <i class="fa-solid fa-cart-shopping"></i>
                             <span>Thêm vào giỏ hàng</span>
                         </button>
@@ -140,27 +116,27 @@
                 <table class="product-info-table">
                     <tr>
                         <td>Mã hàng</td>
-                        <td th:text="${book.bookID}" id="ID"></td>
+                        <td id="productID"></td>
                     </tr>
                     <tr>
                         <td>Tên Nhà Cung Cấp</td>
-                        <td th:text="${book.bookPublisher}"></td>
+                        <td id="product-info-supplier-td"></td>
                     </tr>
                     <tr>
                         <td>Tác giả</td>
-                        <td th:text="${book.bookAuthor}"></td>
+                        <td id="product-info-author-td"></td>
                     </tr>
                     <tr>
                         <td>Trọng lượng (gr)</td>
-                        <td th:text="${book.bookWeight}"></td>
+                        <td id="product-info-weight-td"></td>
                     </tr>
                     <tr>
                         <td>Kích Thước Bao Bì</td>
-                        <td th:text="${book.bookSize}"></td>
+                        <td id="product-info-size-td"></td>
                     </tr>
                     <tr>
                         <td>Giới thiệu</td>
-                        <td class="product-info-introduce" th:text="${book.bookIntroduction}"></td>
+                        <td id="product-info-introduce-td"></td>
                     </tr>
                 </table>
 
@@ -275,6 +251,40 @@
         </div>
     </footer>
 </body>
-<script src="/js/main.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParts = window.location.pathname.split('/');
+        const bookID = urlParts[urlParts.length - 1];
+
+        if (bookID) {
+            fetch(`/api/book/${bookID}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(book => {
+                    document.getElementById('productName').innerText = book.data.bookName;
+                    document.getElementById('productPrice').innerText = formatNumber(book.data.bookPrice) + ' đ';
+                    document.getElementById('productID').innerText = book.data.bookID;
+                    document.getElementById('productImgThumb').setAttribute('src', book.data.bookImage);
+                    document.getElementById('productImgSmall').setAttribute('src', book.data.bookImage);
+                    document.querySelector('.product-info-author span').innerText = book.data.bookAuthor;
+                    document.querySelector('.product-info-supplier span').innerText = book.data.bookPublisher;
+                    document.getElementById('product-info-author-td').innerText = book.data.bookAuthor;
+                    document.getElementById('product-info-supplier-td').innerText = book.data.bookPublisher;
+                    // document.getElementById('product-info-weight-td').innerText = book.data.bookWeight;
+                    // document.getElementById('product-info-size-td').innerText = book.data.bookSize;
+                    document.getElementById('product-info-introduce-td').innerText = book.data.bookIntroducion;
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+    });
+
+</script>
 
 </html>

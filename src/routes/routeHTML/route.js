@@ -11,13 +11,9 @@ router.get('/danhsach', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'danhsach.html'));
 });
 
-router.get('/danhsach/sach', (req, res) => {
+router.get('/danhsach/sach/:bookID', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'chitiet.html'));
 });
-
-// router.get('/danhsach/sach/{id}', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'views', 'chitiet.html'));
-// });
 
 router.get('/dangnhap', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'login.html'));
