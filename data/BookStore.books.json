@@ -10,7 +10,9 @@
   "bookAuthor": "Tác giả 1",
   "bookPublisher": "Nhà xuất bản 1",
   "bookIntroduction": "Giới thiệu cho cuốn sách 1",
-  "bookSold": 10
+  "bookSold": 10,
+  "bookWeight": 0,
+  "bookSize": "10x20"
 },
 {
   "_id": {
@@ -24,7 +26,9 @@
   "bookAuthor": "Tác giả 2",
   "bookPublisher": "Nhà xuất bản 2",
   "bookIntroduction": "Giới thiệu cho cuốn sách 2",
-  "bookSold": 0
+  "bookSold": 0,
+  "bookWeight": 0,
+  "bookSize": "10x20"
 },
 {
   "_id": {
@@ -38,7 +42,9 @@
   "bookAuthor": "Tác giả 3",
   "bookPublisher": "Nhà xuất bản 3",
   "bookIntroduction": "Giới thiệu cho cuốn sách 3",
-  "bookSold": 10
+  "bookSold": 10,
+  "bookWeight": 0,
+  "bookSize": "10x20"
 },
 {
   "_id": {
@@ -52,7 +58,9 @@
   "bookAuthor": "Tác giả 4",
   "bookPublisher": "Nhà xuất bản 4",
   "bookIntroduction": "Giới thiệu cho cuốn sách 4",
-  "bookSold": 0
+  "bookSold": 0,
+  "bookWeight": 0,
+  "bookSize": "10x20"
 },
 {
   "_id": {
@@ -66,7 +74,9 @@
   "bookAuthor": "Tác giả 5",
   "bookPublisher": "Nhà xuất bản 5",
   "bookIntroduction": "Giới thiệu cho cuốn sách 5",
-  "bookSold": 10
+  "bookSold": 10,
+  "bookWeight": 0,
+  "bookSize": "10x20"
 },
 {
   "_id": {
@@ -80,7 +90,9 @@
   "bookAuthor": "Tác giả 6",
   "bookPublisher": "Nhà xuất bản 6",
   "bookIntroduction": "Giới thiệu cho cuốn sách 6",
-  "bookSold": 0
+  "bookSold": 0,
+  "bookWeight": 0,
+  "bookSize": "10x20"
 },
 {
   "_id": {
@@ -94,7 +106,9 @@
   "bookAuthor": "Tác giả 7",
   "bookPublisher": "Nhà xuất bản 7",
   "bookIntroduction": "Giới thiệu cho cuốn sách 7",
-  "bookSold": 10
+  "bookSold": 10,
+  "bookWeight": 0,
+  "bookSize": "10x20"
 },
 {
   "_id": {
@@ -108,7 +122,9 @@
   "bookAuthor": "Tác giả 8",
   "bookPublisher": "Nhà xuất bản 8",
   "bookIntroduction": "Giới thiệu cho cuốn sách 8",
-  "bookSold": 0
+  "bookSold": 0,
+  "bookWeight": 0,
+  "bookSize": "10x20"
 },
 {
   "_id": {
@@ -122,7 +138,9 @@
   "bookAuthor": "Tác giả 9",
   "bookPublisher": "Nhà xuất bản 9",
   "bookIntroduction": "Giới thiệu cho cuốn sách 9",
-  "bookSold": 10
+  "bookSold": 10,
+  "bookWeight": 0,
+  "bookSize": "10x20"
 },
 {
   "_id": {
@@ -136,5 +154,7 @@
   "bookAuthor": "Tác giả 10",
   "bookPublisher": "Nhà xuất bản 10",
   "bookIntroduction": "Giới thiệu cho cuốn sách 10",
-  "bookSold": 0
+  "bookSold": 0,
+  "bookWeight": 0,
+  "bookSize": "10x20"
 }]
