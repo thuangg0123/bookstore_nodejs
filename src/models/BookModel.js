@@ -12,7 +12,7 @@ const bookSchema = new Schema({
     bookStock: { type: Number, required: true, min: 0 },
     bookWeight: { type: Number },
     bookSize: { type: String },
-    bookIntroduction: { type: String }
+    bookIntroduction: { type: String , required: true}
 }, {
     timestamps: true,
 });

@@ -86,7 +86,26 @@ const addBook = async (req, res) => {
         }
 
         req.body.bookID = bookID
-        const newBook = await BOOK.create(req.body);
+        
+        if (!req.body.bookPublisher) req.body.bookPublisher = "Không rõ";
+        if (!req.body.bookWeight) req.body.bookWeight = 0.0;
+        if (!req.body.bookSize) req.body.bookSize = "0x0cm";
+        const newBook = new BOOK({
+            bookID: req.body.bookID,
+            bookName: req.body.bookName,
+            bookImage: req.body.bookImage,
+            bookAuthor: req.body.bookAuthor,
+            bookPrice: req.body.bookPrice,
+            bookStock: req.body.bookStock,
+            bookIntroduction: req.body.bookIntroduction,
+
+            bookPublisher: req.body.bookPublisher,
+            bookSold: 0,
+            bookWeight: req.body.bookWeight,
+            bookSize: req.body.bookSize,
+        });
+
+        await newBook.save();
 
         return res.status(200).json({
             success: newBook ? true : false,
