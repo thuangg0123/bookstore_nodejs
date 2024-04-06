@@ -1,25 +1,26 @@
-const ORDER = require('../models/Order');
-const BOOK = require('../models/Book');
+const ORDER = require('../models/OrderModel');
+const BOOK = require('../models/BookModel');
+const ID_GENERATOR = require('../services/IDGenerator');
 
-const getAllOrders = async (req, res) => {
+const getAllOrder = async (req, res) => {
     try {
         let query = {};
 
-        const { userId, role } = req;
+        const { userID, role } = req;
         if (role === 'admin') {
             query = {};
         } else {
-            query = { userID: userId };
+            query = { userID: userID };
         }
 
         let response = await ORDER.find(query)
             .populate({
                 path: "userID",
-                select: "-isAdmin -userPassword -createdAt -updatedAt -__v"
+                select: "-isAdmin -userPassword -userID -userPhone -userAddress -createdAt -updatedAt -__v"
             })
             .populate({
                 path: "orderFirstBook",
-                select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
+                select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -bookPrice -bookID -__v -createdAt -updatedAt"
             });
 
         return res.status(200).json({
@@ -37,23 +38,23 @@ const getAllOrders = async (req, res) => {
 
 const getOrder = async (req, res) => {
     try {
-        const orderId = req.params.orderId;
-        const { userId, role } = req;
-
-        let query = { _id: orderId };
+        const orderID = req.params.orderID;
+        const { userID, role } = req;
+        
+        let query = { orderID: orderID};
 
         if (role !== 'admin') {
-            query.userID = userId;
+            query.userID = userID;
         }
 
         const response = await ORDER.findOne(query)
             .populate({
                 path: "userID",
-                select: "-isAdmin -userPassword -createdAt -updatedAt -__v"
+                select: "-isAdmin -userPassword -userID -userPhone -userAddress -createdAt -updatedAt -__v"
             })
             .populate({
                 path: "orderFirstBook",
-                select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -__v -createdAt -updatedAt"
+                select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -bookkPrice -booID -__v -createdAt -updatedAt"
             });
 
         if (!response) {
@@ -78,14 +79,15 @@ const getOrder = async (req, res) => {
 const createOrder = async (req, res) => {
     try {
         const data = req.body;
-        if (!data.orderFirstBook) {
-            throw new Error("Product list cannot be empty");
+
+        let orderID = ID_GENERATOR.IDOrder();
+        while (await ORDER.findOne({ orderID })) {
+            orderID = ID_GENERATOR.IDOrder();
         }
 
         const newOrder = await ORDER.create({
-            // orderID: generateOrderID(),
-            orderID: data.orderID,
-            userID: req.userId,
+            orderID: orderID,
+            userID: req.userID,
             orderTime: new Date(),
             orderStatus: 0,
             orderFirstBook: data.orderFirstBook,
@@ -116,14 +118,10 @@ const createOrder = async (req, res) => {
 
 const updateOrderStatus = async (req, res) => {
     try {
-        const orderId = req.params.orderId;
+        const orderID = req.params;
         const { orderStatus } = req.body;
 
-        if (!orderStatus) {
-            throw new Error("Please provide a new status for the order");
-        }
-
-        let order = await ORDER.findById(orderId);
+        let order = await ORDER.findOne(orderID);
 
         if (!order) {
             return res.status(404).json({
@@ -149,5 +147,5 @@ const updateOrderStatus = async (req, res) => {
 };
 
 module.exports = {
-    getAllOrders, getOrder, createOrder, updateOrderStatus
+    getAllOrder, getOrder, createOrder, updateOrderStatus
 };

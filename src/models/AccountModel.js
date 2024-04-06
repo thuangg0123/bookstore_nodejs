@@ -3,9 +3,8 @@ const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 
 const accountSchema = new Schema({
-    _id: false,
     userID: { type: String, required: true, unique: true },
-    userName: { type: String, required: true },
+    userName: String,
     userPhone: String,
     userAddress: String,
     isAdmin: Boolean,

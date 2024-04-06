@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "86ba9c20-685d-4c6e-a7cd-747cc4561a5a",
+		"_postman_id": "bedf099a-3fe2-4226-a912-27232335590b",
 		"name": "Book Store Nodejs",
 		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Tests\" tab**\n\nTests help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/b5f280a7-4b09-48ec-857f-0a7ed99d7ef8/U2NyZWVuc2hvdCAyMDIzLTAzLTI3IGF0IDkuNDcuMjggUE0ucG5n\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) in \"Tests\" to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "28430361"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33350052"
 	},
 	"item": [
 		{
@@ -29,19 +29,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/book/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"book",
-								""
-							]
-						},
+						"url": "http://localhost:8080/api/book/",
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 					},
 					"response": []
@@ -65,19 +53,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/book/660a57f1d60b721543486919",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"book",
-								"660a57f1d60b721543486919"
-							]
-						},
+						"url": "http://localhost:8080/api/book/BXFLU747",
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
 					},
 					"response": []
@@ -102,38 +78,22 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzU5MWZhZjU3ZTNiNmZiNzk5MzkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIxMzk2MTEsImV4cCI6MTcxMjE0MzIxMX0.w1bc4K1OF-hPkds8e-reWzJjJ8_e3TZJeXu86xYhBlI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjIxNDMsImV4cCI6MTcxMjQwODU0M30.PLv2b0fK5vVUthAhkHNECZsL--6DKYoBng3OsPfLyjw"
+							}
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ID\": \"BLYVL200\",\r\n    \"ten\": \"300 bài code thiếu nhi\",\r\n    \"hinhAnh\": \"hinh_anh_sach.jpg\",\r\n    \"tacGia\": \"Nguyễn Văn A\",\r\n    \"nhaXuatBan\": \"Nhà Xuất Bản ABC\",\r\n    \"gia\": 1000,\r\n    \"daBan\": 0,\r\n    \"tonKho\": 50,\r\n    \"trongLuong\": 0.5,\r\n    \"kichThuoc\": \"15x20cm\",\r\n    \"gioiThieu\": \"Cuốn sách chứa 300 bài code thiếu nhi dễ hiểu và thú vị.\"\r\n}\r\n",
+							"raw": "{\r\n    \"bookName\": \"Sách mới\",\r\n    \"bookImage\": \"hinh_anh_sach.jpg\",\r\n    \"bookAuthor\": \"Tác giả ABC\",\r\n    \"bookPublisher\": \"Nhà Xuất Bản ABC\",\r\n    \"bookPrice\": 1000,\r\n    \"bookSold\": 0,\r\n    \"bookStock\": 50,\r\n    \"bookWeight\": 0.5,\r\n    \"bookSize\": \"15x20cm\",\r\n    \"bookIntroduction\": \"Cuốn sách mới được thêm\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/book/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"book",
-								""
-							]
-						},
+						"url": "http://localhost:8080/api/book/",
 						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
 					},
 					"response": []
@@ -158,38 +118,22 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzU5MWZhZjU3ZTNiNmZiNzk5MzkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIxMzk2MTEsImV4cCI6MTcxMjE0MzIxMX0.w1bc4K1OF-hPkds8e-reWzJjJ8_e3TZJeXu86xYhBlI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjIxNDMsImV4cCI6MTcxMjQwODU0M30.PLv2b0fK5vVUthAhkHNECZsL--6DKYoBng3OsPfLyjw"
+							}
 						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ID\": \"111\",\r\n    \"ten\": \"300 bài code thiếu nhi\",\r\n    \"hinhAnh\": \"hinh_anh_sach.jpg\",\r\n    \"tacGia\": \"Nguyễn Văn A\",\r\n    \"nhaXuatBan\": \"\",\r\n    \"gia\": 10001,\r\n    \"daBan\": 0,\r\n    \"tonKho\": 50,\r\n    \"trongLuong\": 0.5,\r\n    \"kichThuoc\": \"15x20cm\",\r\n    \"gioiThieu\": \"Cuốn sách chứa 300 bài code thiếu nhi dễ hiểu và thú vị.\"\r\n}\r\n",
+							"raw": "{\r\n    \"bookName\": \"Sách mới và được sửa\",\r\n    \"bookImage\": \"hinh_anh_sach.jpg\",\r\n    \"bookAuthor\": \"Tác giả ABC\",\r\n    \"bookPublisher\": \"Nhà Xuất Bản ABC\",\r\n    \"bookPrice\": 1000,\r\n    \"bookSold\": 0,\r\n    \"bookStock\": 50,\r\n    \"bookWeight\": 0.5,\r\n    \"bookSize\": \"15x20cm\",\r\n    \"bookIntroduction\": \"Cuốn sách mới được thêm và được sửa\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/book/660d35d3e1fe5b45b78683fd",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"book",
-								"660d35d3e1fe5b45b78683fd"
-							]
-						},
+						"url": "http://localhost:8080/api/book/BWLVR392",
 						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
 					},
 					"response": []
@@ -214,13 +158,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzU5MWZhZjU3ZTNiNmZiNzk5MzkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIxNDMyMjIsImV4cCI6MTcxMjE0NjgyMn0.mJbv1NldcipffvTVgho0rv4biwLrv6LpyQrj0eyxWbw",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzU5MWZhZjU3ZTNiNmZiNzk5MzkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIxNDMyMjIsImV4cCI6MTcxMjE0NjgyMn0.mJbv1NldcipffvTVgho0rv4biwLrv6LpyQrj0eyxWbw"
+							}
 						},
 						"method": "PUT",
 						"header": [],
@@ -234,20 +174,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/book/upload-image/660d34b548d79fa15a68b411",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"book",
-								"upload-image",
-								"660d34b548d79fa15a68b411"
-							]
-						},
+						"url": "http://localhost:8080/api/book/upload-image/660d34b548d79fa15a68b411",
 						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
 					},
 					"response": []
@@ -272,13 +199,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzU5MWZhZjU3ZTNiNmZiNzk5MzkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIxMzk2MTEsImV4cCI6MTcxMjE0MzIxMX0.w1bc4K1OF-hPkds8e-reWzJjJ8_e3TZJeXu86xYhBlI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjIxNDMsImV4cCI6MTcxMjQwODU0M30.PLv2b0fK5vVUthAhkHNECZsL--6DKYoBng3OsPfLyjw"
+							}
 						},
 						"method": "DELETE",
 						"header": [],
@@ -291,19 +214,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/book/660d35d3e1fe5b45b78683fd",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"book",
-								"660d35d3e1fe5b45b78683fd"
-							]
-						},
+						"url": "http://localhost:8080/api/book/BWLVR392",
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
 					},
 					"response": []
@@ -318,29 +229,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBlYjdiZTg2YmUxMzE0ZTIwZDMzMmEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIyNDEyOTgsImV4cCI6MTcxMjI0NDg5OH0.5Os7PMYvrvirHfvINS7djLm6Zz4RM4ueCY4lVDiWUUE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjIxNDMsImV4cCI6MTcxMjQwODU0M30.PLv2b0fK5vVUthAhkHNECZsL--6DKYoBng3OsPfLyjw"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/account/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"account",
-								""
-							]
-						}
+						"url": "http://localhost:8080/api/account/"
 					},
 					"response": []
 				},
@@ -352,13 +247,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBlYjdiZTg2YmUxMzE0ZTIwZDMzMmEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIyNDEyOTgsImV4cCI6MTcxMjI0NDg5OH0.5Os7PMYvrvirHfvINS7djLm6Zz4RM4ueCY4lVDiWUUE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjIxNDMsImV4cCI6MTcxMjQwODU0M30.PLv2b0fK5vVUthAhkHNECZsL--6DKYoBng3OsPfLyjw"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -371,19 +262,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/account/660eb7d586be1314e20d332d",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"account",
-								"660eb7d586be1314e20d332d"
-							]
-						}
+						"url": "http://localhost:8080/api/account/user1"
 					},
 					"response": []
 				},
@@ -392,13 +271,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzU5MWZhZjU3ZTNiNmZiNzk5MzkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIxNTI4NDgsImV4cCI6MTcxMjE1NjQ0OH0.mESqWm4M4pc4vbv99hXB4EkBuc4cZLQ9J9NI0LtK7hI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjIxNDMsImV4cCI6MTcxMjQwODU0M30.PLv2b0fK5vVUthAhkHNECZsL--6DKYoBng3OsPfLyjw"
+							}
 						},
 						"method": "DELETE",
 						"header": [],
@@ -411,19 +286,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/taikhoan/660cccfa9d18fffb0edf5359",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"taikhoan",
-								"660cccfa9d18fffb0edf5359"
-							]
-						}
+						"url": "http://localhost:8080/api/account/user1"
 					},
 					"response": []
 				},
@@ -432,38 +295,22 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBlYjdiZTg2YmUxMzE0ZTIwZDMzMmEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIyNDEyOTgsImV4cCI6MTcxMjI0NDg5OH0.5Os7PMYvrvirHfvINS7djLm6Zz4RM4ueCY4lVDiWUUE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjEyOTEsImV4cCI6MTcxMjQwNzY5MX0.3CxklYrL-QITT6BGlEOAtbUOaMgyJJRecYS2U0o2hXM"
+							}
 						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullName\": \"123\"\r\n}",
+							"raw": "{\r\n    \"userName\": \"Test1\",\r\n    \"userPhone\": \"\",\r\n    \"userAddress\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/account/660eb7d586be1314e20d332d",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"account",
-								"660eb7d586be1314e20d332d"
-							]
-						}
+						"url": "http://localhost:8080/api/account/user2"
 					},
 					"response": []
 				},
@@ -474,7 +321,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userName\": \"user\",\r\n    \"fullName\": \"user\",\r\n    \"userPhone\": \"\",\r\n    \"userAddress\":\"\",\r\n    \"isAdmin\": false,\r\n    \"userPassword\": \"1\"\r\n}",
+							"raw": "{\r\n    \"userID\": \"user1\",\r\n    \"userPassword\": \"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -509,38 +356,22 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzJlZTJhNWI4OTg0MDNjN2ZiMjQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMjEzNjUwOSwiZXhwIjoxNzEyMTQwMTA5fQ.WVL-8Pz5nxRffNR7NYQ-LM6LUwTfrqqlB_6JbVwOHko",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzJlZTJhNWI4OTg0MDNjN2ZiMjQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMjEzNjUwOSwiZXhwIjoxNzEyMTQwMTA5fQ.WVL-8Pz5nxRffNR7NYQ-LM6LUwTfrqqlB_6JbVwOHko"
+							}
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userName\": \"admin\",\r\n    \"userPassword\": \"123\"\r\n}",
+							"raw": "{\r\n    \"userID\": \"admin\",\r\n    \"userPassword\": \"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/account/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"account",
-								"login"
-							]
-						}
+						"url": "http://localhost:8080/api/account/login"
 					},
 					"response": []
 				},
@@ -549,13 +380,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBlYjdiZTg2YmUxMzE0ZTIwZDMzMmEiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMjI0MDY0MCwiZXhwIjoxNzEyMjQ0MjQwfQ.SIz15J4puePPRYYoi2O-M4j7-euBXAZaa2BH0P9tmA0",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjE3MTQsImV4cCI6MTcxMjQwODExNH0.M_IkM3vatRVT4bHVLuR5WRj4BBbiJjuHdVVgCmWWMMI"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -568,19 +395,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/account/logout",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"account",
-								"logout"
-							]
-						}
+						"url": "http://localhost:8080/api/account/logout"
 					},
 					"response": []
 				}
@@ -594,13 +409,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzJlZTJhNWI4OTg0MDNjN2ZiMjQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMjE5ODAyOCwiZXhwIjoxNzEyMjAxNjI4fQ.aCht2TnYv1qrfOnnlgRkFN7FekEyFkB8UJm-1493rGo",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjIxNDMsImV4cCI6MTcxMjQwODU0M30.PLv2b0fK5vVUthAhkHNECZsL--6DKYoBng3OsPfLyjw"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -615,19 +426,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "http://localhost:8080/api/order/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"order",
-								""
-							]
-						}
+						"url": "http://localhost:8080/api/order/"
 					},
 					"response": []
 				},
@@ -636,13 +435,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzJlZTJhNWI4OTg0MDNjN2ZiMjQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMjE5ODAyOCwiZXhwIjoxNzEyMjAxNjI4fQ.aCht2TnYv1qrfOnnlgRkFN7FekEyFkB8UJm-1493rGo",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjI2MTQsImV4cCI6MTcxMjQwOTAxNH0.EAsBnQXy-GUchP3CZH6UuoercX8JbPHr5lYlXebxMsQ"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -657,19 +452,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "http://localhost:8080/api/order/660e1765977a46afe3205e1d",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"order",
-								"660e1765977a46afe3205e1d"
-							]
-						}
+						"url": "http://localhost:8080/api/order/ORCYN789"
 					},
 					"response": []
 				},
@@ -678,13 +461,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzJlZTJhNWI4OTg0MDNjN2ZiMjQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMjE5ODAyOCwiZXhwIjoxNzEyMjAxNjI4fQ.aCht2TnYv1qrfOnnlgRkFN7FekEyFkB8UJm-1493rGo",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjI5NTksImV4cCI6MTcxMjQwOTM1OX0.eboLRB-KJnvyUtM8DGdEAiKy8vLs38hm8YTxDAw89xI"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -703,26 +482,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"maDonHang\": \"ABCZYZ1\",\r\n    \"sanPham\": [\r\n        {\r\n            \"idSach\": \"660a57f1d60b721543486919\",\r\n            \"soLuong\": 2,\r\n            \"gia\": 60000\r\n        },\r\n        {\r\n            \"idSach\": \"660a57f1d60b72154348691a\",\r\n            \"soLuong\": 1,\r\n            \"gia\": 75000 \r\n        }\r\n    ],\r\n    \"soDienThoai\": \"0123456789\",\r\n    \"diaChi\": \"123 Đường ABC, Quận XYZ, Thành phố HCM\"\r\n}",
+							"raw": "{\r\n  \"orderFirstBook\": \"660f590a535b339571cb7abb\",\r\n  \"orderTotal\": 120000,\r\n  \"orderItemQuantity\": 2,\r\n  \"orderPhone\": \"0123456789\",\r\n  \"orderAddress\": \"371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/order/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"order",
-								""
-							]
-						}
+						"url": "http://localhost:8080/api/order/"
 					},
 					"response": []
 				},
@@ -731,13 +498,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzU5MWZhZjU3ZTNiNmZiNzk5MzkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIxOTEyNDIsImV4cCI6MTcxMjE5NDg0Mn0.eh_J_ehX6fYm6k4fmFwuJvcBYu5NUxjDbLHQ-TKYPSY",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjI5NTksImV4cCI6MTcxMjQwOTM1OX0.eboLRB-KJnvyUtM8DGdEAiKy8vLs38hm8YTxDAw89xI"
+							}
 						},
 						"method": "PUT",
 						"header": [
@@ -754,26 +517,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"trangThai\": 0\r\n}",
+							"raw": "{\r\n    \"orderStatus\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/order/660a5d007aaca8686520a10d",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"order",
-								"660a5d007aaca8686520a10d"
-							]
-						}
+						"url": "http://localhost:8080/api/order/OLJOH467"
 					},
 					"response": []
 				}
@@ -787,13 +538,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzJlZTJhNWI4OTg0MDNjN2ZiMjQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMjIwMDU5OSwiZXhwIjoxNzEyMjA0MTk5fQ.W4gchbItDzk7692qouAg89j0B9CbUcMENQAkgGk3wcA",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjI5NTksImV4cCI6MTcxMjQwOTM1OX0.eboLRB-KJnvyUtM8DGdEAiKy8vLs38hm8YTxDAw89xI"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -808,19 +555,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "http://localhost:8080/api/order-detail/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"order-detail",
-								""
-							]
-						}
+						"url": "http://localhost:8080/api/order-detail/"
 					},
 					"response": []
 				},
@@ -829,13 +564,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzJlZTJhNWI4OTg0MDNjN2ZiMjQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMjIwMTU2OSwiZXhwIjoxNzEyMjA1MTY5fQ.RjVfSAHOz7LhANu7Ql64Vu16ulnOEET-TbBWQIBNx20",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjI5NTksImV4cCI6MTcxMjQwOTM1OX0.eboLRB-KJnvyUtM8DGdEAiKy8vLs38hm8YTxDAw89xI"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -850,19 +581,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "http://localhost:8080/api/order-detail/660a5d007aaca8686520a10d",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"order-detail",
-								"660a5d007aaca8686520a10d"
-							]
-						}
+						"url": "http://localhost:8080/api/order-detail/660f639a535b339571cb7ad4"
 					},
 					"response": []
 				},
@@ -871,13 +590,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzJlZTJhNWI4OTg0MDNjN2ZiMjQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxMjIwMDU5OSwiZXhwIjoxNzEyMjA0MTk5fQ.W4gchbItDzk7692qouAg89j0B9CbUcMENQAkgGk3wcA",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBmNWNkY2VhY2FkOWJjZTg0MmE0MDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIzMjI5NTksImV4cCI6MTcxMjQwOTM1OX0.eboLRB-KJnvyUtM8DGdEAiKy8vLs38hm8YTxDAw89xI"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -894,77 +609,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"maDonHang\": \"660a5d007aaca8686520a10e\"\r\n}",
+							"raw": "{\r\n  \"orderID\": \"660ffa1cfe1bd9196c878e14\",\r\n  \"orderItem\": [\r\n    {\r\n      \"bookID\": \"660f590a535b339571cb7abb\",\r\n      \"quantity\": 1\r\n    },\r\n    {\r\n      \"bookID\": \"660f590a535b339571cb7aba\",\r\n      \"quantity\": 1\r\n    }\r\n  ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/order-detail/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"order-detail",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update state donhang",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjBjYzU5MWZhZjU3ZTNiNmZiNzk5MzkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIxOTEyNDIsImV4cCI6MTcxMjE5NDg0Mn0.eh_J_ehX6fYm6k4fmFwuJvcBYu5NUxjDbLHQ-TKYPSY",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [
-							{
-								"key": "userId",
-								"value": "660cc591faf57e3b6fb79939",
-								"type": "text"
-							},
-							{
-								"key": "role",
-								"value": "admin",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"trangThai\": 0\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/order/660a5d007aaca8686520a10d",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"order",
-								"660a5d007aaca8686520a10d"
-							]
-						}
+						"url": "http://localhost:8080/api/order-detail/"
 					},
 					"response": []
 				}

@@ -1,7 +1,7 @@
-const accountRouter = require('./account')
-const bookRouter = require('./book')
-const orderRouter = require('./order')
-const orderDetailRouter = require('./orderDetail')
+const accountRouter = require('./AccountAPI')
+const bookRouter = require('./BookAPI')
+const orderRouter = require('./OrderAPI')
+const orderDetailRouter = require('./OrderDetailsAPI')
 
 const initRoutes = (app) => {
     app.use('/api/account', accountRouter)

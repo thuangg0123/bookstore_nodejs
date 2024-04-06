@@ -1,14 +1,14 @@
-const ORDER_DETAILS = require('../models/OrderDetails');
+const ORDER_DETAILS = require('../models/OrderDetailsModel');
 
-const getAllOrderDetail = async (req, res) => {
+const getAllOrderDetails = async (req, res) => {
     try {
         let query = {};
 
-        const { userId, role } = req;
+        const { userID, role } = req;
         if (role === 'admin') {
             query = {};
         } else {
-            query = { userID: userId };
+            query = { userID: userID };
         }
 
         let response = await ORDER_DETAILS.find(query).populate('orderID');
@@ -26,18 +26,20 @@ const getAllOrderDetail = async (req, res) => {
     }
 };
 
-const getOrderDetail = async (req, res) => {
+const getOrderDetails = async (req, res) => {
     try {
-        const { orderId } = req.params;
-        const { userId, role } = req;
+        const { orderID } = req.params;
+        const { userID, role } = req;
 
-        let query = { orderID: orderId };
+        let query = { orderID: orderID };
 
         if (role !== 'admin') {
-            query.userID = userId;
+            query.userID = userID;
         }
 
+        console.log(query)
         let response = await ORDER_DETAILS.findOne(query).populate('orderID');
+        console.log(response)
 
         if (!response) {
             return res.status(404).json({
@@ -59,10 +61,11 @@ const getOrderDetail = async (req, res) => {
     }
 };
 
-const createOrderDetail = async (req, res) => {
+
+const createOrderDetails = async (req, res) => {
     try {
-        const { userId } = req;
-        if (!userId) {
+        const { userID } = req;
+        if (!userID) {
             return res.status(403).json({
                 success: false,
                 message: "You need to login to perform this action"
@@ -70,14 +73,15 @@ const createOrderDetail = async (req, res) => {
         }
 
         const data = req.body;
-        data.userID = userId;
+        console.log(data)
 
         const response = await ORDER_DETAILS.create(data);
+        console.log(response)
 
         const populatedResponse = await ORDER_DETAILS.findById(response._id)
             .populate({
-                path: 'orderID',
-                select: '-__v -createdAt -updatedAt -userID'
+                path: 'orderItem.bookID',
+                select: '-__v -createdAt -updatedAt'
             });
 
         return res.status(200).json({
@@ -94,5 +98,5 @@ const createOrderDetail = async (req, res) => {
 };
 
 module.exports = {
-    getAllOrderDetail, createOrderDetail, getOrderDetail
+    getAllOrderDetails, createOrderDetails, getOrderDetails
 };

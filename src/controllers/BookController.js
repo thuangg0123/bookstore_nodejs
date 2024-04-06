@@ -1,6 +1,7 @@
-const BOOK = require('../models/Book');
+const BOOK = require('../models/BookModel');
+const ID_GENERATOR = require('../services/IDGenerator');
 
-const getAllBooks = async (req, res) => {
+const getAllBook = async (req, res) => {
     try {
         const response = await BOOK.find().select("-__v");
         return res.status(200).json({
@@ -19,11 +20,11 @@ const getAllBooks = async (req, res) => {
 
 const getBook = async (req, res) => {
     try {
-        const { bookIDParams } = req.params;
-        const response = await BOOK.findById(bookIDParams).select("-__v");
+        const { bookID } = req.params;
+        const response = await BOOK.findOne({bookID}).select("-__v");
         return res.status(200).json({
             success: response ? true : false,
-            message: response ? `Successfully retrieved book with id: ${bookIDParams}` : `Error while retrieving book with id: ${bookIDParams}`,
+            message: response ? `Successfully retrieved book with id: ${bookID}` : `Error while retrieving book with id: ${bookID}`,
             data: response ? response : []
         });
     } catch (error) {
@@ -36,12 +37,12 @@ const getBook = async (req, res) => {
 };
 
 const deleteBook = async (req, res) => {
-    const { bookIDParams } = req.params;
+    const { bookID } = req.params;
     try {
-        const response = await BOOK.findByIdAndDelete(bookIDParams);
+        const response = await BOOK.findOneAndDelete(bookID);
         return res.status(200).json({
             success: response ? true : false,
-            data: response ? `Successfully deleted book with id: ${bookIDParams}` : `Unable to delete book with id: ${bookIDParams}`
+            data: response ? `Successfully deleted book with id: ${bookID}` : `Unable to delete book with id: ${bookID}`
         });
     } catch (error) {
         return res.status(500).json({
@@ -53,29 +54,20 @@ const deleteBook = async (req, res) => {
 };
 
 const updateBook = async (req, res) => {
-    const { bookIDParams } = req.params;
-    const { bookID, bookName, bookImage, bookAuthor, bookPublisher, bookPrice, bookSold, bookStock, bookWeight, bookSize, bookIntroducion } = req.body;
+    const { bookID } = req.params;
+    const {bookName, bookImage, bookAuthor, bookPublisher, bookPrice, bookSold, bookStock, bookWeight, bookSize, bookIntroduction } = req.body;
 
     try {
-        if (!bookIDParams) {
-            return res.status(404).json({
-                success: false,
-                message: `Book with id: ${bookIDParams} not found`
-            });
-        }
-
-        if (!bookID || !bookName || !bookImage || !bookAuthor || !bookPrice || !bookStock) {
-            return res.status(400).json({ success: false, message: 'Please provide complete book information for updating' });
-        }
-
-        const response = await BOOK.findByIdAndUpdate(bookIDParams, {
-            bookID, bookName, bookImage, bookAuthor, bookPublisher, bookPrice, bookSold, bookStock, bookWeight, bookSize, bookIntroducion
-        }, { new: true });
+        const response = await BOOK.findOneAndUpdate(
+            {bookID: bookID}, 
+            {bookID, bookName, bookImage, bookAuthor, bookPublisher, bookPrice, bookSold, bookStock, bookWeight, bookSize, bookIntroduction},
+            { new: true }
+        );
 
         return res.status(200).json({
             success: true,
             data: response ? response : [],
-            message: `Successfully updated book information with id: ${bookIDParams}`
+            message: `Successfully updated book information with id: ${bookID}`
         });
     } catch (error) {
         return res.status(500).json({
@@ -88,15 +80,12 @@ const updateBook = async (req, res) => {
 
 const addBook = async (req, res) => {
     try {
-        if (Object.keys(req.body).length === 0) {
-            throw new Error("Body cannot be empty")
+        let bookID = ID_GENERATOR.IDBook();
+        while (await BOOK.findOne({ bookID })) {
+            bookID = ID_GENERATOR.IDBook();
         }
 
-        const existingBook = await BOOK.findOne({ bookID: req.body.bookID });
-        if (existingBook) {
-            throw new Error("ID already exists in the data");
-        }
-
+        req.body.bookID = bookID
         const newBook = await BOOK.create(req.body);
 
         return res.status(200).json({
@@ -114,20 +103,23 @@ const addBook = async (req, res) => {
 
 const uploadBookImage = async (req, res) => {
     try {
-        const { bookIDParams } = req.params;
+        const { bookID } = req.params;
         if (!req.files || req.files.length === 0) {
             throw new Error("No images uploaded");
         }
 
         const imagesPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
-        const response = await BOOK.findByIdAndUpdate(bookIDParams, {
-            $push: { images: { $each: imagesPaths } },
-            bookImage: imagesPaths[0]
-        }, { new: true });
+        const response = await BOOK.findByIdAndUpdate(
+            bookID, 
+            {$push: 
+                { images: { $each: imagesPaths } }, 
+                bookImage: imagesPaths[0]},
+            { new: true }
+        );
 
         return res.status(200).json({
             success: true,
-            message: `Successfully updated images for book with id: ${bookIDParams}`,
+            message: `Successfully updated images for book with id: ${bookID}`,
             data: response
         });
     } catch (error) {
@@ -140,5 +132,5 @@ const uploadBookImage = async (req, res) => {
 };
 
 module.exports = {
-    getAllBooks, getBook, deleteBook, updateBook, addBook, uploadBookImage
+    getAllBook, getBook, deleteBook, updateBook, addBook, uploadBookImage
 };
