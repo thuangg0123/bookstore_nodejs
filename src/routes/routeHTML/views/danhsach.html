@@ -14,8 +14,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/js/editCart.js"></script>
-    <script src="/js/quantity.js"></script>
+    <script src="/js/formatNumber.js"></script>
+    <script src="/js/ApiRequest.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- TikiTaka.com</title>
 </head>
 
@@ -88,24 +88,7 @@
             <h2>Danh sách sản phẩm</h2>
             <div class="gallery-wrapper">
                 <div>
-                    <div class="product-wrapper">
-                        <div class="product-item" th:each="book : ${bookList}">
-                            <div class="product-img">
-                                <a th:href="@{'/sach/' + ${book.bookID}}">
-                                    <img th:src="${book.bookImage}" alt="">
-                                </a>
-                            </div>
-                            <h3 class="product-name">
-                                <a th:href="@{'/sach/' + ${book.bookID}}" th:text="${book.bookName}"></a>
-                            </h3>
-                            <div class="product-price">
-                                <p><span th:text="${book.bookPrice}"></span></p>
-                            </div>
-                            <div class="product-sold">
-                                <p>Đã bán <span th:text="${book.bookSold}"></span></p>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="product-wrapper" id="productWrapper"></div>
                 </div>
             </div>
         </div>
@@ -210,6 +193,39 @@
             </div>
         </div>
     </footer>
-</body>/
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+                let response = await apiRequest("GET", "/book/");
+                const productList = response.data;
+                displayProduct(productList);
+            });
+
+            function displayProduct(productList) {
+                const productWrapper = document.getElementById("productWrapper");
+                productList.forEach(product => {
+                    const productItem = document.createElement("div");
+                    productItem.className = "product-item";
+                    productItem.innerHTML =
+                        `<div class="product-img">
+                        <a href="/danhsach/sach/${product.bookID}">
+                            <img src="${product.bookImage}" alt="">
+                        </a>
+                    </div>
+                    <h3 class="product-name">
+                        <a href="danhsach/sach/${product.bookID}">${product.bookName}</a>
+                    </h3>
+                    <div class="product-price">
+                        <p><span>${formatNumber(product.bookPrice)} đ</span></p>
+                    </div>
+                    <div class="product-sold">
+                        <p>Đã bán <span>${product.bookSold}</span></p>
+                    </div>`;
+
+                    productWrapper.appendChild(productItem);
+                });
+            }
+    </script>
+</body>
 
 </html>
