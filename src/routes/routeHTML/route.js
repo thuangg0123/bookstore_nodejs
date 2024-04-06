@@ -31,15 +31,15 @@ router.get('/giohang/thanhtoan', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'thanhtoan.html'));
 });
 
-router.get('/taikhoan', (req, res) => {
+router.get('/taikhoan/:accountID', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'user_taikhoan.html'));
 });
 
-router.get('/taikhoan/thongtin', (req, res) => {
+router.get('/taikhoan/:accountID/thongtin', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'user_taikhoan.html'));
 });
 
-router.get('/taikhoan/donhang', (req, res) => {
+router.get('/taikhoan/:accountID/donhang', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'user_chitietdonhang.html'));
 });
 

@@ -2,7 +2,15 @@ const jwt = require('jsonwebtoken');
 const secretKey = 'mySecretKey123!@#';
 
 const authenticateJWT = (req, res, next) => {
-    const token = req.headers?.authorization?.split(' ')[1];
+    // const token = req.headers?.authorization?.split(' ')[1];
+    const cookies = req.headers.cookie;
+    let token;
+    cookies.split('; ').forEach((cookie) => {
+        const [name, value] = cookie.split('=');
+        if (name === "jwt") {
+            token = value;
+        }
+    });
 
     if (!token) {
         return res.status(401).json({ success: false, message: 'Token is not provided' });
