@@ -14,7 +14,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/js/formatNumber.js"></script>
     <script src="/js/slide.js"></script>
     <script src="/js/ApiRequest.js"></script>
 
@@ -196,13 +196,18 @@
         })
 
         document.addEventListener("DOMContentLoaded", async function () {
-                let data = await apiRequest("GET", "/book/");
-                displayProduct(data);
+                let response = await apiRequest("GET", "/book/");
+
+                const productList = response.data;
+                productList.sort((a, b) => b.bookSold - a.bookSold);
+                const topSelling = productList.slice(0, 5);
+
+                displayProduct(topSelling);
             });
 
             function displayProduct(productList) {
                 const productWrapper = document.getElementById("productWrapper");
-                productList.data.forEach(product => {
+                productList.forEach(product => {
                     const productItem = document.createElement("div");
                     productItem.className = "product-item";
                     productItem.innerHTML =
