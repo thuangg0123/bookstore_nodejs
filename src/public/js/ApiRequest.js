@@ -21,5 +21,3 @@ const apiRequest = async (method, path, body = null) => {
 
   return response.json();
 };
-
-export default apiRequest;

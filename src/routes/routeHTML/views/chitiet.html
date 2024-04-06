@@ -17,6 +17,7 @@
     <script src="/js/main.js"></script>
     <script src="/js/editCart.js"></script>
     <script src="/js/quantity.js"></script>
+    <script src="/js/ApiRequest.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- TikiTaka.com</title>
 </head>
 
@@ -253,38 +254,30 @@
 </body>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", async function () {
         const urlParts = window.location.pathname.split('/');
         const bookID = urlParts[urlParts.length - 1];
 
         if (bookID) {
-            fetch(`/api/book/${bookID}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(book => {
-                    document.getElementById('productName').innerText = book.data.bookName;
-                    document.getElementById('productPrice').innerText = formatNumber(book.data.bookPrice) + ' đ';
-                    document.getElementById('productID').innerText = book.data.bookID;
-                    document.getElementById('productImgThumb').setAttribute('src', book.data.bookImage);
-                    document.getElementById('productImgSmall').setAttribute('src', book.data.bookImage);
-                    document.querySelector('.product-info-author span').innerText = book.data.bookAuthor;
-                    document.querySelector('.product-info-supplier span').innerText = book.data.bookPublisher;
-                    document.getElementById('product-info-author-td').innerText = book.data.bookAuthor;
-                    document.getElementById('product-info-supplier-td').innerText = book.data.bookPublisher;
-                    // document.getElementById('product-info-weight-td').innerText = book.data.bookWeight;
-                    // document.getElementById('product-info-size-td').innerText = book.data.bookSize;
-                    document.getElementById('product-info-introduce-td').innerText = book.data.bookIntroducion;
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
+            let data = await apiRequest("GET", `/book/${bookID}`);
+            displayBookDetails(data);
         }
     });
 
+    function displayBookDetails(book) {
+        document.getElementById('productName').innerText = book.data.bookName;
+        document.getElementById('productPrice').innerText = formatNumber(book.data.bookPrice) + ' đ';
+        document.getElementById('productID').innerText = book.data.bookID;
+        document.getElementById('productImgThumb').setAttribute('src', book.data.bookImage);
+        document.getElementById('productImgSmall').setAttribute('src', book.data.bookImage);
+        document.querySelector('.product-info-author span').innerText = book.data.bookAuthor;
+        document.querySelector('.product-info-supplier span').innerText = book.data.bookPublisher;
+        document.getElementById('product-info-author-td').innerText = book.data.bookAuthor;
+        document.getElementById('product-info-supplier-td').innerText = book.data.bookPublisher;
+        // document.getElementById('product-info-weight-td').innerText = book.data.bookWeight;
+        // document.getElementById('product-info-size-td').innerText = book.data.bookSize;
+        document.getElementById('product-info-introduce-td').innerText = book.data.bookIntroducion;
+    }
 </script>
 
 </html>

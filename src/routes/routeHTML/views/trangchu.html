@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/slide.js"></script>
+    <script src="/js/ApiRequest.js"></script>
 
     <title>Nhà sách trực tuyến TikiTaka- TikiTaka.com</title>
 </head>
@@ -194,30 +195,20 @@
             window.location.href = '/danhsach'
         })
 
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch('http://localhost:8080/api/book/')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    renderProducts(data);
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
+        document.addEventListener("DOMContentLoaded", async function () {
+                let data = await apiRequest("GET", "/book/");
+                displayProduct(data);
+            });
 
-            function renderProducts(products) {
+            function displayProduct(productList) {
                 const productWrapper = document.getElementById("productWrapper");
-                products.data.forEach(product => {
+                productList.data.forEach(product => {
                     const productItem = document.createElement("div");
-                    productItem.classList.add("product-item");
-                    productItem.innerHTML = `
-                    <div class="product-img">
+                    productItem.className = "product-item";
+                    productItem.innerHTML =
+                        `<div class="product-img">
                         <a href="/danhsach/sach/${product.bookID}">
-                            <img src="${product.bookImage}" alt="Product Image">
+                            <img src="${product.bookImage}" alt="">
                         </a>
                     </div>
                     <h3 class="product-name">
@@ -227,15 +218,13 @@
                         <p><span>${formatNumber(product.bookPrice)} đ</span></p>
                     </div>
                     <div class="product-sold">
-                        <p>Đã bán: ${product.bookSold}</p>
-                    </div>
-                `;
+                        <p>Đã bán <span>${product.bookSold}</span></p>
+                    </div>`;
+
                     productWrapper.appendChild(productItem);
                 });
             }
-        });
     </script>
-
 </body>
 
 </html>
