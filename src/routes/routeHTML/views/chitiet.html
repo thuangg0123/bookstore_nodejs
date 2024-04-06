@@ -82,7 +82,7 @@
                     <h1 id="productName"></h1>
                     <div>
                         <p class="product-info-supplier">
-                            Nhà cung cấp: <span></span>
+                            Nhà xuất bản: <span></span>
                         </p>
                         <p class="product-info-author">Tác giả: <span></span></p>
                     </div>
@@ -265,6 +265,8 @@
     });
 
     function displayBookDetails(book) {
+        console.log(book);
+        document.querySelector(".director").lastElementChild.innerHTML = book.data.bookName;
         document.getElementById('productName').innerText = book.data.bookName;
         document.getElementById('productPrice').innerText = formatNumber(book.data.bookPrice) + ' đ';
         document.getElementById('productID').innerText = book.data.bookID;
@@ -274,9 +276,9 @@
         document.querySelector('.product-info-supplier span').innerText = book.data.bookPublisher;
         document.getElementById('product-info-author-td').innerText = book.data.bookAuthor;
         document.getElementById('product-info-supplier-td').innerText = book.data.bookPublisher;
-        // document.getElementById('product-info-weight-td').innerText = book.data.bookWeight;
-        // document.getElementById('product-info-size-td').innerText = book.data.bookSize;
-        document.getElementById('product-info-introduce-td').innerText = book.data.bookIntroducion;
+        document.getElementById('product-info-weight-td').innerText = book.data.bookWeight + " gr";
+        document.getElementById('product-info-size-td').innerText = book.data.bookSize + " cm";
+        document.getElementById('product-info-introduce-td').innerText = book.data.bookIntroduction;
     }
 </script>
 

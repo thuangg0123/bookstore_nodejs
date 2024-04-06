@@ -824,10 +824,15 @@ body {
 .product-info-supplier {
     margin-bottom: 10px;
 }
+.product-info-supplier span {
+    font-weight: bold;
+}
 
 .product-info-author span {
     font-weight: bold;
 }
+
+
 
 .product-info div {
     margin-bottom: 15px;
