@@ -12,12 +12,16 @@ const apiRequest = async (method, path, body = null) => {
     options.body = JSON.stringify(body);
   }
 
-  const response = await fetch(API_URL + path, options);
+  try {
+    const response = await fetch(API_URL + path, options);
 
-  if (!response.ok) {
-    const responseBody = await response.json();
-    throw new HTTPError(response.status, responseBody.error);
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+
+    return response.json();
+  } catch (error) {
+    return error.message;
   }
 
-  return response.json();
 };
