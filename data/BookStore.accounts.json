@@ -4,8 +4,26 @@
   },
   "userID": "user1",
   "userName": "Tester1",
-  "userPhone": "",
-  "userAddress": "",
+  "userPhone": "0123456789",
+  "userAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM",
+  "isAdmin": false,
+  "userPassword": "$2b$10$m32flMccJBj/uvonwB2INOGQf6/NryrSBypXseAnieqb22l2FdA4O",
+  "createdAt": {
+    "$date": "2024-04-05T02:06:37.536Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-05T02:06:37.536Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660f5cadeacad9bce842a402"
+  },
+  "userID": "user2",
+  "userName": "Tester2",
+  "userPhone": "0123456789",
+  "userAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM",
   "isAdmin": false,
   "userPassword": "$2b$10$m32flMccJBj/uvonwB2INOGQf6/NryrSBypXseAnieqb22l2FdA4O",
   "createdAt": {
