@@ -81,8 +81,8 @@
                 </div>
                 <div class="slidebar-content">
                     <ul>
-                        <li><a href="/taikhoan/thongtin" id="user-info-link">Thông tin tài khoản</a></li>
-                        <li><a href="/taikhoan/donhang" id="user-order-link" class="selected">Đơn hàng của tôi</a></li>
+                        <li><a href="" id="user-info-link">Thông tin tài khoản</a></li>
+                        <li><a href="" id="user-order-link" class="selected">Đơn hàng của tôi</a></li>
                     </ul>
                 </div>
             </nav>
@@ -202,26 +202,29 @@
     <script src="/js/formatNumber.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
+            const urlParts = window.location.pathname.split('/');
+            const accountID = urlParts[2];
+
+            document.getElementById("user-info-link").setAttribute('href', `/taikhoan/${accountID}/thongtin`);
+            document.getElementById("user-order-link").setAttribute('href', `/taikhoan/${accountID}/donhang`);
 
             const response = await apiRequest("GET", `/order/`);
-            console.log(response);
-
             if (response.success) {
-                const urlParts = window.location.pathname.split('/');
-                const accountID = urlParts[2];
-
                 const orderData = response.data;
                 displayOrder(orderData, accountID);
-                
             }
         });
 
         function displayOrder(orderData, accountID) {
             const orderList = document.getElementById("orderList");
             orderData.forEach(order => {
-                if(order.orderItemQuantity != 0) {
+                let orderItemQuantityP;
 
+                const orderItemQuantity = order.orderItemQuantity - 1;
+                if (orderItemQuantity != 0) {
+                    orderItemQuantityP = `<p>Và ${orderItemQuantity} cuốn sách khác</p>`
                 }
+
                 const orderItem = document.createElement("div");
                 orderItem.className = "order-item";
                 orderItem.innerHTML =
@@ -238,13 +241,14 @@
                             <div class="product-description">
                                 <div>
                                     <h3>${order.orderFirstBook.bookName}</h3>
-                                    <p>Và ${order.orderItemQuantity} cuốn sách khác</p>
+                                    ${orderItemQuantityP !== undefined ? orderItemQuantityP : ''}
                                 </div>
                                 <p>${formatNumber(order.orderTotal)} đ</p>
                             </div>
                         </div>
                     </div>
                     <a href=/taikhoan/${accountID}/donhang/${order.orderID}><button class="view-detail">Xem chi tiết đơn hàng</button></a>`
+
                 orderList.appendChild(orderItem);
             });
         }

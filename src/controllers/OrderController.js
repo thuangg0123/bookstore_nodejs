@@ -15,12 +15,12 @@ const getAllOrder = async (req, res) => {
                 path: "orderFirstBook",
                 select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -bookPrice -bookID -__v -createdAt -updatedAt"
             });
-            
+
         const response = []
-        
+
         if (role === 'user') {
             orderData.forEach(order => {
-                if(order.userID._id.toString() === userID) {
+                if (order.userID._id.toString() === userID) {
                     response.push(order);
                 }
             });
@@ -82,7 +82,7 @@ const getOrder = async (req, res) => {
 const createOrder = async (req, res) => {
     try {
         const data = req.body;
-
+        console.log(req);
         let orderID = ID_GENERATOR.IDOrder();
         while (await ORDER.findOne({ orderID })) {
             orderID = ID_GENERATOR.IDOrder();
