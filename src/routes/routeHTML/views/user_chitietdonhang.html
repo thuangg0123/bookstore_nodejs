@@ -17,7 +17,7 @@
     <header class="header">
         <nav class="container navbar">
             <div class="logo-container">
-                <a href="/"><img src="/img/logo/logo.png" alt="" class="logo"></a>
+                <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="logo"></a>
             </div>
             <div class="box-search">
                 <input type="text" placeholder="Tìm kiếm">
@@ -35,33 +35,32 @@
                     </a>
                 </div>
                 <div class="user-item">
-                    <!-- <div class="account" id="accountSection" th:style="${accountSection ? 'display: none;' : ''}">
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div>
-                                    <span>Tài khoản</span>
-                                </div>
-                                <div class="account-options">
-                                    <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
-                                            khoản</button></a>
-                                    <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
-                                </div>
-                            </div> -->
-                    <!-- <div class="admin" id="adminSection" th:style="${adminSection ? 'display: none;' : ''}">
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div>
-                                    <span>Quản trị</span>
-                                </div>
-                                <div class="admin-options">
-                                    <a href="/quantri"><button id="btnAdminManage" class="btn">Quản lý</button></a>
-                                    <a href="/dangxuat"><button id="btnLogoutAdmin" class="btn">Đăng xuất</button></a>
-                                </div>
-                            </div> -->
-                    <div class="user-options" id="userOptionsSection"
-                        th:style="${userOptionsSection ? 'display: none;' : ''}">
+                    <div class="account" id="accountSection" style="display: none;">
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <span>Tài khoản</span>
+                        </div>
+                        <div class="account-options">
+                            <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
+                                    khoản</button></a>
+                            <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
+                        </div>
+                    </div>
+                    <div class="admin" id="adminSection" style="display: none;">
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <span>Quản trị</span>
+                        </div>
+                        <div class="admin-options">
+                            <a href="/quantri"><button id="btnAdminManage" class="btn">Quản lý</button></a>
+                            <a href="/dangxuat"><button id="btnLogoutAdmin" class="btn">Đăng xuất</button></a>
+                        </div>
+                    </div>
+                    <div class="user-options" id="userOptionsSection" style="display: block;">
                         <div class="login-register">
                             <a href="/dangnhap" class="btn-director-login">Đăng nhập</a>
                             <a href="/dangky" class="btn-director-register">Đăng ký</a>
@@ -74,7 +73,7 @@
 
     <div class="container order-details-container">
         <div class="order-header">
-            <a href="" id="back-to-orders">
+            <a href="/taikhoan/donhang" id="back-to-orders">
                 <button class="back-to-orders">Quay lại danh sách đơn hàng</button>
             </a>
             <div class="order-container-state">
@@ -105,11 +104,7 @@
                     </div>
                 </div>
             </div>
-            <div class="order-product-info" id="order-product-info">
-                <div class="order-product-info-item" th:each="book : ${bookList}">
-
-                </div>
-            </div>
+            <div class="order-product-info" id="order-product-info"></div>
         </div>
         <div class="table-total-container">
             <table class="total-table">
@@ -129,10 +124,10 @@
         </div>
     </div>
 
-    <footer style="display: flex;">
+    <footer class="container footer-container">
         <div class="footer-left">
             <div>
-                <a href="/"><img src="/img/logo/logo.png" alt="" class="footer-logo"></a>
+                <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="footer-logo"></a>
             </div>
             <div>
                 <p>371, Nguyễn Kiệm Gò Vấp TP HCM.</p>
@@ -228,16 +223,13 @@
             </div>
         </div>
     </footer>
-    
+
     <script src="/js/convertOrderStatus.js"></script>
     <script src="/js/formatNumber.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParts = window.location.pathname.split('/');
-            const accountID = urlParts[2];
-            const orderID = urlParts[4];
-
-            document.getElementById("back-to-orders").setAttribute('href', `/taikhoan/${accountID}/donhang`);
+            const orderID = urlParts[urlParts.length - 1];
 
             const response = await apiRequest("GET", `/order-detail/${orderID}`);
             if (response.success) {
@@ -278,5 +270,7 @@
         }
     </script>
 </body>
+
+<script src="/js/main.js"></script>
 
 </html>

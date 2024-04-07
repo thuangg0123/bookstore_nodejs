@@ -36,33 +36,32 @@
                     </a>
                 </div>
                 <div class="user-item">
-                    <!-- <div class="account" id="accountSection" th:style="${accountSection ? 'display: none;' : ''}">
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div>
-                                    <span>Tài khoản</span>
-                                </div>
-                                <div class="account-options">
-                                    <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
-                                            khoản</button></a>
-                                    <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
-                                </div>
-                            </div> -->
-                    <!-- <div class="admin" id="adminSection" th:style="${adminSection ? 'display: none;' : ''}">
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div>
-                                    <span>Quản trị</span>
-                                </div>
-                                <div class="admin-options">
-                                    <a href="/quantri"><button id="btnAdminManage" class="btn">Quản lý</button></a>
-                                    <a href="/dangxuat"><button id="btnLogoutAdmin" class="btn">Đăng xuất</button></a>
-                                </div>
-                            </div> -->
-                    <div class="user-options" id="userOptionsSection"
-                        th:style="${userOptionsSection ? 'display: none;' : ''}">
+                    <div class="account" id="accountSection" style="display: none;">
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <span>Tài khoản</span>
+                        </div>
+                        <div class="account-options">
+                            <a href="/taikhoan"><button id="btnAccountInfo" class="btn">Thông tin tài
+                                    khoản</button></a>
+                            <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
+                        </div>
+                    </div>
+                    <div class="admin" id="adminSection" style="display: none;">
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <span>Quản trị</span>
+                        </div>
+                        <div class="admin-options">
+                            <a href="/quantri"><button id="btnAdminManage" class="btn">Quản lý</button></a>
+                            <a href="/dangxuat"><button id="btnLogoutAdmin" class="btn">Đăng xuất</button></a>
+                        </div>
+                    </div>
+                    <div class="user-options" id="userOptionsSection" style="display: block;">
                         <div class="login-register">
                             <a href="/dangnhap" class="btn-director-login">Đăng nhập</a>
                             <a href="/dangky" class="btn-director-register">Đăng ký</a>
@@ -81,8 +80,8 @@
                 </div>
                 <div class="slidebar-content">
                     <ul>
-                        <li><a href="" id="user-info-link">Thông tin tài khoản</a></li>
-                        <li><a href="" id="user-order-link" class="selected">Đơn hàng của tôi</a></li>
+                        <li><a href="/taikhoan/thongtin" id="user-info-link">Thông tin tài khoản</a></li>
+                        <li><a href="/taikhoan/donhang" id="user-order-link" class="selected">Đơn hàng của tôi</a></li>
                     </ul>
                 </div>
             </nav>
@@ -90,16 +89,12 @@
             <div class="right-content" id="user-order">
                 <h2>ĐƠN HÀNG CỦA TÔI</h2>
 
-                <div class="order-list" id="orderList">
-                    <div class="order-item" th:each="order : ${orderList}">
-
-                    </div>
-                </div>
+                <div class="order-list" id="orderList"></div>
             </div>
         </div>
     </div>
 
-    <footer style="display: flex;">
+    <footer class="container footer-container">
         <div class="footer-left">
             <div>
                 <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="footer-logo"></a>
@@ -205,19 +200,15 @@
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParts = window.location.pathname.split('/');
-            const accountID = urlParts[2];
-
-            document.getElementById("user-info-link").setAttribute('href', `/taikhoan/${accountID}/thongtin`);
-            document.getElementById("user-order-link").setAttribute('href', `/taikhoan/${accountID}/donhang`);
 
             const response = await apiRequest("GET", `/order/`);
             if (response.success) {
                 const orderData = response.data;
-                displayOrder(orderData, accountID);
+                displayOrder(orderData);
             }
         });
 
-        function displayOrder(orderData, accountID) {
+        function displayOrder(orderData) {
             const orderList = document.getElementById("orderList");
             orderData.forEach(order => {
                 let orderItemQuantityP;
@@ -249,12 +240,14 @@
                             </div>
                         </div>
                     </div>
-                    <a href=/taikhoan/${accountID}/donhang/${order.orderID}><button class="view-detail">Xem chi tiết đơn hàng</button></a>`
+                    <a href=/taikhoan/donhang/${order.orderID}><button class="view-detail">Xem chi tiết đơn hàng</button></a>`
 
                 orderList.appendChild(orderItem);
             });
         }
     </script>
 </body>
+
+<script src="/js/main.js"></script>
 
 </html>

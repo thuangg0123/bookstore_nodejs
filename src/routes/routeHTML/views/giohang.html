@@ -23,7 +23,7 @@
     <header class="header">
         <nav class="container navbar">
             <div class="logo-container">
-                <a href="/"><img src="/img/logo/logo.png" alt="" class="logo"></a>
+                <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="logo"></a>
             </div>
             <div class="box-search">
                 <input type="text" placeholder="Tìm kiếm">
@@ -41,7 +41,7 @@
                     </a>
                 </div>
                 <div class="user-item">
-                    <!-- <div class="account" id="accountSection" th:style="${accountSection ? 'display: none;' : ''}">
+                    <div class="account" id="accountSection" style="display: none;">
                         <div>
                             <i class="fa-solid fa-user"></i>
                         </div>
@@ -53,8 +53,8 @@
                                     khoản</button></a>
                             <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
                         </div>
-                    </div> -->
-                    <!-- <div class="admin" id="adminSection" th:style="${adminSection ? 'display: none;' : ''}">
+                    </div>
+                    <div class="admin" id="adminSection" style="display: none;">
                         <div>
                             <i class="fa-solid fa-user"></i>
                         </div>
@@ -65,9 +65,8 @@
                             <a href="/quantri"><button id="btnAdminManage" class="btn">Quản lý</button></a>
                             <a href="/dangxuat"><button id="btnLogoutAdmin" class="btn">Đăng xuất</button></a>
                         </div>
-                    </div> -->
-                    <div class="user-options" id="userOptionsSection"
-                        th:style="${userOptionsSection ? 'display: none;' : ''}">
+                    </div>
+                    <div class="user-options" id="userOptionsSection" style="display: block;">
                         <div class="login-register">
                             <a href="/dangnhap" class="btn-director-login">Đăng nhập</a>
                             <a href="/dangky" class="btn-director-register">Đăng ký</a>
@@ -133,10 +132,10 @@
         </div>
     </div>
 
-    <footer style="display: flex;">
+    <footer class="container footer-container">
         <div class="footer-left">
             <div>
-                <a href="/"><img src="/img/logo/logo.png" alt="" class="footer-logo"></a>
+                <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="footer-logo"></a>
             </div>
             <div>
                 <p>371, Nguyễn Kiệm Gò Vấp TP HCM.</p>
@@ -236,5 +235,7 @@
     <script src="/js/editCart.js"></script>
     <script src="/js/quantity.js"></script>
 </body>
+
+<script src="/js/main.js"></script>
 
 </html>

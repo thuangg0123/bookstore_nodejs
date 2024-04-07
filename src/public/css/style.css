@@ -142,8 +142,6 @@ body {
 /* Trang chủ */
 
 .container {
-    padding-left: 20px;
-    padding-right: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -250,7 +248,7 @@ body {
     width: 100%;
     gap: 10px;
     cursor: pointer;
-    padding: 20px 0;
+    padding: 20px 0 0;
 }
 
 .slideshow-container {
@@ -277,7 +275,7 @@ body {
 .container-product-wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 0 0 20px;
     display: flex;
     flex-direction: column;
     background-color: #fff;
@@ -422,6 +420,7 @@ body {
     grid-template-columns: 1fr 2fr;
     background-color: #fff;
     padding: 40px 0;
+    margin-top: 40px;
 }
 
 .footer-left {

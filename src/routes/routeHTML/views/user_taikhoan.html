@@ -18,7 +18,7 @@
     <header class="header">
         <nav class="container navbar">
             <div class="logo-container">
-                <a href="/"><img src="/img/logo/logo.png" alt="" class="logo"></a>
+                <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="logo"></a>
             </div>
             <div class="box-search">
                 <input type="text" placeholder="Tìm kiếm">
@@ -36,33 +36,32 @@
                     </a>
                 </div>
                 <div class="user-item">
-                    <!-- <div class="account" id="accountSection" th:style="${accountSection ? 'display: none;' : ''}">
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div>
-                                    <span>Tài khoản</span>
-                                </div>
-                                <div class="account-options">
-                                    <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
-                                            khoản</button></a>
-                                    <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
-                                </div>
-                            </div> -->
-                    <!-- <div class="admin" id="adminSection" th:style="${adminSection ? 'display: none;' : ''}">
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div>
-                                    <span>Quản trị</span>
-                                </div>
-                                <div class="admin-options">
-                                    <a href="/quantri"><button id="btnAdminManage" class="btn">Quản lý</button></a>
-                                    <a href="/dangxuat"><button id="btnLogoutAdmin" class="btn">Đăng xuất</button></a>
-                                </div>
-                            </div> -->
-                    <div class="user-options" id="userOptionsSection"
-                        th:style="${userOptionsSection ? 'display: none;' : ''}">
+                    <div class="account" id="accountSection" style="display: none;">
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <span>Tài khoản</span>
+                        </div>
+                        <div class="account-options">
+                            <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
+                                    khoản</button></a>
+                            <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
+                        </div>
+                    </div>
+                    <div class="admin" id="adminSection" style="display: none;">
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <span>Quản trị</span>
+                        </div>
+                        <div class="admin-options">
+                            <a href="/quantri"><button id="btnAdminManage" class="btn">Quản lý</button></a>
+                            <a href="/dangxuat"><button id="btnLogoutAdmin" class="btn">Đăng xuất</button></a>
+                        </div>
+                    </div>
+                    <div class="user-options" id="userOptionsSection" style="display: block;">
                         <div class="login-register">
                             <a href="/dangnhap" class="btn-director-login">Đăng nhập</a>
                             <a href="/dangky" class="btn-director-register">Đăng ký</a>
@@ -81,9 +80,9 @@
                 </div>
                 <div class="slidebar-content">
                     <ul>
-                        <li><a href="" id="user-info-link" class="selected">Thông tin tài khoản</a>
+                        <li><a href="/taikhoan/thongtin" id="user-info-link" class="selected">Thông tin tài khoản</a>
                         </li>
-                        <li><a href="" id="user-order-link">Đơn hàng của tôi</a></li>
+                        <li><a href="/taikhoan/donhang" id="user-order-link">Đơn hàng của tôi</a></li>
                     </ul>
                 </div>
             </nav>
@@ -131,10 +130,10 @@
         </div>
     </div>
 
-    <footer style="display: flex;">
+    <footer class="container footer-container">
         <div class="footer-left">
             <div>
-                <a href="/"><img src="/img/logo/logo.png" alt="" class="footer-logo"></a>
+                <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="footer-logo"></a>
             </div>
             <div>
                 <p>371, Nguyễn Kiệm Gò Vấp TP HCM.</p>
@@ -233,26 +232,24 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
-            const urlParts = window.location.pathname.split('/');
-            const accountID = urlParts[2];
 
-            document.getElementById("user-info-link").setAttribute('href', `/taikhoan/${accountID}/thongtin`);
-            document.getElementById("user-order-link").setAttribute('href', `/taikhoan/${accountID}/donhang`);
+            document.getElementById("user-info-link").setAttribute('href', `/taikhoan/thongtin`);
+            document.getElementById("user-order-link").setAttribute('href', `/taikhoan/donhang`);
 
-            if (accountID) {
-                const response = await apiRequest("GET", `/account/${accountID}`);
-                if (response.success) {
-                    const accountData = response.data;
+            const response = await apiRequest("GET", `/account/check`);
+            if (response.success) {
+                const accountData = response.data;
 
-                    document.getElementById("hoten").value = accountData.userName;
-                    document.getElementById("sdt").value = accountData.userPhone;
-                    document.getElementById("diachi").value = accountData.userAddress;
-                } else if (response === "401") {
-                    window.location.href = "/dangnhap";
-                }
+                document.getElementById("hoten").value = accountData.userName;
+                document.getElementById("sdt").value = accountData.userPhone;
+                document.getElementById("diachi").value = accountData.userAddress;
+            } else if (response === "401") {
+                window.location.href = "/dangnhap";
             }
         });
     </script>
 </body>
+
+<script src="/js/main.js"></script>
 
 </html>

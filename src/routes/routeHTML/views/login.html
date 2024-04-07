@@ -17,7 +17,7 @@
     <div class="form-container-wrapper">
         <div class="form-container" id="login-form">
             <div>
-                <a href="/" style="color: #000; text-decoration: underline;">
+                <a href="/trangchu" style="color: #000; text-decoration: underline;">
                     <i class="fa-solid fa-angle-left"></i>
                     Trở về trang chủ</a>
             </div>
@@ -48,7 +48,7 @@
             const response = await apiRequest('POST', '/account/login', account);
             console.log(response)
             if (response.success) {
-                window.location.href = `/taikhoan/${userID}`;
+                window.location.href = `/taikhoan`;
             } else if (response === "404") {
                 alert(`Tài khoản ${userID} không tồn tại`);
             } else if (response === "401") {

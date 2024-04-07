@@ -63,14 +63,14 @@ const saveOrderStatus = () => {
         },
         body: JSON.stringify({ orderID: orderID, orderStatus: orderStatus })
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Dữ liệu đã gửi thành công:', data);
-        // Thực hiện các thao tác cần thiết sau khi gửi thành công
-    })
-    .catch(error => {
-        console.error('Lỗi khi gửi dữ liệu:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log('Dữ liệu đã gửi thành công:', data);
+            // Thực hiện các thao tác cần thiết sau khi gửi thành công
+        })
+        .catch(error => {
+            console.error('Lỗi khi gửi dữ liệu:', error);
+        });
 
     closeUpdateStatusModal();
 }

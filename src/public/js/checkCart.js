@@ -36,7 +36,7 @@ function viewCart(cart) {
     Array.from(cartDiv).forEach(item => {
         cartContainer.removeChild(item);
     });
-    
+
     cart.forEach(async (cartItem) => {
         const response = await apiRequest("GET", `/book/${cartItem.bookID}`);
         const bookData = response.data;
@@ -67,7 +67,7 @@ function viewCart(cart) {
         let bookPrice = bookData.bookPrice;
         let pElement = document.createElement("p");
         pElement.className = "product-price-cart";
-        pElement.textContent = convertNumberToCurrency(bookPrice);   
+        pElement.textContent = convertNumberToCurrency(bookPrice);
 
         detailsDiv.appendChild(pElement);
 
@@ -95,7 +95,7 @@ function viewCart(cart) {
             } else if (newQuantity >= max) {
                 alert("Đã vượt số lượng tối đa");
                 this.value = max;
-                
+
             } else if (newQuantity <= 1) {
                 this.value = 1;
             }

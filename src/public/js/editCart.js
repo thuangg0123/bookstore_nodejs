@@ -1,7 +1,7 @@
-function checkCart()  {
+function checkCart() {
     var cart = localStorage.getItem("cart");
 
-    if (cart == null)   {
+    if (cart == null) {
         var cart = new Array();
         let json = JSON.stringify(cart);
         localStorage.setItem("cart", json);
@@ -18,37 +18,37 @@ function addToCart() {
     const quantity = document.getElementById("quantityInput").value;
     const bookStock = document.getElementById("quantityInput").max;
 
-    for(i = 0; i < cart.length; i++) {
-        if(cart[i].ID === bookID)  {
+    for (i = 0; i < cart.length; i++) {
+        if (cart[i].ID === bookID) {
             var book = cart[i];
-            book.SoLuong = Number(book.SoLuong) + Number(quantity); 
-            if(book.SoLuong >= bookStock) {
+            book.SoLuong = Number(book.SoLuong) + Number(quantity);
+            if (book.SoLuong >= bookStock) {
                 book.SoLuong = bookStock;
                 alert("Đã vượt số lượng tối đa");
             }
             cart[i] = book;
             isAdd = true;
             break;
-        } else{
+        } else {
             continue;
         }
 
     }
 
-    if(isAdd === false) {
+    if (isAdd === false) {
         const book = {
             "bookID": bookID,
             "quantity": quantity,
         }
-    
+
         cart[cart.length] = book;
         isAdd = true;
     }
 
-    if(isAdd) {
+    if (isAdd) {
         alert("Thêm vào giỏ hàng thành công")
     }
-    
+
     let json = JSON.stringify(cart);
     localStorage.setItem("cart", json);
 }

@@ -7,6 +7,10 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'trangchu.html'));
 });
 
+router.get('/trangchu', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'trangchu.html'));
+});
+
 router.get('/danhsach', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'danhsach.html'));
 });
@@ -31,19 +35,19 @@ router.get('/giohang/thanhtoan', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'thanhtoan.html'));
 });
 
-router.get('/taikhoan/:accountID', (req, res) => {
+router.get('/taikhoan/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'user_taikhoan.html'));
 });
 
-router.get('/taikhoan/:accountID/thongtin', (req, res) => {
+router.get('/taikhoan/thongtin', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'user_taikhoan.html'));
 });
 
-router.get('/taikhoan/:accountID/donhang', (req, res) => {
+router.get('/taikhoan/donhang', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'user_donhang.html'));
 });
 
-router.get('/taikhoan/:accountID/donhang/:orderID', (req, res) => {
+router.get('/taikhoan/donhang/:orderID', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'user_chitietdonhang.html'));
 });
 

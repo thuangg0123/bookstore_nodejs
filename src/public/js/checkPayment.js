@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var cartBody = document.getElementById("cart-body");
     var cartJSON = localStorage.getItem("cart");
 
-    if (cartJSON != null ) {
+    if (cartJSON != null) {
         var cart = JSON.parse(cartJSON);
         checkItem(cart);
     }
@@ -16,7 +16,7 @@ function checkItem(cart) {
     cart.forEach(function (product) {
         var giaString = product.Gia;
         var soLuong = Number(product.SoLuong);
-        var totalNumber =  convertCurrencyToNumber(giaString)* Number(soLuong);
+        var totalNumber = convertCurrencyToNumber(giaString) * Number(soLuong);
         thanhTien = Number(thanhTien) + Number(totalNumber);
 
         // Create table element
@@ -70,7 +70,7 @@ function checkItem(cart) {
 
         console.log(table);
         container.appendChild(table);
-    });    
+    });
 
     var divThanhTien = document.getElementById("divThanhTien");
     var divTotal = document.getElementById("divTotal");

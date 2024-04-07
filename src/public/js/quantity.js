@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     var quantityInput = document.getElementById('quantityInput');
     var btnMinus = document.getElementById('btn-minus-quantity');
     var btnPlus = document.getElementById('btn-plus-quantity');
-    
+
     if (btnMinus) {
         btnMinus.addEventListener('click', () => {
             console.log("Minus clicked");
@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    if (quantityInput){
-        
+    if (quantityInput) {
+
         quantityInput.addEventListener('input', () => {
             var maxQuantity = Number(quantityInput.getAttribute("max"));
 
@@ -27,15 +27,15 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(input);
             if (input >= 1 && input <= maxQuantity) {
                 quantityInput.value = input;
-            } else if(input <= 0 || isNaN(input)){
+            } else if (input <= 0 || isNaN(input)) {
                 quantityInput.value = 1;
-            } else if(input >= maxQuantity){
+            } else if (input >= maxQuantity) {
                 quantityInput.value = maxQuantity;
                 alert("Đã đạt số lượng tối đa");
             }
         });
     }
-    
+
     function updateQuantity(change) {
         var maxQuantity = Number(quantityInput.getAttribute("max"));
 
@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (newValue >= 1 && newValue <= maxQuantity) {
             quantityInput.value = newValue;
-        } else if(newValue <= 0 || isNaN(newValue)){
+        } else if (newValue <= 0 || isNaN(newValue)) {
             quantityInput.value = 1;
-        } else if(newValue >= maxQuantity){
+        } else if (newValue >= maxQuantity) {
             quantityInput.value = maxQuantity;
             alert("Đã đạt số lượng tối đa");
         }
