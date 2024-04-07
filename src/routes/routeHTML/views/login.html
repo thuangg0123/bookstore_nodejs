@@ -22,15 +22,12 @@
                     Trở về trang chủ</a>
             </div>
             <h2>Đăng nhập</h2>
-            <label style="color: red;" th:text="${thongbao}"></label>
             <form action="" method="post">
                 <label for="login-username">Tên đăng nhập*:</label>
-                <input type="text" id="login-username" name="login-username" required
-                    placeholder="Tên đăng nhập">
+                <input type="text" id="login-username" name="login-username" required placeholder="Tên đăng nhập">
 
                 <label for="login-password">Mật khẩu*:</label>
-                <input type="password" id="login-password" name="login-password" required
-                    placeholder="Mật khẩu">
+                <input type="password" id="login-password" name="login-password" required placeholder="Mật khẩu">
 
                 <button type="button" onclick="login()">Đăng nhập</button>
                 <p>Thành viên mới?<a href="/dangky"> Đăng kí tại đây</a></p>
@@ -42,7 +39,7 @@
         async function login() {
             const userID = document.getElementById("login-username").value;
             const userPassword = document.getElementById("login-password").value;
-            
+
             const account = {
                 userID: userID,
                 userPassword: userPassword
@@ -50,13 +47,13 @@
 
             const response = await apiRequest('POST', '/account/login', account);
             console.log(response)
-            if(response.success) {
+            if (response.success) {
                 window.location.href = `/taikhoan/${userID}`;
-            } else if(response === "404") {
+            } else if (response === "404") {
                 alert(`Tài khoản ${userID} không tồn tại`);
-            } else if(response === "401") {
+            } else if (response === "401") {
                 alert("Tên đăng nhập hoặc mật khẩu không chỉnh xác");
-            } else if(response === "500") {
+            } else if (response === "500") {
                 alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
             }
         }

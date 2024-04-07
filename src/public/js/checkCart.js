@@ -1,121 +1,129 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var cartEmpty = document.getElementById("container-cart-empty");
-    var cartBody = document.getElementById("cart-body");
-    var cartJSON = localStorage.getItem("cart");
+    const cartEmpty = document.getElementById("container-cart-empty");
+    const cartBody = document.getElementById("cart-body");
+    const cartJSON = localStorage.getItem("cart");
 
-    if (cartJSON != null ) {
-        var cart = JSON.parse(cartJSON);
-        if(cart.length != 0) {
+    if (cartJSON != null) {
+        const cart = JSON.parse(cartJSON);
+        if (cart.length != 0) {
             cartBody.style.display = "flex";
             cartEmpty.style.display = "none";
             viewCart(cart);
-        } else{
-            var btnShoping = document.getElementById("shopping-now");
-            btnShoping.addEventListener("click", () => {
-                window.location.href = '/danhsach'
-            })
-            cartBody.style.display = "none";
-            cartEmpty.style.display = "block";
+        } else {
+            goShopping(cartBody, cartEmpty)
         }
-    } else{
-        var btnShoping = document.getElementById("shopping-now");
-        btnShoping.addEventListener("click", () => {
-            window.location.href = '/danhsach'
-        })
-        cartBody.style.display = "none";
-        cartEmpty.style.display = "block";
+    } else {
+        goShopping(cartBody, cartEmpty)
     }
 
 });
 
+function goShopping(cartBody, cartEmpty) {
+    const btnShoping = document.getElementById("shopping-now");
+    btnShoping.addEventListener("click", () => {
+        window.location.href = '/danhsach'
+    })
+    cartBody.style.display = "none";
+    cartEmpty.style.display = "block";
+}
+
 function viewCart(cart) {
-    var thanhTien = 0;
-    cart.forEach(function (item) {
+    let productPrice = 0;
+
+    const cartContainer = document.getElementById("cart-container");
+    const cartDiv = cartContainer.getElementsByClassName("product-cart-item");
+
+    Array.from(cartDiv).forEach(item => {
+        cartContainer.removeChild(item);
+    });
+    
+    cart.forEach(async (cartItem) => {
+        const response = await apiRequest("GET", `/book/${cartItem.bookID}`);
+        const bookData = response.data;
+
         // Tạo thẻ div cho mỗi sản phẩm
-        var productDiv = document.createElement("div");
+        let productDiv = document.createElement("div");
         productDiv.className = "product-cart-item";
-        productDiv.id = item.ID;
+        productDiv.id = bookData.bookID;
 
         // Tạo thẻ img cho hình ảnh sản phẩm
-        var imgElement = document.createElement("img");
+        let imgElement = document.createElement("img");
         imgElement.className = "product-image";
-        imgElement.src = item.Hinh;
+        imgElement.src = bookData.bookImage;
         imgElement.alt = "Product Image";
         productDiv.appendChild(imgElement);
 
         // Tạo thẻ div cho chi tiết sản phẩm
-        var detailsDiv = document.createElement("div");
+        let detailsDiv = document.createElement("div");
         detailsDiv.className = "product-details";
 
         // Tạo thẻ h3 cho tên sản phẩm
-        var h3Element = document.createElement("h3");
-        h3Element.textContent = item.Ten; // Thay "TenSach" bằng tên trường chứa tên sách trong dữ liệu
-        
+        let h3Element = document.createElement("h3");
+        h3Element.textContent = bookData.bookName;
+
         detailsDiv.appendChild(h3Element);
 
         // Tạo thẻ p cho giá sản phẩm
-        var gia = item.Gia;
-        var pElement = document.createElement("p");
+        let bookPrice = bookData.bookPrice;
+        let pElement = document.createElement("p");
         pElement.className = "product-price-cart";
-        pElement.textContent = gia;
-        
+        pElement.textContent = convertNumberToCurrency(bookPrice);   
+
         detailsDiv.appendChild(pElement);
 
         // Thêm div chi tiết vào sản phẩm
         productDiv.appendChild(detailsDiv);
 
         // Tạo thẻ div cho số lượng sản phẩm
-        var quantityDiv = document.createElement("div");
+        let quantityDiv = document.createElement("div");
         quantityDiv.className = "quantity";
 
         // Tạo input cho số lượng
-        var soLuong = item.SoLuong;
-        var quantityInput = document.createElement("input");
+        let quantity = cartItem.quantity;
+        let quantityInput = document.createElement("input");
         quantityInput.className = "product-info-quantity-input"
         quantityInput.type = "number";
-        quantityInput.value = Number(soLuong);
+        quantityInput.value = Number(quantity);
         quantityInput.min = 1;
-        quantityInput.max = Number(soLuong);
-        quantityInput.id = Number(soLuong);
-        quantityInput.addEventListener('input', function () {
-            var bookId = productDiv.id;
-            
-            var newQuantity = Number(this.value);
-            var max = Number(this.id);
-            console.log(newQuantity);
-            console.log(quantityInput.max);
-            // if
-            if(newQuantity >= 1 && newQuantity <= max) {
-                updateQuantityInLocalStorage(bookId, newQuantity);
-            } else if(newQuantity >= max) {
-                alert("Hiện trong giỏ hàng chỉ có giảm số lượng sản phẩm");
+        quantityInput.max = bookData.bookStock;
+        quantityInput.addEventListener('change', function () {
+            let newQuantity = Number(this.value);
+            let max = Number(this.max);
+
+            if (newQuantity >= 1 && newQuantity <= max) {
+                this.value = newQuantity;
+            } else if (newQuantity >= max) {
+                alert("Đã vượt số lượng tối đa");
                 this.value = max;
-            } else if(newQuantity <= 1) {
+                
+            } else if (newQuantity <= 1) {
                 this.value = 1;
             }
+            updateQuantityInLocalStorage(bookData, this.value);
         });
         quantityDiv.appendChild(quantityInput);
 
-        thanhTien = Number(thanhTien) + Number(convertCurrencyToNumber(gia)*soLuong);
+        productPrice = Number(productPrice) + Number(bookPrice * quantity);
+        console.log(productPrice);
 
         // Thêm div số lượng vào sản phẩm
         productDiv.appendChild(quantityDiv);
 
         // Tạo thẻ div cho tổng giá trị sản phẩm
-        var totalDiv = document.createElement("div");
+        let totalDiv = document.createElement("div");
         totalDiv.className = "product-total";
-        var tongTien = Number(convertCurrencyToNumber(gia)*soLuong);
+        let tongTien = Number(bookPrice * quantity);
 
-        totalDiv.textContent = convertNumberToCurrency(tongTien); // Thay "Gia" bằng tên trường chứa giá trong dữ liệu
+        totalDiv.textContent = convertNumberToCurrency(tongTien);
         productDiv.appendChild(totalDiv);
 
         // Tạo thẻ div cho nút xóa sản phẩm
-        var removeDiv = document.createElement("button");
+        let removeDiv = document.createElement("button");
         removeDiv.className = "remove-btn";
         removeDiv.addEventListener('click', function () {
             // Lấy ID từ ID của thẻ sản phẩm
-            var bookIdToRemove = productDiv.id;
-        
+            let bookIdToRemove = productDiv.id;
+
             // Gọi hàm xóa sách từ giỏ hàng
             removeBookFromLocalStorage(bookIdToRemove);
         });
@@ -123,31 +131,32 @@ function viewCart(cart) {
         productDiv.appendChild(removeDiv);
 
         // Thêm sản phẩm vào container
-        var cartContainer = document.getElementById("cart-container");
         cartContainer.appendChild(productDiv);
+        totalPrice(productPrice);
     });
+}
 
-    var divThanhTien = document.getElementById("thanhTien");
-    divThanhTien.innerText = convertNumberToCurrency(thanhTien);
+function totalPrice(productPrice) {
+    let divThanhTien = document.getElementById("thanhTien");
+    divThanhTien.innerText = convertNumberToCurrency(productPrice);
 
-    var divTotal = document.getElementById("total");
-    divTotal.innerText = convertNumberToCurrency(thanhTien);
+    let divTotal = document.getElementById("total");
+    divTotal.innerText = convertNumberToCurrency(productPrice);
 }
 
 function convertCurrencyToNumber(currencyString) {
     // Xóa ký tự '₫' và dấu phẩy (nếu có)
-    var cleanedString = currencyString.replace('₫', '').replace(/\./g, '');
+    let cleanedString = currencyString.replace('₫', '').replace(/\./g, '');
 
     // Chuyển đổi thành số nguyên
-    var convertedNumber = parseInt(cleanedString);
+    let convertedNumber = parseInt(cleanedString);
 
     return isNaN(convertedNumber) ? 0 : convertedNumber;
 }
 
-
 function convertNumberToCurrency(number) {
     // Định dạng số và thêm ký tự '₫'
-    var formattedCurrency = number.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    let formattedCurrency = number.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 
     return formattedCurrency;
 }
@@ -159,10 +168,10 @@ function deleteAllCart() {
 
 function removeBookFromLocalStorage(bookId) {
     // Lấy danh sách sách từ localStorage
-    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     // Tìm vị trí của sách trong danh sách
-    var indexToRemove = cart.findIndex(item => item.ID === bookId);
+    let indexToRemove = cart.findIndex(item => item.ID === bookId);
 
     // Nếu tìm thấy, xóa sách khỏi danh sách
     if (indexToRemove !== -1) {
@@ -174,19 +183,20 @@ function removeBookFromLocalStorage(bookId) {
     }
 }
 
-function updateQuantityInLocalStorage(bookId, newQuantity) {
+function updateQuantityInLocalStorage(book, newQuantity) {
     // Lấy danh sách sản phẩm từ localStorage
-    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     // Tìm sản phẩm cần chỉnh sửa trong danh sách
-    var productToUpdate = cart.find(item => item.ID === bookId);
+    let productToUpdate = cart.find(cartItem => cartItem.bookID === book.bookID);
+    console.log(productToUpdate);
 
     // Nếu sản phẩm được tìm thấy, cập nhật số lượng
     if (productToUpdate) {
-        productToUpdate.SoLuong = newQuantity;
+        productToUpdate.quantity = newQuantity;
 
         // Lưu danh sách mới vào localStorage
         localStorage.setItem('cart', JSON.stringify(cart));
-        // location.reload(true);
+        viewCart(cart);
     }
 }
