@@ -40,12 +40,12 @@ router.get('/taikhoan/:accountID/thongtin', (req, res) => {
 });
 
 router.get('/taikhoan/:accountID/donhang', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'user_chitietdonhang.html'));
+    res.sendFile(path.join(__dirname, 'views', 'user_donhang.html'));
 });
 
-// router.get('/taikhoan/donhang/{id}', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'views', 'user_chitietdonhang.html'));
-// });
+router.get('/taikhoan/:accountID/donhang/:orderID', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'user_chitietdonhang.html'));
+});
 
 router.get('/quantri', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin.html'));

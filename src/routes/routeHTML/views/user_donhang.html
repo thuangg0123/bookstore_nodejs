@@ -200,6 +200,8 @@
     </footer>
 
     <script src="/js/formatNumber.js"></script>
+    <script src="/js/convertOrderStatus.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParts = window.location.pathname.split('/');
@@ -230,7 +232,7 @@
                 orderItem.innerHTML =
                     `<div class="order-header">
                         <span class="order-id">Mã đơn hàng: ${order.orderID}</span>
-                        <span class="order-state">Tình trạng: ${order.orderStatus}</span>
+                        <span class="order-state">Tình trạng: ${convertOrderStatus(order.orderStatus)}</span>
                         <div class="header-right">
                             <span class="order-date">Ngày đặt: ${order.orderTime}</span>
                         </div>
@@ -243,7 +245,7 @@
                                     <h3>${order.orderFirstBook.bookName}</h3>
                                     ${orderItemQuantityP !== undefined ? orderItemQuantityP : ''}
                                 </div>
-                                <p>${formatNumber(order.orderTotal)} đ</p>
+                                <p>${formatNumber(order.orderTotal + 25000)} đ</p>
                             </div>
                         </div>
                     </div>

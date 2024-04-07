@@ -16,7 +16,7 @@ const getAllOrder = async (req, res) => {
                 select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -bookPrice -bookID -__v -createdAt -updatedAt"
             });
 
-        const response = []
+        const response = [];
 
         if (role === 'user') {
             orderData.forEach(order => {

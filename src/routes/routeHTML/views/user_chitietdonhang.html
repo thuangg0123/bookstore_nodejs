@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="/js/ApiRequest.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- TikiTaka.com</title>
 </head>
 
@@ -73,13 +74,13 @@
 
     <div class="container order-details-container">
         <div class="order-header">
-            <a href="/taikhoan/donhang">
-                <button class="back-to-orders" id="back-to-orders">Quay lại danh sách đơn hàng</button>
+            <a href="" id="back-to-orders">
+                <button class="back-to-orders">Quay lại danh sách đơn hàng</button>
             </a>
             <div class="order-container-state">
-                <span class="order-id" th:text="'Mã đơn hàng: ' + ${order.orderID}"></span>
+                <span class="order-id" id="order-id"></span>
                 <span>|</span>
-                <span class="order-state" th:text="${order.orderStatus}"></span>
+                <span class="order-state" id="order-state"></span>
             </div>
         </div>
         <div class="order-container">
@@ -90,28 +91,23 @@
                         <table>
                             <tr>
                                 <td><span style="font-weight: bold;">Tên khách hàng:</span></td>
-                                <td th:text="${account.userName}"></td>
+                                <td id="userName"></td>
                             </tr>
                             <tr>
                                 <td><span style="font-weight: bold;">Số điện thoại:</span></td>
-                                <td th:text="${account.userPhone}"></td>
+                                <td id="userPhone"></td>
                             </tr>
                             <tr>
                                 <td><span style="font-weight: bold;">Địa chỉ:</span></td>
-                                <td th:text="${account.userAddress}"></td>
+                                <td id="userAddress"></td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
-            <div class="order-product-info">
+            <div class="order-product-info" id="order-product-info">
                 <div class="order-product-info-item" th:each="book : ${bookList}">
-                    <img th:src="${book.book.bookImage}" alt="Product Image">
-                    <div class="order-product-info-description">
-                        <h3 th:text="${book.book.bookName}"></h3>
-                        <p th:text="'Số lượng: ' + ${book.quantity}"></p>
-                        <p th:text="'Giá: ' + ${book.book.bookPrice}"></p>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -119,7 +115,7 @@
             <table class="total-table">
                 <tr>
                     <td class="total-name">Tổng tiền</td>
-                    <td class="total-value" th:text="${order.orderPrice}"></td>
+                    <td class="total-value" id="productPrice"></td>
                 </tr>
                 <tr>
                     <td class="total-name">Phí vận chuyển</td>
@@ -127,7 +123,7 @@
                 </tr>
                 <tr>
                     <td class="total-name">Tổng cổng</td>
-                    <td class="total-value" th:text="${totalValue}"></td>
+                    <td class="total-value" id="totalPrice"></td>
                 </tr>
             </table>
         </div>
@@ -232,7 +228,55 @@
             </div>
         </div>
     </footer>
+    
+    <script src="/js/convertOrderStatus.js"></script>
+    <script src="/js/formatNumber.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const urlParts = window.location.pathname.split('/');
+            const accountID = urlParts[2];
+            const orderID = urlParts[4];
+
+            document.getElementById("back-to-orders").setAttribute('href', `/taikhoan/${accountID}/donhang`);
+
+            const response = await apiRequest("GET", `/order-detail/${orderID}`);
+            if (response.success) {
+                const orderData = response.data;
+                displayOrderDetails(orderData);
+            }
+        });
+
+        function displayOrderDetails(orderData) {
+            const order = orderData.orderID;
+            const user = order.userID;
+
+            document.getElementById('order-id').innerText = `Mã đơn hàng: ${order.orderID}`;
+            document.getElementById('order-state').innerText = convertOrderStatus(order.orderStatus);
+            document.getElementById('userName').innerText = user.userName;
+            document.getElementById('userPhone').innerText = user.userPhone;
+            document.getElementById('userAddress').innerText = user.userAddress;
+
+            const orderItemList = orderData.orderItem;
+            const orderProductList = document.getElementById('order-product-info');
+            orderItemList.forEach(orderItem => {
+                const book = orderItem.bookID;
+                const orderItemDiv = document.createElement("div");
+                orderItemDiv.className = "order-product-info-item";
+                orderItemDiv.innerHTML =
+                    `<img src="${book.bookImage}" alt="Product Image">
+                    <div class="order-product-info-description">
+                        <h3>${book.bookName}</h3>
+                        <p>Số lượng: ${orderItem.quantity}</p>
+                        <p>Giá: ${book.bookPrice}</p>
+                    </div>`;
+
+                orderProductList.appendChild(orderItemDiv);
+            });
+
+            document.getElementById('productPrice').innerText = `${formatNumber(order.orderTotal)} đ`;
+            document.getElementById('totalPrice').innerText = `${formatNumber(order.orderTotal + 25000)} đ`;
+        }
+    </script>
 </body>
-<script src="/js/main.js"></script>
 
 </html>

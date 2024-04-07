@@ -2,16 +2,19 @@ const ORDER_DETAILS = require('../models/OrderDetailsModel');
 
 const getAllOrderDetails = async (req, res) => {
     try {
-        let query = {};
-
         const { userID, role } = req;
-        if (role === 'admin') {
-            query = {};
-        } else {
-            query = { userID: userID };
-        }
 
-        let response = await ORDER_DETAILS.find(query).populate('orderID');
+        let orderData = await ORDER_DETAILS.find().populate('orderID');
+
+        const response = [];
+
+        if (role === 'user') {
+            orderData.forEach(order => {
+                if (order.orderID.userID.toString() === userID) {
+                    response.push(order);
+                }
+            });
+        }
 
         return res.status(200).json({
             success: true,
@@ -29,17 +32,27 @@ const getAllOrderDetails = async (req, res) => {
 const getOrderDetails = async (req, res) => {
     try {
         const { orderID } = req.params;
-        const { userID, role } = req;
 
-        let query = { orderID: orderID };
+        let orderData = await ORDER_DETAILS.find()
+        .populate({
+            path: 'orderID',
+            populate: {
+                path: 'userID'
+            }
+        })
+        .populate({
+            path: "orderItem.bookID",
+            select: "-bookID -bookStock -bookAuthor -bookPublisher -bookIntroduction -bookSold -bookWeight -bookSize -createdAt -updatedAt -__v"
+        });
 
-        if (role !== 'admin') {
-            query.userID = userID;
-        }
+        let response;
 
-        console.log(query)
-        let response = await ORDER_DETAILS.findOne(query).populate('orderID');
-        console.log(response)
+        orderData.forEach(order => {
+            if (order.orderID.orderID.toString() === orderID) {
+                response = order;
+                return;
+            }
+        });
 
         if (!response) {
             return res.status(404).json({
