@@ -1,26 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
     var quantityInput = document.getElementById('quantityInput');
-    var maxQuantity = parseInt(document.getElementById("quantityInput").getAttribute("max"), 10);
     var btnMinus = document.getElementById('btn-minus-quantity');
     var btnPlus = document.getElementById('btn-plus-quantity');
     
     if (btnMinus) {
         btnMinus.addEventListener('click', () => {
-            console.log("click");
+            console.log("Minus clicked");
             updateQuantity(-1);
         });
     }
 
     if (btnPlus) {
         btnPlus.addEventListener('click', () => {
-            console.log("click");
+            console.log("Plus clicked");
             updateQuantity(1);
         });
     }
 
     if (quantityInput){
+        
         quantityInput.addEventListener('input', () => {
-            console.log("change");
+            var maxQuantity = Number(quantityInput.getAttribute("max"));
+
+            console.log("Input change");
             var input = parseInt(quantityInput.value, 10);
             console.log(input);
             if (input >= 1 && input <= maxQuantity) {
@@ -29,12 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 quantityInput.value = 1;
             } else if(input >= maxQuantity){
                 quantityInput.value = maxQuantity;
-                alert("Đã quá số lượng tồn kho");
+                alert("Đã đạt số lượng tối đa");
             }
         });
     }
     
     function updateQuantity(change) {
+        var maxQuantity = Number(quantityInput.getAttribute("max"));
+
         var currentValue = parseInt(quantityInput.value, 10);
         var newValue = currentValue + change;
 
@@ -44,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
             quantityInput.value = 1;
         } else if(newValue >= maxQuantity){
             quantityInput.value = maxQuantity;
-            alert("Đã quá số lượng tồn kho");
+            alert("Đã đạt số lượng tối đa");
         }
     }
 });
