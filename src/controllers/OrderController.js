@@ -1,19 +1,12 @@
 const ORDER = require('../models/OrderModel');
-const BOOK = require('../models/BookModel');
 const ID_GENERATOR = require('../services/IDGenerator');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 const getAllOrder = async (req, res) => {
     try {
-        let query = {};
-
         const { userID, role } = req;
-        if (role === 'admin') {
-            query = {};
-        } else {
-            query = { userID: userID };
-        }
 
-        let response = await ORDER.find(query)
+        let orderData = await ORDER.find()
             .populate({
                 path: "userID",
                 select: "-isAdmin -userPassword -userID -userPhone -userAddress -createdAt -updatedAt -__v"
@@ -22,6 +15,16 @@ const getAllOrder = async (req, res) => {
                 path: "orderFirstBook",
                 select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -bookPrice -bookID -__v -createdAt -updatedAt"
             });
+            
+        const response = []
+        
+        if (role === 'user') {
+            orderData.forEach(order => {
+                if(order.userID._id.toString() === userID) {
+                    response.push(order);
+                }
+            });
+        }
 
         return res.status(200).json({
             success: response ? true : false,
@@ -40,8 +43,8 @@ const getOrder = async (req, res) => {
     try {
         const orderID = req.params.orderID;
         const { userID, role } = req;
-        
-        let query = { orderID: orderID};
+
+        let query = { orderID: orderID };
 
         if (role !== 'admin') {
             query.userID = userID;

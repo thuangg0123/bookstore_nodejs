@@ -234,7 +234,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParts = window.location.pathname.split('/');
-            const accountID = urlParts[urlParts.length - 1];
+            const accountID = urlParts[2];
 
             if (accountID) {
                 const response = await apiRequest("GET", `/account/${accountID}`);
@@ -247,6 +247,8 @@
                     document.getElementById("hoten").value = accountData.userName;
                     document.getElementById("sdt").value = accountData.userPhone;
                     document.getElementById("diachi").value = accountData.userAddress;
+                } else if(response === "401") {
+                    window.location.href = "/dangnhap";
                 }
             }
         });
