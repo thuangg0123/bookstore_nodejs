@@ -113,13 +113,19 @@ const login = async (req, res) => {
 const updateAccount = async (req, res) => {
     const { accountID } = req.params;
     const { userName, userPhone, userAddress } = req.body;
+    const { userID, role } = req;
 
     try {
-        const user = await ACCOUNT.findOne({userID: accountID});
+        let user; 
+        if(role === "user") {
+            user = await ACCOUNT.findById(userID);
+        } else{
+            user = await ACCOUNT.findOne({userID: accountID});
+        }
 
-        if (userName) user.userName = userName;
-        if (userPhone) user.userPhone = userPhone;
-        if (userAddress) user.userAddress = userAddress;
+        user.userName = userName;
+        user.userPhone = userPhone;
+        user.userAddress = userAddress;
 
         await user.save();
 

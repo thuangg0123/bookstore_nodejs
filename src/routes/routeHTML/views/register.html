@@ -7,19 +7,15 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" href="/img/logo/logo.png">
     <title>Đăng ký</title>
+    <script src='/js/ApiRequest.js'></script>
 </head>
 
-<script src='/js/main.js'></script>
 
 <body>
     <div class="form-container-wrapper">
         <div class="form-container" id="register-form">
             <h2>Đăng kí</h2>
             <form action="" method="post">
-                <label style="color: red;" th:text="${thongbao}"></label>
-                <label for="register-email">Email*:</label>
-                <input type="email" id="register-email" name="register-email" required placeholder="Nhập email của bạn">
-
                 <label for="register-username">Tên đăng nhập*:</label>
                 <input type="text" id="register-username" name="register-username" required
                     placeholder="Nhập tên đăng nhập của bạn">
@@ -32,7 +28,7 @@
                 <input type="password" id="confirm-password" name="confirm-password" required
                     placeholder="Nhập lại mật khẩu.">
 
-                <button type="submit">Đăng kí</button>
+                <button type="button" onclick="register()">Đăng kí</button>
                 <p>Đã có tài khoản?<a href="/dangnhap"> Đăng nhập tại đây</a></p>
             </form>
         </div>
@@ -40,22 +36,26 @@
 
     <script>
         async function register() {
-            const userID = document.getElementById("login-username").value;
-            const userPassword = document.getElementById("login-password").value;
+            const userID = document.getElementById("register-username").value;
+            const userPassword = document.getElementById("register-password").value;
+            const userConfirmPassword = document.getElementById("confirm-password").value;
+
+            if(userPassword !== userConfirmPassword) {
+                alert("Vui lòng xác nhận lại mật khẩu");
+                return;
+            }
 
             const account = {
                 userID: userID,
                 userPassword: userPassword
             };
 
-            const response = await apiRequest('POST', '/account/login', account);
-            console.log(response)
+            const response = await apiRequest('POST', '/account/register', account);
+
             if (response.success) {
-                window.location.href = `/taikhoan`;
-            } else if (response === "404") {
-                alert(`Tài khoản ${userID} không tồn tại`);
-            } else if (response === "401") {
-                alert("Tên đăng nhập hoặc mật khẩu không chỉnh xác");
+                window.location.href = "/trangchu";
+            } else if (response === "400") {
+                alert(`Tài khoản ${userID} đã tồn tại`);
             } else if (response === "500") {
                 alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
             }
