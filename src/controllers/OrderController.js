@@ -17,14 +17,15 @@ const getAllOrder = async (req, res) => {
             });
 
         const response = [];
-
-        if (role === 'user') {
-            orderData.forEach(order => {
+        orderData.forEach(order => {
+            if (role === 'user') {
                 if (order.userID._id.toString() === userID) {
                     response.push(order);
                 }
-            });
-        }
+            } else{
+                response.push(order);
+            }
+        });
 
         return res.status(200).json({
             success: response ? true : false,

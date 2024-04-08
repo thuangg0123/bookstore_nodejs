@@ -70,7 +70,7 @@
             <button class="btn add-product-btn">+ Thêm sản phẩm</button>
         </a>
 
-        <div class="container-product-card clear-fix" id="productWrapper"></div>
+        <div class="container-product-card clear-fix"></div>
     </div>
     
     <script src="/js/format.js"></script>
@@ -82,7 +82,7 @@
         });
 
         function displayProduct(productList) {
-            const productWrapper = document.getElementById("productWrapper");
+            const productWrapper = document.querySelector(".container-product-card");
             productList.forEach(book => {
                 const productCard = document.createElement("div");
                 productCard.className = "product-card";
