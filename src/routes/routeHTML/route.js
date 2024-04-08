@@ -23,6 +23,10 @@ router.get('/dangnhap', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'login.html'));
 });
 
+router.get('/dangxuat', (req, res) => {
+    res.redirect('/trangchu');
+});
+
 router.get('/dangky', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'register.html'));
 });
