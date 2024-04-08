@@ -36,20 +36,33 @@
     </div>
     <div class="sidebar" id="sidebar">
         <ul>
-            <li class="btn-close-sidebar" onclick="closeSidebar()"><i class="fa-solid fa-x"></i></li>
-            <li><a href="#" class="sidebar-link" onclick="goToAdminHome()"><i class="fa-solid fa-home"></i> Trang chủ
-                    Admin</a>
+            <li class="btn-close-sidebar" onclick="closeSidebar()">
+                <i class="fa-solid fa-x"></i>
             </li>
-            <li><a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct"><i class="fa-brands fa-shopify"></i>
-                    Quản lý
-                    sản phẩm</a></li>
-            <li><a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder"><i class="fa-solid fa-box"></i>Quản lý
-                    đơn
-                    hàng</a></li>
-            <li><a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount"><i class="fa-solid fa-users"></i>
-                    Quản
-                    lý
-                    tài khoản</a></li>
+            <li>
+                <a href="#" class="sidebar-link" onclick="goToAdminHome()">
+                    <i class="fa-solid fa-home"></i>
+                    Trang chủ Admin
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct">
+                    <i class="fa-brands fa-shopify"></i>
+                    Quản lý sản phẩm
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder">
+                    <i class="fa-solid fa-box"></i>
+                    Quản lý đơn hàng
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount">
+                    <i class="fa-solid fa-users"></i>
+                    Quản lý tài khoản
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -96,13 +109,49 @@
                 <input type="text" name="introduction" id="introduction" class="add_size" value="">
             </div>
             <div class="button-container">
-                <button class="button add-button" type="submit" onclick="">Thêm</button>
+                <button class="button add-button" type="button" onclick="addBook()">Thêm</button>
                 <button class="button cancel-button" id="cancel-button">Hủy</button>
             </div>
         </form>
     </div>
+
+    <script>
+        async function addBook() {
+            const bookImage = document.getElementById("image").value;
+            const bookName = document.getElementById("name").value;
+
+            const bookPriceString = document.getElementById("price").value;
+            const bookPrice = bookPriceString.replace(" ", "");
+
+            const bookAuthor = document.getElementById("author").value;
+            const bookPublisher = document.getElementById("publisher").value;
+            const bookWeight = document.getElementById("weight").value;
+            const bookSize = document.getElementById("size").value;
+            const bookStock = document.getElementById("stock").value;
+            const bookIntroduction = document.getElementById("introduction").value;
+
+            const book = {
+                bookName: bookName,
+                bookPrice: bookPrice,
+                bookAuthor: bookAuthor,
+                bookPublisher: bookPublisher,
+                bookWeight: bookWeight,
+                bookSize: bookSize,
+                bookStock: bookStock,
+                bookIntroduction: bookIntroduction,
+            };
+
+            const response = await apiRequest('POST', '/book/', book);
+
+            if (response.success) {
+                window.location.href = "/quantri/sanpham";
+            } else if (response === "500") {
+                alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
+            }
+        }
+    </script>
 </body>
-<script src="../js/admin.js"></script>
+<script src="/js/admin.js"></script>
 <script>
     document.getElementById("cancel-button").addEventListener("click", () => {
         history.back();
@@ -111,22 +160,6 @@
     var sidebar = document.getElementById("sidebarProduct");
     sidebar.classList.add('active');
 
-    function validateImageFile() {
-        var input = document.getElementById('image');
-        var errorMessage = document.getElementById('error-message');
-
-        if (input.files.length > 0) {
-            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-            var fileName = input.files[0].name;
-
-            if (!allowedExtensions.exec(fileName)) {
-                errorMessage.innerHTML = 'Chỉ chấp nhận các file ảnh có định dạng JPG, JPEG, PNG, hoặc GIF.';
-                input.value = '';
-            } else {
-                errorMessage.innerHTML = '';
-            }
-        }
-    }
     function formatNumber(input) {
         let inputValue = input.value;
 
