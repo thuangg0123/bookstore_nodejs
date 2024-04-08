@@ -85,8 +85,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
-            const urlParts = window.location.pathname.split('/');
-
             const response = await apiRequest("GET", "/order/");
             if (response.success) {
                 const orderData = response.data;
@@ -102,7 +100,7 @@
 
                 const orderItemQuantity = order.orderItemQuantity - 1;
                 if (orderItemQuantity != 0) {
-                    orderItemQuantityP = 
+                    orderItemQuantityP =
                         `<div>
                             <span class="order-name">Và ${orderItemQuantity} cuốn sách khác</span>
                         </div>`;
