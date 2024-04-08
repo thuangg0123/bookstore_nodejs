@@ -124,7 +124,7 @@
                         </div>
                     </div> -->
 
-                    <button type="submit" class="btn-save">Lưu thay đổi</button>
+                    <button type="button" class="btn-save" onclick="changeInfo()">Lưu thay đổi</button>
                 </form>
             </div>
         </div>
@@ -231,12 +231,12 @@
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", async function () {
+        document.addEventListener("DOMContentLoaded", function () {
+            loadAccount();
+        });
 
-            document.getElementById("user-info-link").setAttribute('href', `/taikhoan/thongtin`);
-            document.getElementById("user-order-link").setAttribute('href', `/taikhoan/donhang`);
-
-            const response = await apiRequest("GET", `/account/check`);
+        async function loadAccount() {
+            const response = await apiRequest("GET", `/account/check/login`);
             if (response.success) {
                 const accountData = response.data;
 
@@ -246,7 +246,26 @@
             } else if (response === "401") {
                 window.location.href = "/dangnhap";
             }
-        });
+        }
+
+        async function changeInfo() {
+            const userName = document.getElementById("hoten").value;
+            const userPhone = document.getElementById("sdt").value;
+            const userAddress = document.getElementById("diachi").value;
+            
+            const account = {
+                userName: userName,
+                userPhone: userPhone,
+                userAddress: userAddress
+            };
+
+            const response = await apiRequest("PUT", "/account/id", account);
+            if (response.success) {
+                loadAccount();
+            } else if (response === "500") {
+                alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
+            }
+        }
     </script>
 </body>
 

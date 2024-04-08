@@ -194,7 +194,7 @@
         </div>
     </footer>
 
-    <script src="/js/formatNumber.js"></script>
+    <script src="/js/format.js"></script>
     <script src="/js/convertOrderStatus.js"></script>
 
     <script>
@@ -225,7 +225,7 @@
                         <span class="order-id">Mã đơn hàng: ${order.orderID}</span>
                         <span class="order-state">Tình trạng: ${convertOrderStatus(order.orderStatus)}</span>
                         <div class="header-right">
-                            <span class="order-date">Ngày đặt: ${order.orderTime}</span>
+                            <span class="order-date">Ngày đặt: ${formatDate(order.orderTime)}</span>
                         </div>
                     </div>
                     <div class="order-details">

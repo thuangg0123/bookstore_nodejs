@@ -15,10 +15,24 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/js/slide.js"></script>
-    <script src="/js/validate.js"></script>
-
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
+    <script src="/js/ApiRequest.js"></script>
+    <script>
+        async function checkPermission() {
+            const response = await apiRequest("GET", `/account/check/login`);
+            console.log(response)
+            if (response.success) {
+                const accountData = response.data;
+                if (!accountData.isAdmin) {
+                    alert("Bạn không có đủ quyền hạn để sử dụng");
+                    window.location.href = "/trangchu";
+                }
+            } else if (response === "401") {
+                window.location.href = "/dangnhap";
+            }
+        }
+        checkPermission();
+    </script>
 </head>
 
 <body>
@@ -36,20 +50,33 @@
     </div>
     <div class="sidebar" id="sidebar">
         <ul>
-            <li class="btn-close-sidebar" onclick="closeSidebar()"><i class="fa-solid fa-x"></i></li>
-            <li><a href="#" class="sidebar-link" onclick="goToAdminHome()"><i class="fa-solid fa-home"></i> Trang chủ
-                    Admin</a>
+            <li class="btn-close-sidebar" onclick="closeSidebar()">
+                <i class="fa-solid fa-x"></i>
             </li>
-            <li><a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct"><i class="fa-brands fa-shopify"></i>
-                    Quản lý
-                    sản phẩm</a></li>
-            <li><a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder"><i class="fa-solid fa-box"></i>Quản lý
-                    đơn
-                    hàng</a></li>
-            <li><a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount"><i class="fa-solid fa-users"></i>
-                    Quản
-                    lý
-                    tài khoản</a></li>
+            <li>
+                <a href="#" class="sidebar-link" onclick="goToAdminHome()">
+                    <i class="fa-solid fa-home"></i>
+                    Trang chủ Admin
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct">
+                    <i class="fa-brands fa-shopify"></i>
+                    Quản lý sản phẩm
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder">
+                    <i class="fa-solid fa-box"></i>
+                    Quản lý đơn hàng
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount">
+                    <i class="fa-solid fa-users"></i>
+                    Quản lý tài khoản
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -65,6 +92,6 @@
     </div>
 </body>
 
-<script src="../js/admin.js"></script>
+<script src="/js/admin.js"></script>
 
 </html>

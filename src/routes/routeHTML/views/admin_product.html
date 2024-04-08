@@ -15,10 +15,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/js/slide.js"></script>
-    <script src="/js/validate.js"></script>
-
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
+    <script src="/js/ApiRequest.js"></script>
 </head>
 
 <body>
@@ -36,20 +34,33 @@
     </div>
     <div class="sidebar" id="sidebar">
         <ul>
-            <li class="btn-close-sidebar" onclick="closeSidebar()"><i class="fa-solid fa-x"></i></li>
-            <li><a href="#" class="sidebar-link" onclick="goToAdminHome()"><i class="fa-solid fa-home"></i> Trang chủ
-                    Admin</a>
+            <li class="btn-close-sidebar" onclick="closeSidebar()">
+                <i class="fa-solid fa-x"></i>
             </li>
-            <li><a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct"><i class="fa-brands fa-shopify"></i>
-                    Quản lý
-                    sản phẩm</a></li>
-            <li><a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder"><i class="fa-solid fa-box"></i>Quản lý
-                    đơn
-                    hàng</a></li>
-            <li><a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount"><i class="fa-solid fa-users"></i>
-                    Quản
-                    lý
-                    tài khoản</a></li>
+            <li>
+                <a href="#" class="sidebar-link" onclick="goToAdminHome()">
+                    <i class="fa-solid fa-home"></i>
+                    Trang chủ Admin
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct">
+                    <i class="fa-brands fa-shopify"></i>
+                    Quản lý sản phẩm
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder">
+                    <i class="fa-solid fa-box"></i>
+                    Quản lý đơn hàng
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount">
+                    <i class="fa-solid fa-users"></i>
+                    Quản lý tài khoản
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -59,41 +70,58 @@
             <button class="btn add-product-btn">+ Thêm sản phẩm</button>
         </a>
 
-        <div class="container-product-card clear-fix">
-            <div class="product-card" th:each="book : ${bookList}">
-                <div class="product-image">
-                    <img th:src="${book.bookImage}" alt="Product 1">
-                </div>
-                <div class="product-details">
-                    <div>
-                        <span style="font-weight: bold;">Mã sản phẩm:</span>
-                        <span class="product-code" th:text="${book.bookID}"></span>
-                    </div>
-                    <div>
-                        <span style="font-weight: bold;">Tên sản phẩm:</span>
-                        <span class="product-name" th:text="${book.bookName}"></span>
-                    </div>
-                    <div>
-                        <span style="font-weight: bold;">Giá:</span>
-                        <span class="product-price" th:text="${book.bookPrice}"></span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="'/quantri/sanpham/chinhsua">
-                            <button class="btn btn-edit-product" onclick="">Chỉnh sửa thông tin</button>
-                        </a>
-                        <a th:href="@{'/quantri/sanpham/' + ${book.bookID}}">
-                            <button class=" btn btn-view-product" onclick="showProductDetail()">Xem chi tiết</button>
-                        </a>
-                        <a th:href="@{'/quantri/sanpham/xoa/' + ${book.bookID}}">
-                            <button class="btn btn-delete-product" id="btn-delete-product">Xóa</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="container-product-card clear-fix" id="productWrapper"></div>
     </div>
+    
+    <script src="/js/format.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            let response = await apiRequest("GET", "/book/");
+            const productList = response.data;
+            displayProduct(productList);
+        });
+
+        function displayProduct(productList) {
+            const productWrapper = document.getElementById("productWrapper");
+            productList.forEach(book => {
+                const productCard = document.createElement("div");
+                productCard.className = "product-card";
+                productCard.innerHTML =
+                    `<div class="product-image">
+                        <img src="${book.bookImage}" alt="Product 1">
+                    </div>
+                    <div class="product-details">
+                        <div>
+                            <span style="font-weight: bold;">Mã sản phẩm:</span>
+                            <span class="product-code">${book.bookID}</span>
+                        </div>
+                        <div>
+                            <span style="font-weight: bold;">Tên sản phẩm:</span>
+                            <span class="product-name">${book.bookName}</span>
+                        </div>
+                        <div>
+                            <span style="font-weight: bold;">Giá:</span>
+                            <span class="product-price">${formatNumber(book.bookPrice)} đ</span>
+                        </div>
+                        <div class="product-actions">
+                            <a href="/quantri/sanpham/chinhsua/${book.bookID}">
+                                <button class="btn btn-edit-product">Chỉnh sửa thông tin</button>
+                            </a>
+                            <a href="/quantri/sanpham/${book.bookID}">
+                                <button class=" btn btn-view-product" onclick="showProductDetail()">Xem chi tiết</button>
+                            </a>
+                            <a href="/quantri/sanpham/xoa/${book.bookID}">
+                                <button class="btn btn-delete-product" id="btn-delete-product">Xóa</button>
+                            </a>
+                        </div>
+                    </div>`;
+
+                productWrapper.appendChild(productCard);
+            });
+        }
+    </script>
 </body>
-<script src="../js/admin.js"></script>
+<script src="/js/admin.js"></script>
 <script>
     var sidebar = document.getElementById("sidebarProduct");
     sidebar.classList.add('active');
