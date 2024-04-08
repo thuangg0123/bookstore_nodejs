@@ -236,7 +236,7 @@
         });
 
         async function loadAccount() {
-            const response = await apiRequest("GET", `/account/check`);
+            const response = await apiRequest("GET", `/account/check/login`);
             if (response.success) {
                 const accountData = response.data;
 
@@ -259,7 +259,7 @@
                 userAddress: userAddress
             };
 
-            const response = await apiRequest("PUT", "/account/check", account);
+            const response = await apiRequest("PUT", "/account/check/login", account);
             if (response.success) {
                 loadAccount();
             } else if (response === "500") {
