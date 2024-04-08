@@ -259,7 +259,7 @@
                 userAddress: userAddress
             };
 
-            const response = await apiRequest("PUT", "/account/check/login", account);
+            const response = await apiRequest("PUT", "/account/id", account);
             if (response.success) {
                 loadAccount();
             } else if (response === "500") {
