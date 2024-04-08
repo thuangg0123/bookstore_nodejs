@@ -259,7 +259,7 @@
                     <div class="order-product-info-description">
                         <h3>${book.bookName}</h3>
                         <p>Số lượng: ${orderItem.quantity}</p>
-                        <p>Giá: ${book.bookPrice}</p>
+                        <p>Giá: ${formatNumber(book.bookPrice)}</p>
                     </div>`;
 
                 orderProductList.appendChild(orderItemDiv);
