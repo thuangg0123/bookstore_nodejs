@@ -17,22 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
     <script src="/js/ApiRequest.js"></script>
-    <script>
-        async function checkPermission() {
-            const response = await apiRequest("GET", `/account/check/login`);
-            console.log(response)
-            if (response.success) {
-                const accountData = response.data;
-                if (!accountData.isAdmin) {
-                    alert("Bạn không có đủ quyền hạn để sử dụng");
-                    window.location.href = "/trangchu";
-                }
-            } else if (response === "401") {
-                window.location.href = "/dangnhap";
-            }
-        }
-        checkPermission();
-    </script>
+    <script src="/js/validate.js"></script>
 </head>
 
 <body>
