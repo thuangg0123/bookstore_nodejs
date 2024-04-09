@@ -103,13 +103,10 @@ router.get(`/quantri/donhang`, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin_order.html'));
 });
 
-router.get(`/quantri/donhang/chitiet`, (req, res) => {
+
+router.get(`/quantri/donhang/:orderID`, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin_detailorder.html'));
 });
-
-// router.get(`/quantri/donhang/{id}`, (req, res) => {
-//     res.sendFile(path.join(__dirname, 'views', 'admin_detailorder.html'));
-// });
 
 // router.get(`/quantri/donhang/capnhantrangthai`, (req, res) => {
 //     res.sendFile(path.join(__dirname, 'views', 'admin_detailorder.html'));
