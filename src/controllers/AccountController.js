@@ -22,18 +22,29 @@ const getAllAccount = async (req, res) => {
 
 const getAccount = async (req, res) => {
     const { accountID } = req.params;
-    const { userID, role } = req;
 
-    let response; 
-    if(role === "user") {
-        response = await ACCOUNT.findById(userID);
-    } else{
-        response = await ACCOUNT.findOne({userID: accountID});
-    }
+    const response = await ACCOUNT.findOne({userID: accountID});
 
     if (!response) {
         return res.status(404).json({
             success: false, message: 'Account not found'
+        });
+    }
+
+    return res.status(200).json({
+        success: response ? true : false,
+        data: response ? response : 'Unable to retrieve this user'
+    });
+};
+
+const getCurrentAccount = async (req, res) => {
+    const userID = req.userID;
+
+    const response = await ACCOUNT.findById(userID);
+
+    if (!response) {
+        return res.status(401).json({
+            success: false, message: 'Not logged in yet'
         });
     }
 
@@ -113,13 +124,19 @@ const login = async (req, res) => {
 const updateAccount = async (req, res) => {
     const { accountID } = req.params;
     const { userName, userPhone, userAddress } = req.body;
+    const { userID, role } = req;
 
     try {
-        const user = await ACCOUNT.findOne({userID: accountID});
+        let user; 
+        if(role === "user") {
+            user = await ACCOUNT.findById(userID);
+        } else{
+            user = await ACCOUNT.findOne({userID: accountID});
+        }
 
-        if (userName) user.userName = userName;
-        if (userPhone) user.userPhone = userPhone;
-        if (userAddress) user.userAddress = userAddress;
+        user.userName = userName;
+        user.userPhone = userPhone;
+        user.userAddress = userAddress;
 
         await user.save();
 
@@ -157,5 +174,5 @@ const logout = async (req, res) => {
 };
 
 module.exports = {
-    getAllAccount, getAccount, register, deleteAccount, login, updateAccount, logout
+    getAllAccount, getAccount, register, deleteAccount, login, updateAccount, logout, getCurrentAccount
 };

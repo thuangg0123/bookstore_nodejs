@@ -225,7 +225,7 @@
     </footer>
 
     <script src="/js/convertOrderStatus.js"></script>
-    <script src="/js/formatNumber.js"></script>
+    <script src="/js/format.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParts = window.location.pathname.split('/');
@@ -259,7 +259,7 @@
                     <div class="order-product-info-description">
                         <h3>${book.bookName}</h3>
                         <p>Số lượng: ${orderItem.quantity}</p>
-                        <p>Giá: ${book.bookPrice}</p>
+                        <p>Giá: ${formatNumber(book.bookPrice)}</p>
                     </div>`;
 
                 orderProductList.appendChild(orderItemDiv);

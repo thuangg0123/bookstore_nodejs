@@ -15,10 +15,9 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/js/slide.js"></script>
-    <script src="/js/validate.js"></script>
-
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
+    <script src="/js/ApiRequest.js"></script>
+    <script src="/js/validate.js"></script>
 </head>
 
 <body>
@@ -36,66 +35,40 @@
     </div>
     <div class="sidebar" id="sidebar">
         <ul>
-            <li class="btn-close-sidebar" onclick="closeSidebar()"><i class="fa-solid fa-x"></i></li>
-            <li><a href="#" class="sidebar-link" onclick="goToAdminHome()"><i class="fa-solid fa-home"></i> Trang chủ
-                    Admin</a>
+            <li class="btn-close-sidebar" onclick="closeSidebar()">
+                <i class="fa-solid fa-x"></i>
             </li>
-            <li><a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct"><i class="fa-brands fa-shopify"></i>
-                    Quản lý
-                    sản phẩm</a></li>
-            <li><a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder"><i class="fa-solid fa-box"></i>Quản lý
-                    đơn
-                    hàng</a></li>
-            <li><a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount"><i class="fa-solid fa-users"></i>
-                    Quản
-                    lý
-                    tài khoản</a></li>
+            <li>
+                <a href="#" class="sidebar-link" onclick="goToAdminHome()">
+                    <i class="fa-solid fa-home"></i>
+                    Trang chủ Admin
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct">
+                    <i class="fa-brands fa-shopify"></i>
+                    Quản lý sản phẩm
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder">
+                    <i class="fa-solid fa-box"></i>
+                    Quản lý đơn hàng
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount">
+                    <i class="fa-solid fa-users"></i>
+                    Quản lý tài khoản
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="container container-m-order">
         <h1>Quản lý đơn hàng</h1>
 
-        <div class="container-order-card clear-fix">
-            <div class="order-card" th:each="order : ${orderList}">
-                <div class="order-image">
-                    <img th:src="${order.orderFirstBook.bookImage}" alt="Product img">
-                </div>
-                <div class="order-details">
-                    <div>
-                        <span style="font-weight: bold;">Mã đơn hàng:</span>
-                        <span class="order-code" th:text="${order.orderID}"></span>
-                    </div>
-                    <div>
-                        <span style="font-weight: bold;">Tên sản phẩm:</span>
-                        <span class="order-name" th:text="${order.orderFirstBook.bookName}"></span>
-                    </div>
-                    <div>
-                        <span class="order-name" th:text="'Và ' + ${order.orderItemQuantity - 1} + ' cuốn sách khác'"
-                            th:style="${order.orderItemQuantity - 1 == 0 ? 'display: none;' : ''}"></span>
-                    </div>
-                    <div>
-                        <span style="font-weight: bold;">Giá:</span>
-                        <span class="order-price" th:text="${order.orderPrice}"></span>
-                    </div>
-                    <div>
-                        <span style="font-weight: bold;">Trạng thái đơn hàng:</span>
-                        <span class="order-state" th:text="${order.orderStatus}"></span>
-                    </div>
-                    <div class="order-actions">
-                        <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)"
-                            th:id="${order.orderID}"
-                            th:style="${order.orderStatus == 'Đã hoàn thành' or order.orderStatus == 'Đã hủy' ? 'opacity: 0.5;' : ''}"
-                            th:disabled="${order.orderStatus == 'Đã hoàn thành' or order.orderStatus == 'Đã hủy'}">
-                            Cập nhật trạng thái
-                        </button>
-                        <a th:href="@{'/quantri/donhang/' + ${order.orderID}}">
-                            <button class=" btn btn-view-order" onclick="showOrderDetail()">Xem chi tiết</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+        <div class="container-order-card clear-fix" id="orderList">
             <div id="updateStatusModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeUpdateStatusModal()">&times;</span>
@@ -119,8 +92,74 @@
 
         </div>
     </div>
+
+    <script src="/js/format.js"></script>
+    <script src="/js/convertOrderStatus.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const response = await apiRequest("GET", "/order/");
+            if (response.success) {
+                const orderData = response.data;
+                console.log(orderData);
+                displayOrder(orderData);
+            }
+        });
+
+        function displayOrder(orderData) {
+            const orderList = document.getElementById("orderList");
+            orderData.forEach(order => {
+                let orderItemQuantityP;
+
+                const orderItemQuantity = order.orderItemQuantity - 1;
+                if (orderItemQuantity != 0) {
+                    orderItemQuantityP =
+                        `<div>
+                            <span class="order-name">Và ${orderItemQuantity} cuốn sách khác</span>
+                        </div>`;
+                }
+
+                const orderItem = document.createElement("div");
+                orderItem.className = "order-card";
+                orderItem.innerHTML =
+                    `<div class="order-image">
+                        <img src="${order.orderFirstBook.bookImage}" alt="Product img">
+                    </div>
+                    <div class="order-details">
+                        <div>
+                            <span style="font-weight: bold;">Mã đơn hàng:</span>
+                            <span class="order-code">${order.orderID}</span>
+                        </div>
+                        <div>
+                            <span style="font-weight: bold;">Tên sản phẩm:</span>
+                            <span class="order-name" ">${order.orderFirstBook.bookName}</span>
+                        </div>
+                        ${orderItemQuantityP !== undefined ? orderItemQuantityP : ''}
+                        <div>
+                            <span style="font-weight: bold;">Giá:</span>
+                            <span class="order-price">${formatNumber(order.orderTotal)} ₫</span>
+                        </div>
+                        <div>
+                            <span style="font-weight: bold;">Trạng thái đơn hàng:</span>
+                            <span class="order-state">${convertOrderStatus(order.orderStatus)}</span>
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)" id="${order.orderID}">
+                                Cập nhật trạng thái
+                            </button>
+                            <a href="/quantri/donhang/${order.orderID}">
+                                <button class=" btn btn-view-order" onclick="showOrderDetail()">Xem chi tiết</button>
+                            </a>
+                        </div>
+                    </div>`;
+
+                orderList.appendChild(orderItem);
+            });
+        }
+    </script>
 </body>
-<script src="../js/admin.js"></script>
+
+<script src="/js/admin.js"></script>
 <script>
     var sidebar = document.getElementById("sidebarOrder");
     sidebar.classList.add('active');

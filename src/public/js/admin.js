@@ -93,3 +93,20 @@ const btnDeleteAccount = () => {
         alert('Tài khoản đã được xóa.');
     }
 }
+
+function validateImageFile() {
+    var input = document.getElementById('image');
+    var errorMessage = document.getElementById('error-message');
+
+    if (input.files.length > 0) {
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+        var fileName = input.files[0].name;
+
+        if (!allowedExtensions.exec(fileName)) {
+            errorMessage.innerHTML = 'Chỉ chấp nhận các file ảnh có định dạng JPG, JPEG, PNG, hoặc GIF.';
+            input.value = '';
+        } else {
+            errorMessage.innerHTML = '';
+        }
+    }
+}

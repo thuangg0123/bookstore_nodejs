@@ -48,7 +48,7 @@
             const response = await apiRequest('POST', '/account/login', account);
             console.log(response)
             if (response.success) {
-                window.location.href = `/taikhoan`;
+                window.location.href = `/trangchu`;
             } else if (response === "404") {
                 alert(`Tài khoản ${userID} không tồn tại`);
             } else if (response === "401") {

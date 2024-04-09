@@ -1460,7 +1460,7 @@ body {
 }
 
 /* Responsive */
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
     .logo {
         width: 100px;
     }
@@ -1514,4 +1514,4 @@ body {
     .footer-info-item{
         padding: 0;
     }
-}
+} */

@@ -15,9 +15,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/js/slide.js"></script>
+    <script src="/js/ApiRequest.js"></script>
     <script src="/js/validate.js"></script>
-
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
 </head>
 
@@ -36,65 +35,97 @@
     </div>
     <div class="sidebar" id="sidebar">
         <ul>
-            <li class="btn-close-sidebar" onclick="closeSidebar()"><i class="fa-solid fa-x"></i></li>
-            <li><a href="#" class="sidebar-link" onclick="goToAdminHome()"><i class="fa-solid fa-home"></i> Trang chủ
-                    Admin</a>
+            <li class="btn-close-sidebar" onclick="closeSidebar()">
+                <i class="fa-solid fa-x"></i>
             </li>
-            <li><a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct"><i class="fa-brands fa-shopify"></i>
-                    Quản lý
-                    sản phẩm</a></li>
-            <li><a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder"><i class="fa-solid fa-box"></i>Quản lý
-                    đơn
-                    hàng</a></li>
-            <li><a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount"><i class="fa-solid fa-users"></i>
-                    Quản
-                    lý
-                    tài khoản</a></li>
+            <li>
+                <a href="#" class="sidebar-link" onclick="goToAdminHome()">
+                    <i class="fa-solid fa-home"></i>
+                    Trang chủ Admin
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/sanpham" class="sidebar-link" id="sidebarProduct">
+                    <i class="fa-brands fa-shopify"></i>
+                    Quản lý sản phẩm
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/donhang" class="sidebar-link" id="sidebarOrder">
+                    <i class="fa-solid fa-box"></i>
+                    Quản lý đơn hàng
+                </a>
+            </li>
+            <li>
+                <a href="/quantri/taikhoan" class="sidebar-link" id="sidebarAccount">
+                    <i class="fa-solid fa-users"></i>
+                    Quản lý tài khoản
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="container container-m-account">
         <h1>Quản lý tài khoản người dùng</h1>
-
-        <div class="container-account-card">
-            <div class="account-card" th:each="account : ${accountList}">
-                <div class="account-details">
-                    <table>
-                        <tr>
-                            <td><span style="font-weight: bold;">ID:</span></td>
-                            <td><span class="account-code" th:text="${account.userID}"></span></td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight: bold;">Họ và tên:</span></td>
-                            <td><span class="account-name" th:text="${account.userName}"></span></td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight: bold;">Email:</span></td>
-                            <td><span class="account-price" th:text="${account.userEmail}"></span></td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight: bold;">Số điện thoại: </span></td>
-                            <td><span class="account-remain" th:text="${account.userPhone}"></span></td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight: bold;">Địa chỉ</span></td>
-                            <td><span class="account-state" th:text="${account.userAddress}"></span></td>
-                        </tr>
-                    </table>
-                    <div class="account-actions">
-                        <a href="/quantri/taikhoan/chinhsua">
-                            <button class="btn btn-edit-account">Chỉnh sửa thông tin</button>
-                        </a>
-                        <a th:href="@{'/quantri/taikhoan/xoa/' + ${account.userID}}">
-                            <button class="btn btn-delete-account">Xóa</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="container-account-card" id="accountList"></div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadAccount();
+        });
+
+        async function loadAccount() {
+            const response = await apiRequest("GET", `/account/`);
+            if (response.success) {
+                const accountData = response.data;
+                displayAccount(accountData);
+            } else if (response === "500") {
+                alert("Server hiện đang có vấn đề , vui lòng thử lại sau");
+            }
+        }
+
+        async function displayAccount(accountData) {
+            const accountList = document.getElementById("accountList");
+            accountData.forEach(account => {
+                const accountItem = document.createElement("div");
+                accountItem.className = "account-card";
+                accountItem.innerHTML =
+                    `<div class="account-details">
+                        <table>
+                            <tr>
+                                <td><span style="font-weight: bold;">ID:</span></td>
+                                <td><span class="account-code">${account.userID}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-weight: bold;">Họ và tên:</span></td>
+                                <td><span class="account-name">${account.userName}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-weight: bold;">Số điện thoại: </span></td>
+                                <td><span class="account-remain">${account.userPhone}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-weight: bold;">Địa chỉ</span></td>
+                                <td><span class="account-state">${account.userAddress}</span></td>
+                            </tr>
+                        </table>
+                        <div class="account-actions">
+                            <a href="/quantri/taikhoan/chinhsua/${account.userID}">
+                                <button class="btn btn-edit-account">Chỉnh sửa thông tin</button>
+                            </a>
+                            <a th:href="/quantri/taikhoan/xoa/${account.userID}">
+                                <button class="btn btn-delete-account">Xóa</button>
+                            </a>
+                        </div>
+                    </div>`;
+
+                accountList.appendChild(accountItem);
+            });
+        }
+    </script>
 </body>
-<script src="../js/admin.js"></script>
+<script src="/js/admin.js"></script>
 <script>
     var sidebar = document.getElementById("sidebarAccount");
     sidebar.classList.add('active');

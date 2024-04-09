@@ -93,7 +93,8 @@ const addBook = async (req, res) => {
         const newBook = new BOOK({
             bookID: req.body.bookID,
             bookName: req.body.bookName,
-            bookImage: req.body.bookImage,
+            // bookImage: req.body.bookImage,
+            bookImage: "/img/product/demo-color.png",
             bookAuthor: req.body.bookAuthor,
             bookPrice: req.body.bookPrice,
             bookStock: req.body.bookStock,
@@ -112,6 +113,7 @@ const addBook = async (req, res) => {
             dataProduct: newBook ? newBook : 'Unable to add book'
         });
     } catch (error) {
+        console.log(error.message);
         return res.status(500).json({
             success: false,
             message: "An error occurred while adding the book",

@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     adminSection.style.display = "none";
     accountSection.style.display = "none";
 
-    const response = await apiRequest("GET", "/account/check");
+    const response = await apiRequest("GET", "/account/check/login");
+    console.log(response);
     if (response.success) {
         const account = response.data;
         if (account.isAdmin) {
@@ -19,11 +20,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const menuIcon = document.querySelector('.fa-bars');
-    const menuItems = document.querySelector('.menu-items');
-
-    menuIcon.addEventListener('click', function () {
-        menuItems.classList.toggle('active');
-    });
-});
