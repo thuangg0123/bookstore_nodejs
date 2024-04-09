@@ -112,7 +112,7 @@ const login = async (req, res) => {
             secretKey,
             { expiresIn: '24h' }
         );
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
+        res.cookie('jwt', token, { httpOnly: true, maxAge: 86400000 });
         return res.status(200).json({
             success: true,
             message: 'Login successful',

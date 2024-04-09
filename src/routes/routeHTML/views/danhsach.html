@@ -14,7 +14,6 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/js/format.js"></script>
     <script src="/js/ApiRequest.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- TikiTaka.com</title>
 </head>
@@ -193,20 +192,24 @@
         </div>
     </footer>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", async function () {
-            let response = await apiRequest("GET", "/book/");
-            const productList = response.data;
-            displayProduct(productList);
-        });
 
-        function displayProduct(productList) {
-            const productWrapper = document.getElementById("productWrapper");
-            productList.forEach(product => {
-                const productItem = document.createElement("div");
-                productItem.className = "product-item";
-                productItem.innerHTML =
-                    `<div class="product-img">
+</body>
+
+<script src="/js/format.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        let response = await apiRequest("GET", "/book/");
+        const productList = response.data;
+        displayProduct(productList);
+    });
+
+    function displayProduct(productList) {
+        const productWrapper = document.getElementById("productWrapper");
+        productList.forEach(product => {
+            const productItem = document.createElement("div");
+            productItem.className = "product-item";
+            productItem.innerHTML =
+                `<div class="product-img">
                         <a href="/danhsach/sach/${product.bookID}">
                             <img src="${product.bookImage}" alt="">
                         </a>
@@ -221,12 +224,10 @@
                         <p>Đã bán <span>${product.bookSold}</span></p>
                     </div>`;
 
-                productWrapper.appendChild(productItem);
-            });
-        }
-    </script>
-</body>
-
+            productWrapper.appendChild(productItem);
+        });
+    }
+</script>
 <script src="/js/main.js"></script>
 
 </html>

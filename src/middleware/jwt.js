@@ -19,6 +19,7 @@ const authenticateJWT = (req, res, next) => {
         if (err) {
             return res.status(403).json({ success: false, message: 'JWT authentication failed' });
         } else {
+            res.cookie('jwt', token, { httpOnly: true, maxAge: 86400000 });
             req.userID = decoded.userID;
             req.role = decoded.role;
             next();

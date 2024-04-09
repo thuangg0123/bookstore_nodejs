@@ -193,35 +193,36 @@
             </div>
         </div>
     </footer>
+</body>
 
-    <script src="/js/format.js"></script>
-    <script src="/js/convertOrderStatus.js"></script>
+<script src="/js/format.js"></script>
+<script src="/js/convertOrderStatus.js"></script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", async function () {
-            const urlParts = window.location.pathname.split('/');
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        const urlParts = window.location.pathname.split('/');
 
-            const response = await apiRequest("GET", `/order/`);
-            if (response.success) {
-                const orderData = response.data;
-                displayOrder(orderData);
+        const response = await apiRequest("GET", `/order/`);
+        if (response.success) {
+            const orderData = response.data;
+            displayOrder(orderData);
+        }
+    });
+
+    function displayOrder(orderData) {
+        const orderList = document.getElementById("orderList");
+        orderData.forEach(order => {
+            let orderItemQuantityP;
+
+            const orderItemQuantity = order.orderItemQuantity - 1;
+            if (orderItemQuantity != 0) {
+                orderItemQuantityP = `<p>Và ${orderItemQuantity} cuốn sách khác</p>`
             }
-        });
 
-        function displayOrder(orderData) {
-            const orderList = document.getElementById("orderList");
-            orderData.forEach(order => {
-                let orderItemQuantityP;
-
-                const orderItemQuantity = order.orderItemQuantity - 1;
-                if (orderItemQuantity != 0) {
-                    orderItemQuantityP = `<p>Và ${orderItemQuantity} cuốn sách khác</p>`
-                }
-
-                const orderItem = document.createElement("div");
-                orderItem.className = "order-item";
-                orderItem.innerHTML =
-                    `<div class="order-header">
+            const orderItem = document.createElement("div");
+            orderItem.className = "order-item";
+            orderItem.innerHTML =
+                `<div class="order-header">
                         <span class="order-id">Mã đơn hàng: ${order.orderID}</span>
                         <span class="order-state">Tình trạng: ${convertOrderStatus(order.orderStatus)}</span>
                         <div class="header-right">
@@ -242,12 +243,10 @@
                     </div>
                     <a href=/taikhoan/donhang/${order.orderID}><button class="view-detail">Xem chi tiết đơn hàng</button></a>`
 
-                orderList.appendChild(orderItem);
-            });
-        }
-    </script>
-</body>
-
+            orderList.appendChild(orderItem);
+        });
+    }
+</script>
 <script src="/js/main.js"></script>
 
 </html>

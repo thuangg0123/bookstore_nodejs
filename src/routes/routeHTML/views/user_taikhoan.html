@@ -229,46 +229,45 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            loadAccount();
-        });
-
-        async function loadAccount() {
-            const response = await apiRequest("GET", `/account/check/login`);
-            if (response.success) {
-                const accountData = response.data;
-
-                document.getElementById("hoten").value = accountData.userName;
-                document.getElementById("sdt").value = accountData.userPhone;
-                document.getElementById("diachi").value = accountData.userAddress;
-            } else if (response === "401") {
-                window.location.href = "/dangnhap";
-            }
-        }
-
-        async function changeInfo() {
-            const userName = document.getElementById("hoten").value;
-            const userPhone = document.getElementById("sdt").value;
-            const userAddress = document.getElementById("diachi").value;
-            
-            const account = {
-                userName: userName,
-                userPhone: userPhone,
-                userAddress: userAddress
-            };
-
-            const response = await apiRequest("PUT", "/account/id", account);
-            if (response.success) {
-                loadAccount();
-            } else if (response === "500") {
-                alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
-            }
-        }
-    </script>
 </body>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        loadAccount();
+    });
+
+    async function loadAccount() {
+        const response = await apiRequest("GET", `/account/check/login`);
+        if (response.success) {
+            const accountData = response.data;
+
+            document.getElementById("hoten").value = accountData.userName;
+            document.getElementById("sdt").value = accountData.userPhone;
+            document.getElementById("diachi").value = accountData.userAddress;
+        } else if (response === "401") {
+            window.location.href = "/dangnhap";
+        }
+    }
+
+    async function changeInfo() {
+        const userName = document.getElementById("hoten").value;
+        const userPhone = document.getElementById("sdt").value;
+        const userAddress = document.getElementById("diachi").value;
+
+        const account = {
+            userName: userName,
+            userPhone: userPhone,
+            userAddress: userAddress
+        };
+
+        const response = await apiRequest("PUT", "/account/id", account);
+        if (response.success) {
+            loadAccount();
+        } else if (response === "500") {
+            alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
+        }
+    }
+</script>
 <script src="/js/main.js"></script>
 
 </html>

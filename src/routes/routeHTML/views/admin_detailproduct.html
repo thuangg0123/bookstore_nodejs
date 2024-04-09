@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="/js/ApiRequest.js"></script>
     <script src="/js/validate.js"></script>
-
+    <script src="/js/product.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
 </head>
 
@@ -73,27 +73,27 @@
         <div class="productDetailContent_product-container">
         </div>
     </div>
+</body>
 
-    <script src="/js/format.js"></script>
+<script src="/js/format.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        const urlParts = window.location.pathname.split('/');
+        const bookID = urlParts[urlParts.length - 1];
 
-    <script>
-        document.addEventListener("DOMContentLoaded", async function () {
-            const urlParts = window.location.pathname.split('/');
-            const bookID = urlParts[urlParts.length - 1];
+        if (bookID) {
+            const response = await apiRequest("GET", `/book/${bookID}`);
+            const bookData = response.data;
+            displayBookDetails(bookData);
+        }
+    });
 
-            if (bookID) {
-                const response = await apiRequest("GET", `/book/${bookID}`);
-                const bookData = response.data;
-                displayBookDetails(bookData);
-            }
-        });
-
-        function displayBookDetails(book) {
-            const productWrapper = document.getElementById("content");
-            const productDetail = document.createElement("div");
-            productDetail.className = "productDetailContent_product-container";
-            productDetail.innerHTML =
-                `<div class="productDetailContent_product-image">
+    function displayBookDetails(book) {
+        const productWrapper = document.getElementById("content");
+        const productDetail = document.createElement("div");
+        productDetail.className = "productDetailContent_product-container";
+        productDetail.innerHTML =
+            `<div class="productDetailContent_product-image">
                     <img src="${book.bookImage}" alt="Product 1">
                 </div>
                 <div class="productDetailContent_product-details">
@@ -145,16 +145,29 @@
                         <a href="/quantri/sanpham/chinhsua/${book.bookID}">
                             <button class="btn btn-edit-product" onclick="">Chỉnh sửa thông tin</button>
                         </a>
-                        <a href="/quantri/sanpham/xoa/${book.bookID}">
-                            <button class="btn btn-delete-product" id="btn-delete-product">Xóa</button>
-                        </a>
+                        <button class="btn btn-delete-product" id="btn-delete-product" onclick="deleteProduct()">Xóa</button>
                     </div>
                 </div>`;
 
-            productWrapper.appendChild(productDetail);
-        };        
-    </script>
-</body>
+        productWrapper.appendChild(productDetail);
+    };
+
+
+    async function deleteProduct() {
+        const urlParts = window.location.pathname.split('/');
+        const bookID = urlParts[urlParts.length - 1];
+
+        if (confirm(`Bạn muốn xóa sản phẩm ${bookID}?`) == true) {
+            const response = await apiRequest("DELETE", `/book/${bookID}`);
+            if (response.success) {
+                alert(`Xóa sản phẩm ${bookID} thành công`);
+                window.location.href = "/quantri/sanpham";
+            } else if (response === "500") {
+                alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
+            }
+        }
+    }
+</script>
 <script src="/js/admin.js"></script>
 <script>
     var sidebar = document.getElementById("sidebarProduct");
