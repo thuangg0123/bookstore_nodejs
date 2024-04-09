@@ -63,13 +63,9 @@ router.get('/quantri/sanpham', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin_product.html'));
 });
 
-router.get(`/quantri/sanpham/chitiet`, (req, res) => {
+router.get("/quantri/sanpham/:bookID", (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin_detailproduct.html'));
 });
-
-// router.get(`/quantri/sanpham/${id}`, (req, res) => {
-//     res.sendFile(path.join(__dirname, 'views', 'giohang.html'));
-// });
 
 router.get('/quantri/sanpham/them', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin_addproduct.html'));

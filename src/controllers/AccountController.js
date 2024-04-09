@@ -5,7 +5,9 @@ const secretKey = 'mySecretKey123!@#';
 
 const getAllAccount = async (req, res) => {
     try {
-        const response = await ACCOUNT.find();
+        const accountData = await ACCOUNT.find();
+        const response = accountData.filter(account => !account.isAdmin);
+
         return res.status(200).json({
             success: true,
             message: "Successfully retrieved all users",
