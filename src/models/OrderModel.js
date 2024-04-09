@@ -11,9 +11,13 @@ const orderSchema = new Schema({
     orderItemQuantity: { type: Number, required: true },
     orderPhone: { type: String, required: true },
     orderAddress: { type: String, required: true }
-}, {
-    timestamps: true,
+}, { timestamps: true });
+
+orderSchema.pre('save', function (next) {
+    const currentTime = new Date();
+    const vietnamTime = new Date(currentTime.getTime() + (7 * 60 * 60 * 1000));
+    this.orderTime = vietnamTime;
+    next();
 });
 
-// Export the model
 module.exports = mongoose.model('Order', orderSchema);

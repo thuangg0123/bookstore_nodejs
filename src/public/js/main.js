@@ -19,3 +19,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const menuIcon = document.querySelector('.fa-bars');
+    const menuItems = document.querySelector('.menu-items');
+
+    menuIcon.addEventListener('click', function () {
+        menuItems.classList.toggle('active');
+    });
+});
