@@ -18,5 +18,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
         userOptionsSection.style.display = "block";
     }
+    
+    logout();
 });
 
+function logout() {
+    const btnLogout = document.getElementById("btnLogout");
+    const btnLogoutAdmin = document.getElementById("btnLogoutAdmin");
+
+    if(btnLogout) {btnLogout.addEventListener('click', () => logoutEvent())};
+    if(btnLogoutAdmin) {btnLogoutAdmin.addEventListener('click', () => logoutEvent())};
+
+    const logoutEvent = async () => {
+        const response = await apiRequest("POST", "/account/logout");
+        if(response.success) {
+            alert("Đăng xuất thành công");
+        } else{
+            alert("Server hiện đang có vấn đề, vui lòng thử lại sau");
+        }
+    }
+}
