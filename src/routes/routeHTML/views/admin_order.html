@@ -73,7 +73,7 @@
                 <div class="modal-content">
                     <span class="close" onclick="closeUpdateStatusModal()">&times;</span>
                     <h2>Cập nhật trạng thái</h2>
-                    <form id="updateStatusForm" action="/quantri/donhang/capnhantrangthai" method="post">
+                    <form id="updateStatusForm" action="" method="post">
                         <label for="orderStatus">Trạng thái đơn hàng:</label>
                         <select id="orderStatus" name="orderStatus">
                             <option value="0">Chưa xác nhận</option>
@@ -83,7 +83,7 @@
                             <option value="10">Hủy</option>
                         </select>
 
-                        <button type="submit" class="btn btn-save">Lưu</button>
+                        <button type="button" class="btn btn-save" onclick="updateOrderStatus()">Lưu</button>
                         <button type="button" class="btn btn-cancel" onclick="closeUpdateStatusModal()">Hủy</button>
                         <input type="text" name="ID" id="ID" style="display: none;" value="">
                     </form>
@@ -110,13 +110,17 @@
         const orderList = document.getElementById("orderList");
         orderData.forEach(order => {
             let orderItemQuantityP;
-
             const orderItemQuantity = order.orderItemQuantity - 1;
             if (orderItemQuantity != 0) {
                 orderItemQuantityP =
                     `<div>
                             <span class="order-name">Và ${orderItemQuantity} cuốn sách khác</span>
                         </div>`;
+            }
+
+            let orderStatusStyle;
+            if (order.orderStatus >= 3) {
+                orderStatusStyle = `style="opacity: 0.5;" disabled="disabled"`;
             }
 
             const orderItem = document.createElement("div");
@@ -144,7 +148,8 @@
                             <span class="order-state">${convertOrderStatus(order.orderStatus)}</span>
                         </div>
                         <div class="order-actions">
-                            <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)" id="${order.orderID}">
+                            <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)" id="${order.orderID}"
+                            ${orderStatusStyle !== undefined ? orderStatusStyle : ''}>
                                 Cập nhật trạng thái
                             </button>
                             <a href="/quantri/donhang/${order.orderID}">

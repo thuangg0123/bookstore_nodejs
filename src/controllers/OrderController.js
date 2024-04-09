@@ -124,15 +124,8 @@ const updateOrderStatus = async (req, res) => {
     try {
         const orderID = req.params;
         const { orderStatus } = req.body;
-
+        
         let order = await ORDER.findOne(orderID);
-
-        if (!order) {
-            return res.status(404).json({
-                success: false,
-                message: "Order not found"
-            });
-        }
 
         order.orderStatus = orderStatus;
         await order.save();

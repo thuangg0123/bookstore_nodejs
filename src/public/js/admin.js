@@ -38,7 +38,6 @@ const openUpdateStatusModal = (event) => {
     document.getElementById("ID").value = clickedButton.id;
     var updateStatusModal = document.getElementById('updateStatusModal')
     updateStatusModal.style.display = 'block';
-    // updateStatusModal.acction = "/quantri/donhang/capnhantrangthai/" + clickedButton.id
     console.log(document.getElementById("ID").value)
 }
 
@@ -46,33 +45,20 @@ const closeUpdateStatusModal = () => {
     document.getElementById('updateStatusModal').style.display = 'none';
 }
 
-const saveOrderStatus = () => {
-    event.preventDefault(); // Ngăn chặn form submit mặc định
-
-    // Lấy giá trị được chọn từ dropdown
+const updateOrderStatus = async () => {
     var orderStatus = document.getElementById("orderStatus").value;
-
-    // Lấy giá trị từ input ID
     var orderID = document.getElementById("ID").value;
 
-    // Gửi dữ liệu đến server bằng Fetch API
-    fetch('/your-endpoint', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ orderID: orderID, orderStatus: orderStatus })
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Dữ liệu đã gửi thành công:', data);
-            // Thực hiện các thao tác cần thiết sau khi gửi thành công
-        })
-        .catch(error => {
-            console.error('Lỗi khi gửi dữ liệu:', error);
-        });
+    const order = {
+        orderStatus: orderStatus
+    }
 
-    closeUpdateStatusModal();
+    const response = await apiRequest("PUT", `/order/${orderID}`, order);
+    if (response.success) {
+        window.location.reload();        
+    } else if (response === "500") {
+        alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
+    }
 }
 
 const btnDeleteProduct = () => {
