@@ -75,7 +75,7 @@ router.get('/quantri/sanpham/them', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'views', 'giohang.html'));
 // });
 
-router.get(`/quantri/sanpham/chinhsua`, (req, res) => {
+router.get("/quantri/sanpham/chinhsua/:bookID", (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin_editproduct.html'));
 });
 
