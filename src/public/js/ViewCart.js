@@ -1,3 +1,6 @@
+import { getBook } from './BookAPI.js';
+import { formatNumber } from './format.js';
+
 document.addEventListener("DOMContentLoaded", function () {
     const cartEmpty = document.getElementById("container-cart-empty");
     const cartBody = document.getElementById("cart-body");
@@ -15,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         goShopping(cartBody, cartEmpty)
     }
-
 });
 
 function goShopping(cartBody, cartEmpty) {
@@ -38,13 +40,17 @@ function viewCart(cart) {
     });
 
     cart.forEach(async (cartItem) => {
-        const response = await apiRequest("GET", `/book/${cartItem.bookID}`);
+        const response = await getBook(cartItem.bookID);
         const bookData = response.data;
 
         // Tạo thẻ div cho mỗi sản phẩm
         let productDiv = document.createElement("div");
         productDiv.className = "product-cart-item";
         productDiv.id = bookData.bookID;
+
+        let checkBox = document.createElement("input");
+        checkBox.type = "checkbox";
+        productDiv.appendChild(checkBox);
 
         // Tạo thẻ img cho hình ảnh sản phẩm
         let imgElement = document.createElement("img");
@@ -67,7 +73,7 @@ function viewCart(cart) {
         let bookPrice = bookData.bookPrice;
         let pElement = document.createElement("p");
         pElement.className = "product-price-cart";
-        pElement.textContent = convertNumberToCurrency(bookPrice);
+        pElement.textContent = `${formatNumber(bookPrice)} ₫`;
 
         detailsDiv.appendChild(pElement);
 
@@ -112,8 +118,8 @@ function viewCart(cart) {
         let totalDiv = document.createElement("div");
         totalDiv.className = "product-total";
         let tongTien = Number(bookPrice * quantity);
-
-        totalDiv.textContent = convertNumberToCurrency(tongTien);
+        
+        totalDiv.textContent = `${formatNumber(tongTien)} ₫`;
         productDiv.appendChild(totalDiv);
 
         // Tạo thẻ div cho nút xóa sản phẩm
@@ -137,27 +143,10 @@ function viewCart(cart) {
 
 function totalPrice(productPrice) {
     let divThanhTien = document.getElementById("thanhTien");
-    divThanhTien.innerText = convertNumberToCurrency(productPrice);
+    divThanhTien.innerText = `${formatNumber(productPrice)} ₫`;
 
     let divTotal = document.getElementById("total");
-    divTotal.innerText = convertNumberToCurrency(productPrice);
-}
-
-function convertCurrencyToNumber(currencyString) {
-    // Xóa ký tự '₫' và dấu phẩy (nếu có)
-    let cleanedString = currencyString.replace('₫', '').replace(/\./g, '');
-
-    // Chuyển đổi thành số nguyên
-    let convertedNumber = parseInt(cleanedString);
-
-    return isNaN(convertedNumber) ? 0 : convertedNumber;
-}
-
-function convertNumberToCurrency(number) {
-    // Định dạng số và thêm ký tự '₫'
-    let formattedCurrency = number.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-
-    return formattedCurrency;
+    divTotal.innerText = `${formatNumber(productPrice)} ₫`;
 }
 
 function deleteAllCart() {
@@ -197,4 +186,13 @@ function updateQuantityInLocalStorage(book, newQuantity) {
         localStorage.setItem('cart', JSON.stringify(cart));
         viewCart(cart);
     }
+}
+
+function checkTotal(clickedButton) {
+    const cartContainer = document.getElementById("cart-container");
+    const cartDiv = cartContainer.getElementsByClassName("product-cart-item");
+
+    Array.from(cartDiv).forEach(item => {
+        item.children[0].checked = clickedButton.checked;
+    });
 }

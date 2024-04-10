@@ -9,8 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="/js/ApiRequest.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script type="module" src="/js/main.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- TikiTaka.com</title>
 </head>
 
@@ -44,7 +48,7 @@
                             <span>Tài khoản</span>
                         </div>
                         <div class="account-options">
-                            <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
+                            <a href="/taikhoan"><button id="btnAccountInfo" class="btn">Thông tin tài
                                     khoản</button></a>
                             <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
                         </div>
@@ -72,60 +76,18 @@
         </nav>
     </header>
 
-    <div class="container">
-        <div class="container-info">
-            <nav class="sidebar">
-                <div class="slidebar-title">
-                    <h2>TÀI KHOẢN</h2>
+    <div class="container gallery-container">
+        <div class="director">
+            <a href="/" style="color: #C92127">Trang chủ</a>
+            <i class="fa-solid fa-angle-right"></i>
+            <a href="" style="color: #000;">Danh sách sản phẩm</a>
+        </div>
+        <div class="gallery">
+            <h2>Danh sách sản phẩm</h2>
+            <div class="gallery-wrapper">
+                <div>
+                    <div class="product-wrapper" id="productWrapper"></div>
                 </div>
-                <div class="slidebar-content">
-                    <ul>
-                        <li><a href="/taikhoan/thongtin" id="user-info-link" class="selected">Thông tin tài khoản</a>
-                        </li>
-                        <li><a href="/taikhoan/donhang" id="user-order-link">Đơn hàng của tôi</a></li>
-                    </ul>
-                </div>
-            </nav>
-
-            <div class="right-content" id="user-info">
-                <h2>THÔNG TIN TÀI KHOẢN</h2>
-                <form action="" method="post">
-                    <div class="form-group-info">
-                        <label for="hoten">Họ và tên:</label>
-                        <input type="text" id="hoten" name="hoten">
-                    </div>
-                    <div class="form-group-info">
-                        <label for="sdt">Số điện thoại:</label>
-                        <input type="tel" id="sdt" name="sdt">
-                    </div>
-                    <div class="form-group-info">
-                        <label for="diachi">Địa chỉ:</label>
-                        <input type="diachi" id="diachi" name="diachi">
-                    </div>
-
-                    <!-- <a href="/taikhoan/doimatkhau">
-                        <button id="change-password" name="change-password">Đổi mật khẩu</button>
-                    </a>
-
-                    <div class="password-fields">
-                        <div class="form-group-info">
-                            <label for="current-password">Mật khẩu hiện tại:</label>
-                            <input type="password" id="current-password" name="current-password"
-                                placeholder="Mật khẩu hiện tại">
-                        </div>
-                        <div class="form-group-info">
-                            <label for="new-password">Mật khẩu mới:</label>
-                            <input type="password" id="new-password" name="new-password" placeholder="Mật khẩu mới">
-                        </div>
-                        <div class="form-group-info">
-                            <label for="confirm-password">Nhập lại mật khẩu mới:</label>
-                            <input type="password" id="confirm-password" name="confirm-password"
-                                placeholder="Nhập lại mật khẩu mới">
-                        </div>
-                    </div> -->
-
-                    <button type="button" class="btn-save" onclick="changeInfo()">Lưu thay đổi</button>
-                </form>
             </div>
         </div>
     </div>
@@ -185,21 +147,21 @@
                     <div class="footer-info-item">
                         <h2>DỊCH VỤ</h2>
                         <ul>
-                            <li><a href="">Điều khoản sử dụng</a></li>
-                            <li><a href="">Chính sách bảo mật thông tin cá nhân</a></li>
-                            <li><a href="">Chính sách bảo mật thanh toán</a></li>
-                            <li><a href="">Giới thiệu Fahasa</a></li>
-                            <li><a href="">Hệ thống trung tâm - nhà sách</a></li>
+                            <li><a href="/">Điều khoản sử dụng</a></li>
+                            <li><a href="/">Chính sách bảo mật thông tin cá nhân</a></li>
+                            <li><a href="/">Chính sách bảo mật thanh toán</a></li>
+                            <li><a href="/">Giới thiệu Fahasa</a></li>
+                            <li><a href="/">Hệ thống trung tâm - nhà sách</a></li>
                         </ul>
                     </div>
                     <div class="footer-info-item">
                         <h2>HỖ TRỢ</h2>
                         <ul>
-                            <li><a href="">Chính sách đổi - trả - hoàn tiền</a></li>
-                            <li><a href="">Chính sách bảo hành - bồi hoàn</a></li>
-                            <li><a href="">Chính sách vận chuyển</a></li>
-                            <li><a href="">Chính sách khách sỉ</a></li>
-                            <li><a href="">Phương thức thanh toán và xuất HĐ</a></li>
+                            <li><a href="/">Chính sách đổi - trả - hoàn tiền</a></li>
+                            <li><a href="/">Chính sách bảo hành - bồi hoàn</a></li>
+                            <li><a href="/">Chính sách vận chuyển</a></li>
+                            <li><a href="/">Chính sách khách sỉ</a></li>
+                            <li><a href="/">Phương thức thanh toán và xuất HĐ</a></li>
                         </ul>
                     </div>
                     <div class="footer-info-item">
@@ -231,43 +193,6 @@
     </footer>
 </body>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        loadAccount();
-    });
-
-    async function loadAccount() {
-        const response = await apiRequest("GET", `/account/check/login`);
-        if (response.success) {
-            const accountData = response.data;
-
-            document.getElementById("hoten").value = accountData.userName;
-            document.getElementById("sdt").value = accountData.userPhone;
-            document.getElementById("diachi").value = accountData.userAddress;
-        } else if (response === "401") {
-            window.location.href = "/dangnhap";
-        }
-    }
-
-    async function changeInfo() {
-        const userName = document.getElementById("hoten").value;
-        const userPhone = document.getElementById("sdt").value;
-        const userAddress = document.getElementById("diachi").value;
-
-        const account = {
-            userName: userName,
-            userPhone: userPhone,
-            userAddress: userAddress
-        };
-
-        const response = await apiRequest("PUT", "/account/id", account);
-        if (response.success) {
-            loadAccount();
-        } else if (response === "500") {
-            alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
-        }
-    }
-</script>
-<script src="/js/main.js"></script>
+<script type="module" src="/js/ProductList.js"></script>
 
 </html>

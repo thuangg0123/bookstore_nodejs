@@ -1,3 +1,5 @@
+import { getCurrentAccount, logout } from './AccountAPI.js';
+
 document.addEventListener("DOMContentLoaded", async () => {
     const userOptionsSection = document.getElementById("userOptionsSection");
     const adminSection = document.getElementById("adminSection");
@@ -6,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     adminSection.style.display = "none";
     accountSection.style.display = "none";
 
-    const response = await apiRequest("GET", "/account/check/login");
+    const response = await getCurrentAccount();
     if (response.success) {
         const account = response.data;
         if (account.isAdmin) {
@@ -18,10 +20,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         userOptionsSection.style.display = "block";
     }
 
-    logout();
+    setEventLogout();
 });
 
-function logout() {
+function setEventLogout() {
     const btnLogout = document.getElementById("btnLogout");
     const btnLogoutAdmin = document.getElementById("btnLogoutAdmin");
 
@@ -29,7 +31,7 @@ function logout() {
     if (btnLogoutAdmin) { btnLogoutAdmin.addEventListener('click', () => logoutEvent()) };
 
     const logoutEvent = async () => {
-        const response = await apiRequest("POST", "/account/logout");
+        const response = await logout();
         if (response.success) {
             alert("Đăng xuất thành công");
         } else {

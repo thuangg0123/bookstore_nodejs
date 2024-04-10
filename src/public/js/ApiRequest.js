@@ -1,6 +1,6 @@
 let API_URL = "/api";
 
-const apiRequest = async (method, path, body = null) => {
+export const apiRequest = async (method, path, body = null) => {
   const options = {
     method,
     headers: {
@@ -23,5 +23,4 @@ const apiRequest = async (method, path, body = null) => {
   } catch (error) {
     return error.message;
   }
-
 };

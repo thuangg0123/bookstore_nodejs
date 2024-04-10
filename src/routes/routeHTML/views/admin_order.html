@@ -16,8 +16,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
-    <script src="/js/ApiRequest.js"></script>
-    <script src="/js/validate.js"></script>
+    <script type="module" src="/js/validate.js"></script>
+    <script src="/js/sidebar.js"></script>
 </head>
 
 <body>
@@ -71,7 +71,7 @@
         <div class="container-order-card clear-fix" id="orderList">
             <div id="updateStatusModal" class="modal">
                 <div class="modal-content">
-                    <span class="close" onclick="closeUpdateStatusModal()">&times;</span>
+                    <span class="close">&times;</span>
                     <h2>Cập nhật trạng thái</h2>
                     <form id="updateStatusForm" action="" method="post">
                         <label for="orderStatus">Trạng thái đơn hàng:</label>
@@ -83,8 +83,8 @@
                             <option value="10">Hủy</option>
                         </select>
 
-                        <button type="button" class="btn btn-save" onclick="updateOrderStatus()">Lưu</button>
-                        <button type="button" class="btn btn-cancel" onclick="closeUpdateStatusModal()">Hủy</button>
+                        <button type="button" class="btn btn-save">Lưu</button>
+                        <button type="button" class="btn btn-cancel">Hủy</button>
                         <input type="text" name="ID" id="ID" style="display: none;" value="">
                     </form>
                 </div>
@@ -94,74 +94,7 @@
     </div>
 </body>
 
-<script src="/js/format.js"></script>
-<script src="/js/convertOrderStatus.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", async function () {
-        const response = await apiRequest("GET", "/order/");
-        if (response.success) {
-            const orderData = response.data;
-            displayOrder(orderData);
-        }
-    });
-
-    function displayOrder(orderData) {
-        const orderList = document.getElementById("orderList");
-        orderData.forEach(order => {
-            let orderItemQuantityP;
-            const orderItemQuantity = order.orderItemQuantity - 1;
-            if (orderItemQuantity != 0) {
-                orderItemQuantityP =
-                    `<div>
-                            <span class="order-name">Và ${orderItemQuantity} cuốn sách khác</span>
-                        </div>`;
-            }
-
-            let orderStatusStyle;
-            if (order.orderStatus >= 3) {
-                orderStatusStyle = `style="opacity: 0.5;" disabled="disabled"`;
-            }
-
-            const orderItem = document.createElement("div");
-            orderItem.className = "order-card";
-            orderItem.innerHTML =
-                `<div class="order-image">
-                        <img src="${order.orderFirstBook.bookImage}" alt="Product img">
-                    </div>
-                    <div class="order-details">
-                        <div>
-                            <span style="font-weight: bold;">Mã đơn hàng:</span>
-                            <span class="order-code">${order.orderID}</span>
-                        </div>
-                        <div>
-                            <span style="font-weight: bold;">Tên sản phẩm:</span>
-                            <span class="order-name" ">${order.orderFirstBook.bookName}</span>
-                        </div>
-                        ${orderItemQuantityP !== undefined ? orderItemQuantityP : ''}
-                        <div>
-                            <span style="font-weight: bold;">Giá:</span>
-                            <span class="order-price">${formatNumber(order.orderTotal)} ₫</span>
-                        </div>
-                        <div>
-                            <span style="font-weight: bold;">Trạng thái đơn hàng:</span>
-                            <span class="order-state">${convertOrderStatus(order.orderStatus)}</span>
-                        </div>
-                        <div class="order-actions">
-                            <button class="btn btn-edit-product" onclick="openUpdateStatusModal(event)" id="${order.orderID}"
-                            ${orderStatusStyle !== undefined ? orderStatusStyle : ''}>
-                                Cập nhật trạng thái
-                            </button>
-                            <a href="/quantri/donhang/${order.orderID}">
-                                <button class=" btn btn-view-order" onclick="showOrderDetail()">Xem chi tiết</button>
-                            </a>
-                        </div>
-                    </div>`;
-
-            orderList.appendChild(orderItem);
-        });
-    }
-</script>
-<script src="/js/admin.js"></script>
+<script type="module" src="/js/AdminOrder.js"></script>
 <script>
     var sidebar = document.getElementById("sidebarOrder");
     sidebar.classList.add('active');

@@ -10,7 +10,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="img/logo/logo.png">
     <title>Đăng nhập</title>
-    <script src="/js/ApiRequest.js"></script>
 </head>
 
 <body>
@@ -29,34 +28,13 @@
                 <label for="login-password">Mật khẩu*:</label>
                 <input type="password" id="login-password" name="login-password" required placeholder="Mật khẩu">
 
-                <button type="button" onclick="login()">Đăng nhập</button>
+                <button type="button" id="loginButton">Đăng nhập</button>
                 <p>Thành viên mới?<a href="/dangky"> Đăng kí tại đây</a></p>
             </form>
         </div>
     </div>
 </body>
 
-<script>
-    async function login() {
-        const userID = document.getElementById("login-username").value;
-        const userPassword = document.getElementById("login-password").value;
-
-        const account = {
-            userID: userID,
-            userPassword: userPassword
-        };
-
-        const response = await apiRequest('POST', '/account/login', account);
-        if (response.success) {
-            window.location.href = `/trangchu`;
-        } else if (response === "404") {
-            alert(`Tài khoản ${userID} không tồn tại`);
-        } else if (response === "401") {
-            alert("Tên đăng nhập hoặc mật khẩu không chỉnh xác");
-        } else if (response === "500") {
-            alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
-        }
-    }
-</script>
+<script type="module" src="/js/Login.js"></script>
 
 </html>

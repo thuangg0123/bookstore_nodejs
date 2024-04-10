@@ -9,13 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/js/ApiRequest.js"></script>
-    <script src="/js/checkCart.js"></script>
+    <script type="module" src="/js/main.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- TikiTaka.com</title>
 </head>
 
@@ -49,7 +43,7 @@
                             <span>Tài khoản</span>
                         </div>
                         <div class="account-options">
-                            <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
+                            <a href="/taikhoan"><button id="btnAccountInfo" class="btn">Thông tin tài
                                     khoản</button></a>
                             <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
                         </div>
@@ -77,57 +71,24 @@
         </nav>
     </header>
 
-    <div class="container cart" id="cart">
-        <div class="director">
-            <a href="/" style="color: #C92127">Trang chủ</a>
-            <i class="fa-solid fa-angle-right"></i>
-            <a href="">Giỏ hàng</a>
-        </div>
-        <div>
-            <div class=" cart-heading">
-                <h2>GIỎ HÀNG</h2>
-            </div>
-            <div class="cart-body" id="cart-body">
-                <div class="cart-left">
-                    <div id="cart-container">
-                        <div class="cart-header">
-                            <div>
-                                <input type="checkbox" id="selectAllCheckbox">
-                                <label for="selectAllCheckbox">Chọn tất cả</label>
-                            </div>
-                            <div>
-                                <button class="deleteAllProduct" id="deleteSelected" onclick="deleteAllCart()">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
+    <div class="container">
+        <div class="container-info">
+            <nav class="sidebar">
+                <div class="slidebar-title">
+                    <h2>TÀI KHOẢN</h2>
+                </div>
+                <div class="slidebar-content">
+                    <ul>
+                        <li><a href="/taikhoan/thongtin" id="user-info-link">Thông tin tài khoản</a></li>
+                        <li><a href="/taikhoan/donhang" id="user-order-link" class="selected">Đơn hàng của tôi</a></li>
+                    </ul>
+                </div>
+            </nav>
 
-                    </div>
-                </div>
-                <div class="cart-right">
-                    <div class="box-checkout">
-                        <header>
-                            <span>Thành tiền</span>
-                            <span id="thanhTien">0đ</span>
-                        </header>
-                        <div class="total-vat">
-                            <div class="vat">Tổng số tiền (gồm VAT)</div>
-                            <div class="total" id="total">0đ</div>
-                        </div>
-                        <a href="/giohang/thanhtoan"><button class="checkout-btn">Thanh toán</button></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-cart-empty" id="container-cart-empty">
-            <div class="cart-empty">
-                <div class="img-empty"><img src="/img/cart-empty.svg" alt=""></div>
-            </div>
-            <div>
-                <p>Chưa có sản phẩm trong giỏ hàng của bạn.</p>
-            </div>
-            <div>
-                <button class="shopping-now" id="shopping-now">MUA SẮM NGAY</button>
+            <div class="right-content" id="user-order">
+                <h2>ĐƠN HÀNG CỦA TÔI</h2>
+
+                <div class="order-list" id="orderList"></div>
             </div>
         </div>
     </div>
@@ -187,21 +148,21 @@
                     <div class="footer-info-item">
                         <h2>DỊCH VỤ</h2>
                         <ul>
-                            <li><a href="/">Điều khoản sử dụng</a></li>
+                            <li><a href="">Điều khoản sử dụng</a></li>
                             <li><a href="">Chính sách bảo mật thông tin cá nhân</a></li>
-                            <li><a href="/">Chính sách bảo mật thanh toán</a></li>
-                            <li><a href="/">Giới thiệu Fahasa</a></li>
-                            <li><a href="/">Hệ thống trung tâm - nhà sách</a></li>
+                            <li><a href="">Chính sách bảo mật thanh toán</a></li>
+                            <li><a href="">Giới thiệu Fahasa</a></li>
+                            <li><a href="">Hệ thống trung tâm - nhà sách</a></li>
                         </ul>
                     </div>
                     <div class="footer-info-item">
                         <h2>HỖ TRỢ</h2>
                         <ul>
-                            <li><a href="/">Chính sách đổi - trả - hoàn tiền</a></li>
-                            <li><a href="/">Chính sách bảo hành - bồi hoàn</a></li>
-                            <li><a href="/">Chính sách vận chuyển</a></li>
-                            <li><a href="/">Chính sách khách sỉ</a></li>
-                            <li><a href="/">Phương thức thanh toán và xuất HĐ</a></li>
+                            <li><a href="">Chính sách đổi - trả - hoàn tiền</a></li>
+                            <li><a href="">Chính sách bảo hành - bồi hoàn</a></li>
+                            <li><a href="">Chính sách vận chuyển</a></li>
+                            <li><a href="">Chính sách khách sỉ</a></li>
+                            <li><a href="">Phương thức thanh toán và xuất HĐ</a></li>
                         </ul>
                     </div>
                     <div class="footer-info-item">
@@ -216,10 +177,10 @@
                     <div class="footer-info-item">
                         <h2>LIÊN HỆ</h2>
                         <ul>
-                            <li><a href="/"><i class="fa-solid fa-location-dot"></i> 371 Nguyễn Kiệm, P.3, Q.Gò Vấp,
+                            <li><a href=""><i class="fa-solid fa-location-dot"></i> 371 Nguyễn Kiệm, P.3, Q.Gò Vấp,
                                     TP.HCM</a></li>
-                            <li><a href="/"><i class="fa-solid fa-envelope"></i> cskh@nhom1.com.vn</a></li>
-                            <li><a href="/"><i class="fa-solid fa-phone"></i> 19003636</a></li>
+                            <li><a href=""><i class="fa-solid fa-envelope"></i> cskh@nhom1.com.vn</a></li>
+                            <li><a href=""><i class="fa-solid fa-phone"></i> 19003636</a></li>
                         </ul>
                     </div>
                     <div class="footer-info-item">
@@ -233,8 +194,6 @@
     </footer>
 </body>
 
-<script src="/js/editCart.js"></script>
-<script src="/js/quantity.js"></script>
-<script src="/js/main.js"></script>
+<script type="module" src="/js/UserOrder.js"></script>
 
 </html>

@@ -14,7 +14,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="/js/ApiRequest.js"></script>
+    <script type="module" src="/js/main.js"></script>
+    <script src="/js/cart.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- TikiTaka.com</title>
 </head>
 
@@ -48,7 +49,7 @@
                             <span>Tài khoản</span>
                         </div>
                         <div class="account-options">
-                            <a href="/taikhoan"><button id="btnAccountInfo" class="btn">Thông tin tài
+                            <a href="/taikhoan/thongtin"><button id="btnAccountInfo" class="btn">Thông tin tài
                                     khoản</button></a>
                             <a href="/dangxuat"><button id="btnLogout" class="btn">Đăng xuất</button></a>
                         </div>
@@ -80,15 +81,97 @@
         <div class="director">
             <a href="/" style="color: #C92127">Trang chủ</a>
             <i class="fa-solid fa-angle-right"></i>
-            <a href="" style="color: #000;">Danh sách sản phẩm</a>
+            <a href="/danhsach" style="color: #C92127;">Danh sách sản phẩm</a>
+            <i class="fa-solid fa-angle-right"></i>
+            <a href="" style="color: #000;"></a>
         </div>
-        <div class="gallery">
-            <h2>Danh sách sản phẩm</h2>
-            <div class="gallery-wrapper">
-                <div>
-                    <div class="product-wrapper" id="productWrapper"></div>
+        <div class="product-essential-container">
+            <div class="product-essential">
+                <div class="product-essential-media">
+                    <div class="product-view-image">
+                        <div class="product-view-thumbnail">
+                            <div id="lightgallery-product-media" class="lightgallery">
+                                <a href="" id="lightgallery-item">
+                                    <img alt="" id="productImgSmall">
+                                </a>
+                            </div>
+                            <div class="product-view-image-product">
+                                <img alt="" id="productImgThumb">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h1 id="productName"></h1>
+                    <div>
+                        <p class="product-info-supplier">
+                            Nhà xuất bản: <span></span>
+                        </p>
+                        <p class="product-info-author">Tác giả: <span></span></p>
+                    </div>
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <span>Đánh Giá: 4/5</span>
+                    </div>
+                    <div class="product-info-price" id="productPrice"></div>
+                    <div class="product-info-quantity">
+                        <button class="product-info-btn-quantity product-info-btn-minus" id="btn-minus-quantity"><i
+                                class="fa-solid fa-minus"></i></button>
+                        <input class="product-info-quantity-input" type="number" value="1" min="1" id="quantityInput">
+                        <button class="product-info-btn-quantity product-info-btn-plus" id="btn-plus-quantity"><i
+                                class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <div class="product_view_add_box">
+                        <button class="add-to-cart" id="add-to-cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span>Thêm vào giỏ hàng</span>
+                        </button>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="product_view_content">
+            <div class="product-info-container">
+                <h2>Thông tin sản phẩm</h2>
+                <table class="product-info-table">
+                    <tr>
+                        <td>Mã hàng</td>
+                        <td id="productID"></td>
+                    </tr>
+                    <tr>
+                        <td>Tên Nhà Cung Cấp</td>
+                        <td id="product-info-supplier-td"></td>
+                    </tr>
+                    <tr>
+                        <td>Tác giả</td>
+                        <td id="product-info-author-td"></td>
+                    </tr>
+                    <tr>
+                        <td>Trọng lượng (gr)</td>
+                        <td id="product-info-weight-td"></td>
+                    </tr>
+                    <tr>
+                        <td>Kích Thước Bao Bì</td>
+                        <td id="product-info-size-td"></td>
+                    </tr>
+                    <tr>
+                        <td>Giới thiệu</td>
+                        <td id="product-info-introduce-td"></td>
+                    </tr>
+                </table>
+
+                <p class="product-info-note">Giá sản phẩm trên TikiTaka.com đã bao gồm thuế theo luật hiện hành. Bên
+                    cạnh
+                    đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như
+                    phụ phí đóng gói, phí vận chuyển, phụ phí hàng cồng kềnh,...</p>
+                <p class="product-info-note">Chính sách khuyến mãi trên TikiTaka.com không áp dụng cho Hệ thống Nhà sách
+                    TikiTaka trên toàn quốc</p>
+            </div>
+
         </div>
     </div>
 
@@ -176,10 +259,10 @@
                     <div class="footer-info-item">
                         <h2>LIÊN HỆ</h2>
                         <ul>
-                            <li><a href=""><i class="fa-solid fa-location-dot"></i> 371 Nguyễn Kiệm, P.3, Q.Gò Vấp,
+                            <li><a href="/"><i class="fa-solid fa-location-dot"></i> 371 Nguyễn Kiệm, P.3, Q.Gò Vấp,
                                     TP.HCM</a></li>
-                            <li><a href=""><i class="fa-solid fa-envelope"></i> cskh@nhom1.com.vn</a></li>
-                            <li><a href=""><i class="fa-solid fa-phone"></i> 19003636</a></li>
+                            <li><a href="/"><i class="fa-solid fa-envelope"></i> cskh@nhom1.com.vn</a></li>
+                            <li><a href="/"><i class="fa-solid fa-phone"></i> 19003636</a></li>
                         </ul>
                     </div>
                     <div class="footer-info-item">
@@ -191,43 +274,8 @@
             </div>
         </div>
     </footer>
-
-
 </body>
 
-<script src="/js/format.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", async function () {
-        let response = await apiRequest("GET", "/book/");
-        const productList = response.data;
-        displayProduct(productList);
-    });
-
-    function displayProduct(productList) {
-        const productWrapper = document.getElementById("productWrapper");
-        productList.forEach(product => {
-            const productItem = document.createElement("div");
-            productItem.className = "product-item";
-            productItem.innerHTML =
-                `<div class="product-img">
-                        <a href="/danhsach/sach/${product.bookID}">
-                            <img src="${product.bookImage}" alt="">
-                        </a>
-                    </div>
-                    <h3 class="product-name">
-                        <a href="danhsach/sach/${product.bookID}">${product.bookName}</a>
-                    </h3>
-                    <div class="product-price">
-                        <p><span>${formatNumber(product.bookPrice)} đ</span></p>
-                    </div>
-                    <div class="product-sold">
-                        <p>Đã bán <span>${product.bookSold}</span></p>
-                    </div>`;
-
-            productWrapper.appendChild(productItem);
-        });
-    }
-</script>
-<script src="/js/main.js"></script>
+<script type="module" src="/js/ProductDetails.js"></script>
 
 </html>
