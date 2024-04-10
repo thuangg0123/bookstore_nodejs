@@ -2,20 +2,18 @@ const formatNumber = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-const formatDate = (originalDate) => {
-    const date = new Date(originalDate);
+const formatDate = (originalDateTimeString) => {
+    // Tách phần ngày giờ từ chuỗi ban đầu
+    const parts = originalDateTimeString.split('T');
+    const datePart = parts[0];
+    const timePart = parts[1].split('.')[0];
 
-    const day = padZero(date.getDate());
-    const month = padZero(date.getMonth() + 1);
-    const year = date.getFullYear();
-    const hours = padZero(date.getUTCHours());
-    const minutes = padZero(date.getUTCMinutes());
+    // Tách thành các thành phần ngày, tháng, năm, giờ, phút
+    const [year, month, day] = datePart.split('-');
+    const [hours, minutes] = timePart.split(':');
 
-    const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}`;
-    return formattedDate;
+    // Định dạng lại chuỗi ngày giờ theo yêu cầu
+    const formattedDateTimeString = `${day}-${month}-${year} ${hours}:${minutes}`;
 
-    // Hàm để thêm số 0 vào trước số nếu cần
-    function padZero(number) {
-        return number < 10 ? `0${number}` : number;
-    }
+    return formattedDateTimeString;
 }

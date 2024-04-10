@@ -5,14 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (btnMinus) {
         btnMinus.addEventListener('click', () => {
-            console.log("Minus clicked");
             updateQuantity(-1);
         });
     }
 
     if (btnPlus) {
         btnPlus.addEventListener('click', () => {
-            console.log("Plus clicked");
             updateQuantity(1);
         });
     }
@@ -22,9 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         quantityInput.addEventListener('input', () => {
             var maxQuantity = Number(quantityInput.getAttribute("max"));
 
-            console.log("Input change");
             var input = parseInt(quantityInput.value, 10);
-            console.log(input);
             if (input >= 1 && input <= maxQuantity) {
                 quantityInput.value = input;
             } else if (input <= 0 || isNaN(input)) {

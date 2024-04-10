@@ -47,7 +47,6 @@
         };
 
         const response = await apiRequest('POST', '/account/login', account);
-        console.log(response)
         if (response.success) {
             window.location.href = `/trangchu`;
         } else if (response === "404") {

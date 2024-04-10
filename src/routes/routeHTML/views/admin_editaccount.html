@@ -120,13 +120,13 @@
         const response = await apiRequest("GET", `/account/${accountID}`);
         if (response.success) {
             const accountData = response.data;
-            
+
             userID.value = accountData.userID;
             userName.value = accountData.userName;
             userPhone.value = accountData.userPhone;
             userAddress.value = accountData.userAddress;
         } else if (response === "401") {
-            
+
         }
     }
 

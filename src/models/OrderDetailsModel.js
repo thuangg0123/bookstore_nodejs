@@ -8,8 +8,8 @@ const orderDetailSchema = new Schema({
         quantity: { type: Number, required: true },
     }]
 },
-{
-    timestamps: true,
-});
+    {
+        timestamps: true,
+    });
 
 module.exports = mongoose.model('OrderDetail', orderDetailSchema);

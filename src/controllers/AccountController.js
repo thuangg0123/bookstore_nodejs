@@ -25,7 +25,7 @@ const getAllAccount = async (req, res) => {
 const getAccount = async (req, res) => {
     const { accountID } = req.params;
 
-    const response = await ACCOUNT.findOne({userID: accountID});
+    const response = await ACCOUNT.findOne({ userID: accountID });
 
     if (!response) {
         return res.status(404).json({
@@ -82,7 +82,7 @@ const register = async (req, res) => {
 const deleteAccount = async (req, res) => {
     const { accountID } = req.params;
     try {
-        const response = await ACCOUNT.findOneAndDelete({userID: accountID});
+        const response = await ACCOUNT.findOneAndDelete({ userID: accountID });
         return res.status(200).json({
             success: response ? true : false,
             data: response ? 'Successfully deleted account' : 'Unable to delete account'
@@ -129,11 +129,11 @@ const updateAccount = async (req, res) => {
     const { userID, role } = req;
 
     try {
-        let user; 
-        if(role === "user") {
+        let user;
+        if (role === "user") {
             user = await ACCOUNT.findById(userID);
-        } else{
-            user = await ACCOUNT.findOne({userID: accountID});
+        } else {
+            user = await ACCOUNT.findOne({ userID: accountID });
         }
 
         user.userName = userName;

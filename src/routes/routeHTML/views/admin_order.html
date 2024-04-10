@@ -101,7 +101,6 @@
         const response = await apiRequest("GET", "/order/");
         if (response.success) {
             const orderData = response.data;
-            console.log(orderData);
             displayOrder(orderData);
         }
     });

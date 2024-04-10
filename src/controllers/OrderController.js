@@ -1,6 +1,6 @@
 const ORDER = require('../models/OrderModel');
+const BOOK = require('../models/BookModel');
 const ID_GENERATOR = require('../services/IDGenerator');
-var ObjectId = require('mongoose').Types.ObjectId;
 
 const getAllOrder = async (req, res) => {
     try {
@@ -22,10 +22,11 @@ const getAllOrder = async (req, res) => {
                 if (order.userID._id.toString() === userID) {
                     response.push(order);
                 }
-            } else{
+            } else {
                 response.push(order);
             }
         });
+        response.sort((a, b) => b.orderTime - a.orderTime);
 
         return res.status(200).json({
             success: response ? true : false,
@@ -40,65 +41,33 @@ const getAllOrder = async (req, res) => {
     }
 };
 
-const getOrder = async (req, res) => {
-    try {
-        const orderID = req.params.orderID;
-        const { userID, role } = req;
-
-        let query = { orderID: orderID };
-
-        if (role !== 'admin') {
-            query.userID = userID;
-        }
-
-        const response = await ORDER.findOne(query)
-            .populate({
-                path: "userID",
-                select: "-isAdmin -userPassword -userID -userPhone -userAddress -createdAt -updatedAt -__v"
-            })
-            .populate({
-                path: "orderFirstBook",
-                select: "-bookAuthor -bookPublisher -bookSold -bookStock -bookWeight -bookSize -bookIntroduction -bookkPrice -booID -__v -createdAt -updatedAt"
-            });
-
-        if (!response) {
-            return res.status(404).json({
-                success: false, message: 'Order not found'
-            });
-        }
-
-        return res.status(200).json({
-            success: true,
-            data: response
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: 'An error occurred, please try again later...',
-            error: error.message
-        });
-    }
-};
-
 const createOrder = async (req, res) => {
     try {
-        const data = req.body;
-        console.log(req);
+        const orderData = req.body;
+
         let orderID = ID_GENERATOR.IDOrder();
         while (await ORDER.findOne({ orderID })) {
             orderID = ID_GENERATOR.IDOrder();
+        }
+
+        const bookID = orderData.orderFirstBook;
+        const bookResponse = await BOOK.findOne({ bookID });
+
+        let orderStatus = 0;
+        if (orderData.orderStatus != "cod") {
+            orderStatus = 1
         }
 
         const newOrder = await ORDER.create({
             orderID: orderID,
             userID: req.userID,
             orderTime: new Date(),
-            orderStatus: 0,
-            orderFirstBook: data.orderFirstBook,
-            orderTotal: data.orderTotal,
-            orderItemQuantity: data.orderItemQuantity,
-            orderPhone: data.orderPhone,
-            orderAddress: data.orderAddress
+            orderStatus: orderStatus,
+            orderFirstBook: bookResponse._id,
+            orderTotal: orderData.orderTotal,
+            orderItemQuantity: orderData.orderItemQuantity,
+            orderPhone: orderData.orderPhone,
+            orderAddress: orderData.orderAddress
         });
 
         const populatedOrder = await ORDER.findById(newOrder._id)
@@ -124,7 +93,7 @@ const updateOrderStatus = async (req, res) => {
     try {
         const orderID = req.params;
         const { orderStatus } = req.body;
-        
+
         let order = await ORDER.findOne(orderID);
 
         order.orderStatus = orderStatus;
@@ -144,5 +113,5 @@ const updateOrderStatus = async (req, res) => {
 };
 
 module.exports = {
-    getAllOrder, getOrder, createOrder, updateOrderStatus
+    getAllOrder, createOrder, updateOrderStatus
 };

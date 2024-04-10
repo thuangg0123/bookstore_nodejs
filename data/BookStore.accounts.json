@@ -1,54 +1,56 @@
-[{
-  "_id": {
-    "$oid": "660f5cadeacad9bce842a401"
+[
+  {
+    "_id": {
+      "$oid": "660f5cadeacad9bce842a401"
+    },
+    "userID": "user1",
+    "userName": "Tester1",
+    "userPhone": "0123456789",
+    "userAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM",
+    "isAdmin": false,
+    "userPassword": "$2b$10$m32flMccJBj/uvonwB2INOGQf6/NryrSBypXseAnieqb22l2FdA4O",
+    "createdAt": {
+      "$date": "2024-04-05T02:06:37.536Z"
+    },
+    "updatedAt": {
+      "$date": "2024-04-05T02:06:37.536Z"
+    },
+    "__v": 0
   },
-  "userID": "user1",
-  "userName": "Tester1",
-  "userPhone": "0123456789",
-  "userAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM",
-  "isAdmin": false,
-  "userPassword": "$2b$10$m32flMccJBj/uvonwB2INOGQf6/NryrSBypXseAnieqb22l2FdA4O",
-  "createdAt": {
-    "$date": "2024-04-05T02:06:37.536Z"
+  {
+    "_id": {
+      "$oid": "660f5cadeacad9bce842a402"
+    },
+    "userID": "user2",
+    "userName": "Tester2",
+    "userPhone": "0123456789",
+    "userAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM",
+    "isAdmin": false,
+    "userPassword": "$2b$10$m32flMccJBj/uvonwB2INOGQf6/NryrSBypXseAnieqb22l2FdA4O",
+    "createdAt": {
+      "$date": "2024-04-05T02:06:37.536Z"
+    },
+    "updatedAt": {
+      "$date": "2024-04-05T02:06:37.536Z"
+    },
+    "__v": 0
   },
-  "updatedAt": {
-    "$date": "2024-04-05T02:06:37.536Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "660f5cadeacad9bce842a402"
-  },
-  "userID": "user2",
-  "userName": "Tester2",
-  "userPhone": "0123456789",
-  "userAddress": "371 Nguyễn Kiệm, P.3, Q.Gò Vấp, TP.HCM",
-  "isAdmin": false,
-  "userPassword": "$2b$10$m32flMccJBj/uvonwB2INOGQf6/NryrSBypXseAnieqb22l2FdA4O",
-  "createdAt": {
-    "$date": "2024-04-05T02:06:37.536Z"
-  },
-  "updatedAt": {
-    "$date": "2024-04-05T02:06:37.536Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "660f5cdceacad9bce842a404"
-  },
-  "userID": "admin",
-  "userName": "admin",
-  "userPhone": "",
-  "userAddress": "",
-  "isAdmin": true,
-  "userPassword": "$2b$10$fy9opmIlJ6byFSgTDOn8peexlxLaHq3o/KmWRbUPECNXpL9gZ0AJ6",
-  "createdAt": {
-    "$date": "2024-04-05T02:07:24.483Z"
-  },
-  "updatedAt": {
-    "$date": "2024-04-05T02:07:24.483Z"
-  },
-  "__v": 0
-}]
+  {
+    "_id": {
+      "$oid": "660f5cdceacad9bce842a404"
+    },
+    "userID": "admin",
+    "userName": "admin",
+    "userPhone": "",
+    "userAddress": "",
+    "isAdmin": true,
+    "userPassword": "$2b$10$fy9opmIlJ6byFSgTDOn8peexlxLaHq3o/KmWRbUPECNXpL9gZ0AJ6",
+    "createdAt": {
+      "$date": "2024-04-05T02:07:24.483Z"
+    },
+    "updatedAt": {
+      "$date": "2024-04-05T02:07:24.483Z"
+    },
+    "__v": 0
+  }
+]

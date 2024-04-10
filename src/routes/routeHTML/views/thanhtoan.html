@@ -114,12 +114,12 @@
                         <input type="text" id="address" name="address" class="checkout-input"
                             th:value="${account.userAddress}" required>
                     </div>
-                    <button type="submit" class="checkout-btn" onclick="postData(event)">Đặt hàng</button>
+                    <button type="submit" class="checkout-btn" onclick="checkout(event)">Đặt hàng</button>
                 </form>
                 <div class="payment-method-box">
                     <h2>PHƯƠNG THỨC THANH TOÁN</h2>
                     <label>
-                        <input type="radio" name="payment-method" value="cod" checked>
+                        <input type="radio" name="payment-method" value="cod">
                         <img src="/img/cash.svg" alt="">Thanh toán khi nhận hàng (COD)
                     </label>
                     <label>
@@ -250,39 +250,48 @@
         }
     }
 
-    function postData(event) {
+    async function checkout(event) {
         event.preventDefault();
-        console.log("Button clicked");
-        var productItems = document.querySelectorAll('.checkout-product-item');
-        var quantityElements = document.querySelectorAll('.checkout-product-item-qty span');
-        var priceTransient = document.getElementById('divThanhTien').innerText;
-        var phone = document.getElementById("phone").value;
-        var address = document.getElementById("address").value;
-        var paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
 
+        let productPriceString = document.getElementById('divThanhTien').innerText;
+        productPriceString = productPriceString.replace(/[.,₫]/g, '');
+        const productPrice = parseInt(productPriceString);
 
-        var bookList = [];
-        var priceList = [];
-        productItems.forEach(function (item) {
-            var bookID = item.id
-            bookList.push(bookID);
-            var quantity = item.querySelector('.checkout-product-item-qty span').innerText;
-            priceList.push(quantity)
-        });
+        const phone = document.getElementById("phone").value;
+        const address = document.getElementById("address").value;
+        const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
 
-        var data = {
-            "bookList": bookList,
-            "priceList": priceList,
-            "price": priceTransient,
-            "phone": phone,
-            "address": address,
-            "paymentMethod": paymentMethod
-        };
+        const cartJSON = localStorage.getItem("cart");
+        const cart = JSON.parse(cartJSON);
+        const orderItemQuantity = cart.length;
 
-        localStorage.removeItem("cart")
+        const order = {
+            "orderFirstBook": cart[0].bookID,
+            "orderTotal": productPrice,
+            "orderItemQuantity": orderItemQuantity,
+            "orderPhone": phone,
+            "orderAddress": address,
+            "orderStatus": paymentMethod
+        }
 
-        
-        window.location.href = "/taikhoan";
+        const orderResponse = await apiRequest('POST', '/order/', order);
+        if (orderResponse.success) {
+            const orderDetails = {
+                "orderID": orderResponse.data._id,
+                "orderItem": cart
+            }
+
+            const detailResponse = await apiRequest('POST', '/order-detail/', orderDetails);
+            if (detailResponse.success) {
+                localStorage.removeItem("cart")
+                window.location.href = `/taikhoan/donhang/${orderResponse.data.orderID}`;
+            } else if (detailResponse === "500") {
+                alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
+            }
+
+        } else if (orderResponse === "500") {
+            alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
+        }
     }
 </script>
 

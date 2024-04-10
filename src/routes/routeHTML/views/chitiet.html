@@ -291,7 +291,6 @@
     });
 
     function displayBookDetails(book) {
-        console.log(book);
         document.querySelector(".director").lastElementChild.innerHTML = book.bookName;
         document.getElementById('productName').innerText = book.bookName;
         document.getElementById('productPrice').innerText = formatNumber(book.bookPrice) + ' đ';

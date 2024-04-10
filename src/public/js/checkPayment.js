@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function checkItem(cart) {
     var thanhTien = 0;
     var container = document.getElementById("checkout-product");
-    console.log(container)
     cart.forEach(async function (cartItem) {
         const response = await apiRequest("GET", `/book/${cartItem.bookID}`);
         const bookData = response.data;
@@ -71,7 +70,6 @@ function checkItem(cart) {
         // Add the row to the table
         table.appendChild(row);
 
-        console.log(table);
         container.appendChild(table);
 
         totalPrice(thanhTien)

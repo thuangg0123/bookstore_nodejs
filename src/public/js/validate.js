@@ -1,6 +1,5 @@
 async function checkPermission() {
     const response = await apiRequest("GET", `/account/check/login`);
-    console.log(response)
     if (response.success) {
         const accountData = response.data;
         if (!accountData.isAdmin) {

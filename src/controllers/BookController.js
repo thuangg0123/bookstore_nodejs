@@ -21,7 +21,7 @@ const getAllBook = async (req, res) => {
 const getBook = async (req, res) => {
     try {
         const { bookID } = req.params;
-        const response = await BOOK.findOne({bookID}).select("-__v");
+        const response = await BOOK.findOne({ bookID }).select("-__v");
         return res.status(200).json({
             success: response ? true : false,
             message: response ? `Successfully retrieved book with id: ${bookID}` : `Error while retrieving book with id: ${bookID}`,
@@ -55,12 +55,12 @@ const deleteBook = async (req, res) => {
 
 const updateBook = async (req, res) => {
     const { bookID } = req.params;
-    const {bookName, bookImage, bookAuthor, bookPublisher, bookPrice, bookSold, bookStock, bookWeight, bookSize, bookIntroduction } = req.body;
+    const { bookName, bookImage, bookAuthor, bookPublisher, bookPrice, bookSold, bookStock, bookWeight, bookSize, bookIntroduction } = req.body;
 
     try {
         const response = await BOOK.findOneAndUpdate(
-            {bookID: bookID}, 
-            {bookID, bookName, bookImage, bookAuthor, bookPublisher, bookPrice, bookSold, bookStock, bookWeight, bookSize, bookIntroduction},
+            { bookID: bookID },
+            { bookID, bookName, bookImage, bookAuthor, bookPublisher, bookPrice, bookSold, bookStock, bookWeight, bookSize, bookIntroduction },
             { new: true }
         );
 
@@ -86,7 +86,7 @@ const addBook = async (req, res) => {
         }
 
         req.body.bookID = bookID
-        
+
         if (!req.body.bookPublisher) req.body.bookPublisher = "Không rõ";
         if (!req.body.bookWeight) req.body.bookWeight = 0.0;
         if (!req.body.bookSize) req.body.bookSize = "0x0cm";
@@ -113,7 +113,6 @@ const addBook = async (req, res) => {
             dataProduct: newBook ? newBook : 'Unable to add book'
         });
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({
             success: false,
             message: "An error occurred while adding the book",
@@ -131,10 +130,12 @@ const uploadBookImage = async (req, res) => {
 
         const imagesPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
         const response = await BOOK.findByIdAndUpdate(
-            bookID, 
-            {$push: 
-                { images: { $each: imagesPaths } }, 
-                bookImage: imagesPaths[0]},
+            bookID,
+            {
+                $push:
+                    { images: { $each: imagesPaths } },
+                bookImage: imagesPaths[0]
+            },
             { new: true }
         );
 

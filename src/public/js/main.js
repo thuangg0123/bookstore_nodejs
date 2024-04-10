@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     accountSection.style.display = "none";
 
     const response = await apiRequest("GET", "/account/check/login");
-    console.log(response);
     if (response.success) {
         const account = response.data;
         if (account.isAdmin) {
@@ -26,14 +25,14 @@ function logout() {
     const btnLogout = document.getElementById("btnLogout");
     const btnLogoutAdmin = document.getElementById("btnLogoutAdmin");
 
-    if(btnLogout) {btnLogout.addEventListener('click', () => logoutEvent())};
-    if(btnLogoutAdmin) {btnLogoutAdmin.addEventListener('click', () => logoutEvent())};
+    if (btnLogout) { btnLogout.addEventListener('click', () => logoutEvent()) };
+    if (btnLogoutAdmin) { btnLogoutAdmin.addEventListener('click', () => logoutEvent()) };
 
     const logoutEvent = async () => {
         const response = await apiRequest("POST", "/account/logout");
-        if(response.success) {
+        if (response.success) {
             alert("Đăng xuất thành công");
-        } else{
+        } else {
             alert("Server hiện đang có vấn đề, vui lòng thử lại sau");
         }
     }

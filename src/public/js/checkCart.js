@@ -104,7 +104,6 @@ function viewCart(cart) {
         quantityDiv.appendChild(quantityInput);
 
         productPrice = Number(productPrice) + Number(bookPrice * quantity);
-        console.log(productPrice);
 
         // Thêm div số lượng vào sản phẩm
         productDiv.appendChild(quantityDiv);
@@ -189,7 +188,6 @@ function updateQuantityInLocalStorage(book, newQuantity) {
 
     // Tìm sản phẩm cần chỉnh sửa trong danh sách
     let productToUpdate = cart.find(cartItem => cartItem.bookID === book.bookID);
-    console.log(productToUpdate);
 
     // Nếu sản phẩm được tìm thấy, cập nhật số lượng
     if (productToUpdate) {
