@@ -34,11 +34,10 @@ const closeOrderDetailModal = () => {
 }
 
 const openUpdateStatusModal = (event) => {
-    var clickedButton = event.currentTarget;
+    const clickedButton = event.currentTarget;
     document.getElementById("ID").value = clickedButton.id;
-    var updateStatusModal = document.getElementById('updateStatusModal')
+    const updateStatusModal = document.getElementById('updateStatusModal')
     updateStatusModal.style.display = 'block';
-    console.log(document.getElementById("ID").value)
 }
 
 const closeUpdateStatusModal = () => {
@@ -55,7 +54,7 @@ const updateOrderStatus = async () => {
 
     const response = await apiRequest("PUT", `/order/${orderID}`, order);
     if (response.success) {
-        window.location.reload();        
+        window.location.reload();
     } else if (response === "500") {
         alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
     }

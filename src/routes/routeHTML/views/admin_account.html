@@ -115,14 +115,27 @@
                         <a href="/quantri/taikhoan/chinhsua/${account.userID}">
                             <button class="btn btn-edit-account">Chỉnh sửa thông tin</button>
                         </a>
-                        <a th:href="">
-                            <button class="btn btn-delete-account">Xóa</button>
-                        </a>
+                        <button class="btn btn-delete-account" id="${account.userID}" onclick="deleteAccount(event)">Xóa</button>
                     </div>
                 </div>`;
 
             accountList.appendChild(accountItem);
         });
+    }
+
+    async function deleteAccount(event) {
+        const clickedButton = event.currentTarget;
+        const accountID = clickedButton.id;
+
+        if (confirm(`Bạn muốn xóa tài khoản ${accountID}?`) == true) {
+            const response = await apiRequest("DELETE", `/account/${accountID}`);
+            if (response.success) {
+                alert(`Xóa tài khoản ${accountID} thành công`);
+                window.location.reload();
+            } else if (response === "500") {
+                alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
+            }
+        }
     }
 </script>
 <script src="/js/admin.js"></script>
