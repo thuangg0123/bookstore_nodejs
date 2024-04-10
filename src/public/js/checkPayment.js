@@ -13,16 +13,19 @@ function checkItem(cart) {
     var thanhTien = 0;
     var container = document.getElementById("checkout-product");
     console.log(container)
-    cart.forEach(function (product) {
-        var giaString = product.Gia;
-        var soLuong = Number(product.SoLuong);
-        var totalNumber = convertCurrencyToNumber(giaString) * Number(soLuong);
+    cart.forEach(async function (cartItem) {
+        const response = await apiRequest("GET", `/book/${cartItem.bookID}`);
+        const bookData = response.data;
+
+        var giaInt = bookData.bookPrice;
+        var soLuong = Number(cartItem.quantity);
+        var totalNumber = Number(giaInt) * Number(soLuong);
         thanhTien = Number(thanhTien) + Number(totalNumber);
 
         // Create table element
         var table = document.createElement('table');
         table.className = 'checkout-product-item';
-        table.id = product.ID;
+        table.id = bookData.bookID;
 
         // Create table row element
         var row = document.createElement('tr');
@@ -31,7 +34,7 @@ function checkItem(cart) {
         var imgCell = document.createElement('td');
         imgCell.className = 'checkout-product-item-img';
         var img = document.createElement('img');
-        img.src = product.Hinh;
+        img.src = bookData.bookImage;
         img.alt = '';
         imgCell.appendChild(img);
         row.appendChild(imgCell);
@@ -41,14 +44,14 @@ function checkItem(cart) {
         detailCell.className = 'checkout-product-item-detail';
         var productName = document.createElement('div');
         productName.className = 'checkout-product-item-name';
-        productName.textContent = product.Ten;
+        productName.textContent = bookData.bookName;
         detailCell.appendChild(productName);
         row.appendChild(detailCell);
 
         // Create table cell for product price
         var priceCell = document.createElement('td');
         priceCell.className = 'checkout-product-item-price';
-        priceCell.textContent = giaString;
+        priceCell.textContent = convertNumberToCurrency(giaInt);
         row.appendChild(priceCell);
 
         // Create table cell for product quantity
@@ -70,8 +73,12 @@ function checkItem(cart) {
 
         console.log(table);
         container.appendChild(table);
-    });
 
+        totalPrice(thanhTien)
+    });
+}
+
+function totalPrice(thanhTien) {
     var divThanhTien = document.getElementById("divThanhTien");
     var divTotal = document.getElementById("divTotal");
     divThanhTien.innerText = convertNumberToCurrency(thanhTien);
