@@ -91,15 +91,67 @@
                         th:value="${account.userAddress}">
                 </div>
                 <div class="button-container">
-                    <button class="btn account-save-button" type="submit">Lưu</button>
-                    <button class="btn account-cancel-button">Hủy</button>
+                    <button class="btn account-save-button" type="button" onclick="changeInfo()">Lưu</button>
+                    <button class="btn account-cancel-button" type="button" onclick="back()">Hủy</button>
                 </div>
             </form>
         </div>
     </div>
 </body>
 
-<script src="../js/admin.js"></script>
+<script>
+    function back() {
+        window.location.href = "/quantri/taikhoan";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        loadAccount();
+    });
+
+    const userID = document.getElementById("accountID");
+    const userName = document.getElementById("accountName");
+    const userPhone = document.getElementById("accountPhone");
+    const userAddress = document.getElementById("accountAdress");
+
+    async function loadAccount() {
+        const urlParts = window.location.pathname.split('/');
+        const accountID = urlParts[urlParts.length - 1];
+
+        const response = await apiRequest("GET", `/account/${accountID}`);
+        if (response.success) {
+            const accountData = response.data;
+            
+            userID.value = accountData.userID;
+            userName.value = accountData.userName;
+            userPhone.value = accountData.userPhone;
+            userAddress.value = accountData.userAddress;
+        } else if (response === "401") {
+            
+        }
+    }
+
+    async function changeInfo() {
+        const accountID = userID.value;
+        const accountName = userName.value;
+        const accountPhone = userPhone.value;
+        const accountAddress = userAddress.value;
+
+        const account = {
+            userID: accountID,
+            userName: accountName,
+            userPhone: accountPhone,
+            userAddress: accountAddress
+        };
+
+        const response = await apiRequest("PUT", `/account/${accountID}`, account);
+        if (response.success) {
+            window.location.href = "/quantri/taikhoan";
+        } else if (response === "500") {
+            alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
+        }
+    }
+</script>
+<script src="/js/admin.js"></script>
 <script>
     var sidebar = document.getElementById("sidebarAccount");
     sidebar.classList.add('active');

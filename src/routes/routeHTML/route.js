@@ -71,29 +71,18 @@ router.get('/quantri/sanpham/them', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin_addproduct.html'));
 });
 
-// router.get(`/quantri/sanpham/xoa/{id}`, (req, res) => {
-//     res.sendFile(path.join(__dirname, 'views', 'giohang.html'));
-// });
-
 router.get("/quantri/sanpham/chinhsua/:bookID", (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin_editproduct.html'));
 });
 
-// router.get(`/quantri/sanpham/chinhsua/{id}`, (req, res) => {
-//     res.sendFile(path.join(__dirname, 'views', 'giohang.html'));
-// });
 
 router.get('/quantri/taikhoan', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin_account.html'));
 });
 
-router.get('/quantri/taikhoan/chinhsua', (req, res) => {
+router.get('/quantri/taikhoan/chinhsua/:accountID', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin_editaccount.html'));
 });
-
-// router.get(`/quantri/taikhoan/xoa/{id}`, (req, res) => {
-//     res.sendFile(path.join(__dirname, 'views', 'giohang.html'));
-// });
 
 // router.get(`/quantri/taikhoan/chinhsua/{id}`, (req, res) => {
 //     res.sendFile(path.join(__dirname, 'views', 'giohang.html'));
