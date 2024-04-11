@@ -78,49 +78,6 @@ const updateBook = async (req, res) => {
     }
 };
 
-// const addBook = async (req, res) => {
-//     try {
-//         let bookID = ID_GENERATOR.IDBook();
-//         while (await BOOK.findOne({ bookID })) {
-//             bookID = ID_GENERATOR.IDBook();
-//         }
-
-//         req.body.bookID = bookID
-
-//         if (!req.body.bookPublisher) req.body.bookPublisher = "Không rõ";
-//         if (!req.body.bookWeight) req.body.bookWeight = 0.0;
-//         if (!req.body.bookSize) req.body.bookSize = "0x0cm";
-//         const newBook = new BOOK({
-//             bookID: req.body.bookID,
-//             bookName: req.body.bookName,
-//             // bookImage: req.body.bookImage,
-//             bookImage: "/img/product/demo-color.png",
-//             bookAuthor: req.body.bookAuthor,
-//             bookPrice: req.body.bookPrice,
-//             bookStock: req.body.bookStock,
-//             bookIntroduction: req.body.bookIntroduction,
-
-//             bookPublisher: req.body.bookPublisher,
-//             bookSold: 0,
-//             bookWeight: req.body.bookWeight,
-//             bookSize: req.body.bookSize,
-//         });
-
-//         await newBook.save();
-
-//         return res.status(200).json({
-//             success: newBook ? true : false,
-//             dataProduct: newBook ? newBook : 'Unable to add book'
-//         });
-//     } catch (error) {
-//         return res.status(500).json({
-//             success: false,
-//             message: "An error occurred while adding the book",
-//             error: error.message
-//         });
-//     }
-// };
-
 const addBook = async (req, res) => {
     try {
         let bookID = ID_GENERATOR.IDBook();
@@ -129,6 +86,8 @@ const addBook = async (req, res) => {
         }
 
         req.body.bookID = bookID;
+
+        console.log("req.body", req.body)
 
         if (!req.body.bookPublisher) req.body.bookPublisher = "Không rõ";
         if (!req.body.bookWeight) req.body.bookWeight = 0.0;
@@ -148,6 +107,8 @@ const addBook = async (req, res) => {
             bookSize: req.body.bookSize,
         });
 
+        console.log("newBook", newBook)
+
         await newBook.save();
 
         return res.status(200).json({
@@ -162,7 +123,6 @@ const addBook = async (req, res) => {
         });
     }
 };
-
 
 const uploadBookImage = async (req, res) => {
     try {
