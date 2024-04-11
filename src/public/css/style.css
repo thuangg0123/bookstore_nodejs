@@ -72,11 +72,13 @@ body {
     font-weight: bold;
     border-radius: 10px;
     transition: 0.2s ease-in-out;
-    border: solid #C92127;
+    border: solid transparent;
+    box-shadow: 0 0 0 0 transparent;
 }
 
 .btn:hover {
-    border: solid #C92127;
+    border-color: #C92127;
+    box-shadow: 0 0 0 2px #C92127;
     background: #fff;
     color: #000;
 }

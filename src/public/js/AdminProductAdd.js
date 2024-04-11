@@ -56,7 +56,7 @@ async function addBookEvent() {
         const bookID = response.dataProduct.bookID;
         const _id = response.dataProduct._id;
         const image = bookImage.files[0];
-        
+
         //code upload hình ảnh ở đây
 
         window.location.href = `/quantri/sanpham/${bookID}`;
