@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function addBookEvent() {
-    const bookImage = document.getElementById("image").value;
+    const bookImage = document.getElementById("image");
     const bookName = document.getElementById("name").value;
 
     const bookPriceString = document.getElementById("price").value;
@@ -53,7 +53,13 @@ async function addBookEvent() {
     const response = await addBook(book);
 
     if (response.success) {
-        window.location.href = "/quantri/sanpham";
+        const bookID = response.dataProduct.bookID;
+        const _id = response.dataProduct._id;
+        const image = bookImage.files[0];
+        
+        //code upload hình ảnh ở đây
+
+        window.location.href = `/quantri/sanpham/${bookID}`;
     } else if (response === "500") {
         alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
     }
