@@ -1,4 +1,4 @@
-import { apiRequest } from '../ApiRequest.js';
+import { apiRequest } from './ApiRequest.js';
 
 async function getOrderList() {
     const response = await apiRequest("GET", "/order/");
