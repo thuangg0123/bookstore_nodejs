@@ -1,4 +1,4 @@
-import { getOrderList, updateOrderStatus } from './OrderAPI.js';
+import { getOrderList, updateOrderStatus } from './api/OrderAPI.js';
 import { formatNumberToCurrency, formatOrderStatus } from './Format.js';
 
 document.addEventListener("DOMContentLoaded", async function () {

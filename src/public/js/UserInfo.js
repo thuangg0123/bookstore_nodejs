@@ -1,4 +1,4 @@
-import { getCurrentAccount, editAccount } from './AccountAPI.js';
+import { getCurrentAccount, editAccount } from './api/AccountAPI.js';
 
 
 document.addEventListener("DOMContentLoaded", function () {

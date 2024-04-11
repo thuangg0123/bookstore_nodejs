@@ -1,4 +1,4 @@
-import { register } from './AccountAPI.js';
+import { register } from './api/AccountAPI.js';
 
 document.addEventListener("DOMContentLoaded", function() {
     const registerButton = document.getElementById("registerButton");

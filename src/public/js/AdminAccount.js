@@ -1,4 +1,4 @@
-import { getAccountList, deleteAccount } from './AccountAPI.js';
+import { getAccountList, deleteAccount } from './api/AccountAPI.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const response = await getAccountList();

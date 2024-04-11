@@ -1,4 +1,4 @@
-import {apiRequest} from './ApiRequest.js';
+import {apiRequest} from '../ApiRequest.js';
 
 async function login(account) {
     const response = await apiRequest('POST', '/account/login', account);

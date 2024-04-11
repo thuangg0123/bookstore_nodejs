@@ -1,4 +1,4 @@
-import { getBook, deleteBook } from './BookAPI.js';
+import { getBook, deleteBook } from './api/BookAPI.js';
 import { formatNumberToCurrency } from './Format.js';
 
 document.addEventListener("DOMContentLoaded", async function () {

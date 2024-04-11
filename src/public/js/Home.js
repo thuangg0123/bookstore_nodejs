@@ -1,5 +1,5 @@
-import { getBookList } from './BookAPI.js';
-import { formatNumberToCurrency } from './Format.js';
+import { getBookList } from './api/BookAPI.js';
+import { formatNumberToCurrency } from './Format_temp.js';
 
 document.getElementById("directToDanhSach").addEventListener("click", () => {
     window.location.href = '/danhsach'

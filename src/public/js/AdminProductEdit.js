@@ -1,4 +1,4 @@
-import { getBook, editBook } from './BookAPI.js';
+import { getBook, editBook } from './api/BookAPI.js';
 import { formatNumber, validateImageFile } from './CheckProduct.js';
 
 const urlParts = window.location.pathname.split('/');

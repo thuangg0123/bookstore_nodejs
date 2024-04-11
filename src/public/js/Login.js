@@ -1,4 +1,4 @@
-import { login } from './AccountAPI.js';
+import { login } from './api/AccountAPI.js';
 
 document.addEventListener("DOMContentLoaded", function() {
     const loginButton = document.getElementById("loginButton");

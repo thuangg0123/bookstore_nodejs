@@ -1,4 +1,4 @@
-import { addBook } from './BookAPI.js';
+import { addBook } from './api/BookAPI.js';
 import { formatNumber, validateImageFile } from './CheckProduct.js';
 
 document.addEventListener("DOMContentLoaded", function () {

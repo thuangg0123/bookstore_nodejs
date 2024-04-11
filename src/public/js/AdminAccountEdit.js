@@ -1,4 +1,4 @@
-import { getAccount, editAccount } from './AccountAPI.js';
+import { getAccount, editAccount } from './api/AccountAPI.js';
 
 const userID = document.getElementById("accountID");
 const userName = document.getElementById("accountName");

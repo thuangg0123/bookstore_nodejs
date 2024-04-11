@@ -1,4 +1,4 @@
-import { getCurrentAccount } from './AccountAPI.js';
+import { getCurrentAccount } from './api/AccountAPI.js';
 
 async function checkPermission() {
     const response = await getCurrentAccount();

@@ -1,7 +1,7 @@
-import { getCurrentAccount } from './AccountAPI.js';
-import { createOrder } from './OrderAPI.js';
-import { createOrderDetails } from './OrderDetailsAPI.js';
-import { getBook } from './BookAPI.js';
+import { getCurrentAccount } from './api/AccountAPI.js';
+import { createOrder } from './api/OrderAPI.js';
+import { createOrderDetails } from './api/OrderDetailsAPI.js';
+import { getBook } from './api/BookAPI.js';
 
 document.addEventListener("DOMContentLoaded", function () {
     loadAccount();

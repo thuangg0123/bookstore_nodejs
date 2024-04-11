@@ -1,4 +1,4 @@
-import { getCurrentAccount, logout } from './AccountAPI.js';
+import { getCurrentAccount, logout } from './api/AccountAPI.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
     const userOptionsSection = document.getElementById("userOptionsSection");
