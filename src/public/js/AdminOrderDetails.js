@@ -16,7 +16,7 @@ function displayOrderDetails(orderData) {
     const order = orderData.orderID;
     const user = order.userID;
 
-    if(user) {
+    if (user) {
         document.getElementById('userName').innerText = user.userName;
         document.getElementById('userPhone').innerText = user.userPhone;
         document.getElementById('userAddress').innerText = user.userAddress;

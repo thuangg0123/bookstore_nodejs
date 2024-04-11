@@ -1,5 +1,5 @@
 import { getBookList } from './api/BookAPI.js';
-import { formatNumberToCurrency } from './Format_temp.js';
+import { formatNumberToCurrency } from './Format.js';
 
 document.getElementById("directToDanhSach").addEventListener("click", () => {
     window.location.href = '/danhsach'
@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     let response = await getBookList();
 
     const productList = response.data;
-    if(productList) {
+    if (productList) {
         productList.sort((a, b) => b.bookSold - a.bookSold);
         const topSelling = productList.slice(0, 5);
-    
+
         displayProduct(topSelling);
     }
 });

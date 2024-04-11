@@ -1,4 +1,4 @@
-import {apiRequest} from '../ApiRequest.js';
+import { apiRequest } from '../ApiRequest.js';
 
 async function getBookList() {
     let response = await apiRequest("GET", "/book/");
@@ -26,7 +26,7 @@ async function editBook(book) {
 async function deleteBook(book) {
     const urlParts = window.location.pathname.split('/');
     const bookID = urlParts[urlParts.length - 1];
-    
+
     const response = await apiRequest("DELETE", `/book/${bookID}`);
     return response;
 }

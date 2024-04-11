@@ -7,14 +7,14 @@ const userAddress = document.getElementById("accountAdress");
 
 document.addEventListener("DOMContentLoaded", function () {
     const cancelBtn = document.querySelector(".account-cancel-button");
-    if(cancelBtn) {
+    if (cancelBtn) {
         cancelBtn.addEventListener("click", () => {
             window.location.href = "/quantri/taikhoan";
         });
     }
 
     const saveBtn = document.querySelector(".account-save-button");
-    if(saveBtn) {
+    if (saveBtn) {
         saveBtn.addEventListener("click", changeInfo);
     }
 

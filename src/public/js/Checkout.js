@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     getCart();
 
     const checkoutBtn = document.querySelector('.checkout-btn');
-    if(checkoutBtn) {
+    if (checkoutBtn) {
         checkoutBtn.addEventListener("click", checkout);
     }
 });

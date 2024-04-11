@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     loadAccount();
 
     const saveBtn = document.getElementById("saveBtn");
-    if(saveBtn) {
+    if (saveBtn) {
         saveBtn.addEventListener("click", changeInfo);
     }
 });

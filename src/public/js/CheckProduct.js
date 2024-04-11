@@ -28,4 +28,4 @@ const formatNumber = (input) => {
     input.value = inputValue;
 }
 
-export {validateImageFile, formatNumber};
+export { validateImageFile, formatNumber };

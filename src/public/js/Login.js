@@ -1,9 +1,9 @@
 import { login } from './api/AccountAPI.js';
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const loginButton = document.getElementById("loginButton");
 
-    if(loginButton) {
+    if (loginButton) {
         loginButton.addEventListener("click", loginEvent);
     }
 });

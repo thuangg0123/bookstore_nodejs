@@ -21,22 +21,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     const editBtn = document.querySelector(".add-button");
-    if(editBtn) {
+    if (editBtn) {
         editBtn.addEventListener("click", editBookEvent);
     }
 
     const cancelBtn = document.querySelector(".account-cancel-button");
-    if(cancelBtn) {
+    if (cancelBtn) {
         cancelBtn.addEventListener("click", () => {
             window.location.href = "/quantri/taikhoan";
         });
     }
 
-    if(bookPriceString) {
+    if (bookPriceString) {
         bookPriceString.addEventListener("input", formatNumber);
     }
 
-    if(bookImage) {
+    if (bookImage) {
         bookImage.addEventListener("change", validateImageFile);
     }
 });

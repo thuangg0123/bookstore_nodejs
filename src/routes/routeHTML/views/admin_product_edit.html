@@ -68,8 +68,7 @@
 
     <div class="container-edit">
         <h2>Chỉnh Sửa Sản Phẩm</h2>
-        <form action="" class="form-container" method="post"
-            enctype="multipart/form-data">
+        <form action="" class="form-container" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="add_image">Hình Ảnh:</label>
                 <input type="file" name="image" id="image" class="add_image" accept="image/*"
@@ -83,7 +82,8 @@
             </div>
             <div class="form-group">
                 <label for="add_price">Giá (vnđ):</label>
-                <input type="text" name="price" id="price" class="add_price" required oninput="formatNumberToCurrency(this)">
+                <input type="text" name="price" id="price" class="add_price" required
+                    oninput="formatNumberToCurrency(this)">
             </div>
             <div class="form-group">
                 <label for="add_author">Tác Giả:</label>

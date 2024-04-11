@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateQuantity(change) {
         var maxQuantity = Number(quantityInput.getAttribute("max"));
-    
+
         var currentValue = parseInt(quantityInput.value, 10);
         var newValue = currentValue + change;
-    
+
         if (newValue >= 1 && newValue <= maxQuantity) {
             quantityInput.value = newValue;
         } else if (newValue <= 0 || isNaN(newValue)) {

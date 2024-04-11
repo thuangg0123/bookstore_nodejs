@@ -118,7 +118,7 @@ function viewCart(cart) {
         let totalDiv = document.createElement("div");
         totalDiv.className = "product-total";
         let tongTien = Number(bookPrice * quantity);
-        
+
         totalDiv.textContent = `${formatNumberToCurrency(tongTien)} ₫`;
         productDiv.appendChild(totalDiv);
 

@@ -1,9 +1,9 @@
 import { register } from './api/AccountAPI.js';
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const registerButton = document.getElementById("registerButton");
-    
-    if(registerButton) {
+
+    if (registerButton) {
         loginButton.addEventListener("click", registerEvent);
     }
 });

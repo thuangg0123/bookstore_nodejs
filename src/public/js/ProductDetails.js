@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const response = await getBook(bookID);
     const bookData = response.data;
-    
+
     displayBookDetails(bookData);
 });
 

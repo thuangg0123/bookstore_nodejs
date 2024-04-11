@@ -3,24 +3,24 @@ import { formatNumber, validateImageFile } from './CheckProduct.js';
 
 document.addEventListener("DOMContentLoaded", function () {
     const cancelBtn = document.getElementById("cancel-button")
-    if(cancelBtn) {
+    if (cancelBtn) {
         cancelBtn.addEventListener("click", () => {
             history.back();
         })
     }
 
     const addBtn = document.querySelector(".add-button");
-    if(addBtn) {
+    if (addBtn) {
         addBtn.addEventListener("click", addBookEvent);
     }
 
     const priceInput = document.getElementById("price");
-    if(priceInput) {
+    if (priceInput) {
         priceInput.addEventListener("input", formatNumber);
     }
 
     const imageInput = document.getElementById("image");
-    if(imageInput) {
+    if (imageInput) {
         imageInput.addEventListener("change", validateImageFile);
     }
 });
