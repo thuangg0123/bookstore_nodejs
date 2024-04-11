@@ -1,4 +1,4 @@
-const formatNumber = (number) => {
+const formatNumberToCurrency = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
@@ -33,4 +33,4 @@ const formatOrderStatus = (orderStatus) => {
     }
 }
 
-export { formatNumber, formatDate, formatOrderStatus };
+export { formatNumberToCurrency, formatDate, formatOrderStatus };

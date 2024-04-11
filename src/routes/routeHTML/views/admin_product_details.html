@@ -15,9 +15,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script type="module" src="/js/validate.js"></script>
-    <script src="/js/sidebar.js"></script>
-    <script src="/js/product.js"></script>
+    <script type="module" src="/js/Validate.js"></script>
+    <script src="/js/Sidebar.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
 </head>
 
@@ -32,7 +31,7 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="logo"></a>
-        </nav>
+        </nav>  
     </div>
     <div class="sidebar" id="sidebar">
         <ul>
@@ -75,100 +74,7 @@
     </div>
 </body>
 
-<script src="/js/format.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", async function () {
-        const urlParts = window.location.pathname.split('/');
-        const bookID = urlParts[urlParts.length - 1];
-
-        if (bookID) {
-            const response = await apiRequest("GET", `/book/${bookID}`);
-            const bookData = response.data;
-            displayBookDetails(bookData);
-        }
-    });
-
-    function displayBookDetails(book) {
-        const productWrapper = document.getElementById("content");
-        const productDetail = document.createElement("div");
-        productDetail.className = "productDetailContent_product-container";
-        productDetail.innerHTML =
-            `<div class="productDetailContent_product-image">
-                    <img src="${book.bookImage}" alt="Product 1">
-                </div>
-                <div class="productDetailContent_product-details">
-                    <div>
-                        <span style="font-weight: bold;">Mã sản phẩm: </span>
-                        <span class="productDetailContent_product-code">${book.bookID}</span>
-                    </div>
-                    <div>
-                        <span style="font-weight: bold;">Tên sản phẩm: </span>
-                        <span class="productDetailContent_product-name">${book.bookName}</span>
-                    </div>
-                    <div>
-                        <span style="font-weight: bold;">Giá: </span>
-                        <span class="productDetailContent_product-price">${formatNumber(book.bookPrice)} đ</span>
-                    </div>
-                    <div class="productDetailContent_product-info">
-                        <div class="productDetailContent_product-desc">
-                            <div>
-                                <span class="detail-label author">Tác giả: </span>
-                                <span>${book.bookAuthor}</span>
-                            </div>
-                            <div>
-                                <span class="detail-label supplier">Nhà xuất bản: </span>
-                                <span>${book.bookPublisher}</span>
-                            </div>
-                            <div>
-                                <span class="detail-label weight">Trọng lượng: </span>
-                                <span>${book.bookWeight} gr</span>
-                            </div>
-                            <div>
-                                <span class="detail-label size">Kích thước: </span>
-                                <span>${book.bookSize} cm</span>
-                            </div>
-                            <div>
-                                <span class="detail-label size">Số sách tồn kho: </span>
-                                <span>${book.bookStock}</span>
-                            </div>
-                            <div>
-                                <span class="detail-label size">Số sách đã bán: </span>
-                                <span>${book.bookSold}</span>
-                            </div>
-                            <div>
-                                <span class="detail-label introduce">Giới thiệu:</span>
-                                <span>${book.bookIntroduction}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-actions" style="justify-content: flex-start;">
-                        <a href="/quantri/sanpham/chinhsua/${book.bookID}">
-                            <button class="btn btn-edit-product" onclick="">Chỉnh sửa thông tin</button>
-                        </a>
-                        <button class="btn btn-delete-product" id="btn-delete-product" onclick="deleteProduct()">Xóa</button>
-                    </div>
-                </div>`;
-
-        productWrapper.appendChild(productDetail);
-    };
-
-
-    async function deleteProduct() {
-        const urlParts = window.location.pathname.split('/');
-        const bookID = urlParts[urlParts.length - 1];
-
-        if (confirm(`Bạn muốn xóa sản phẩm ${bookID}?`) == true) {
-            const response = await apiRequest("DELETE", `/book/${bookID}`);
-            if (response.success) {
-                alert(`Xóa sản phẩm ${bookID} thành công`);
-                window.location.href = "/quantri/sanpham";
-            } else if (response === "500") {
-                alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
-            }
-        }
-    }
-</script>
-<script src="/js/sidebar.js"></script>
+<script type="module" src="/js/AdminProductDetails.js"></script>
 <script>
     var sidebar = document.getElementById("sidebarProduct");
     sidebar.classList.add('active');

@@ -1,5 +1,5 @@
 import { getBook } from './BookAPI.js';
-import { formatNumber } from './format.js';
+import { formatNumberToCurrency } from './Format.js';
 
 document.addEventListener("DOMContentLoaded", function () {
     const cartEmpty = document.getElementById("container-cart-empty");
@@ -73,7 +73,7 @@ function viewCart(cart) {
         let bookPrice = bookData.bookPrice;
         let pElement = document.createElement("p");
         pElement.className = "product-price-cart";
-        pElement.textContent = `${formatNumber(bookPrice)} ₫`;
+        pElement.textContent = `${formatNumberToCurrency(bookPrice)} ₫`;
 
         detailsDiv.appendChild(pElement);
 
@@ -119,7 +119,7 @@ function viewCart(cart) {
         totalDiv.className = "product-total";
         let tongTien = Number(bookPrice * quantity);
         
-        totalDiv.textContent = `${formatNumber(tongTien)} ₫`;
+        totalDiv.textContent = `${formatNumberToCurrency(tongTien)} ₫`;
         productDiv.appendChild(totalDiv);
 
         // Tạo thẻ div cho nút xóa sản phẩm
@@ -143,10 +143,10 @@ function viewCart(cart) {
 
 function totalPrice(productPrice) {
     let divThanhTien = document.getElementById("thanhTien");
-    divThanhTien.innerText = `${formatNumber(productPrice)} ₫`;
+    divThanhTien.innerText = `${formatNumberToCurrency(productPrice)} ₫`;
 
     let divTotal = document.getElementById("total");
-    divTotal.innerText = `${formatNumber(productPrice)} ₫`;
+    divTotal.innerText = `${formatNumberToCurrency(productPrice)} ₫`;
 }
 
 function deleteAllCart() {

@@ -8,9 +8,9 @@ async function getOrderDetails() {
     return response;
 }
 
-async function createOrder(orderDetails) {
+async function createOrderDetails(orderDetails) {
     const response = await apiRequest('POST', '/order-detail/', orderDetails);
     return response;
 }
 
-export { getOrderDetails, createOrder };
+export { getOrderDetails, createOrderDetails };

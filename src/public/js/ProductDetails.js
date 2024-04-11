@@ -1,5 +1,5 @@
 import { getBook } from './BookAPI.js';
-import { formatNumber } from './format.js';
+import { formatNumberToCurrency } from './Format.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const urlParts = window.location.pathname.split('/');
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 function displayBookDetails(book) {
     document.querySelector(".director").lastElementChild.innerHTML = book.bookName;
     document.getElementById('productName').innerText = book.bookName;
-    document.getElementById('productPrice').innerText = formatNumber(book.bookPrice) + ' đ';
+    document.getElementById('productPrice').innerText = formatNumberToCurrency(book.bookPrice) + ' đ';
     document.getElementById('productID').innerText = book.bookID;
     document.getElementById('productImgThumb').setAttribute('src', book.bookImage);
     document.getElementById('productImgSmall').setAttribute('src', book.bookImage);

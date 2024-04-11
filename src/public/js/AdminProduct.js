@@ -1,5 +1,5 @@
 import { getBookList } from './BookAPI.js';
-import { formatNumber } from './format.js';
+import { formatNumberToCurrency } from './Format.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     let response = await getBookList();
@@ -27,7 +27,7 @@ function displayProduct(productList) {
             </div>
             <div>
                 <span style="font-weight: bold;">Giá:</span>
-                <span class="product-price">${formatNumber(book.bookPrice)} đ</span>
+                <span class="product-price">${formatNumberToCurrency(book.bookPrice)} đ</span>
             </div>
             <div class="product-actions">
                 <a href="/quantri/sanpham/chinhsua/${book.bookID}">

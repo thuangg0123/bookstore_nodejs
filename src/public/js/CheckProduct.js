@@ -1,4 +1,4 @@
-function validateImageFile() {
+const validateImageFile = () => {
     var input = document.getElementById('image');
     var errorMessage = document.getElementById('error-message');
 
@@ -14,8 +14,7 @@ function validateImageFile() {
         }
     }
 }
-
-function formatNumber(input) {
+const formatNumber = (input) => {
     let inputValue = input.value;
 
     // Loại bỏ tất cả các ký tự không phải số
@@ -28,3 +27,5 @@ function formatNumber(input) {
 
     input.value = inputValue;
 }
+
+export {validateImageFile, formatNumber};

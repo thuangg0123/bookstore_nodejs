@@ -1,5 +1,5 @@
 import { getOrderList, updateOrderStatus } from './OrderAPI.js';
-import { formatNumber, formatOrderStatus } from './format.js';
+import { formatNumberToCurrency, formatOrderStatus } from './Format.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const response = await getOrderList();
@@ -53,24 +53,25 @@ async function updateOrderStatusEvent() {
 function displayOrder(orderData) {
     const orderList = document.getElementById("orderList");
     orderData.forEach(order => {
-        let orderItemQuantityP;
-        const orderItemQuantity = order.orderItemQuantity - 1;
-        if (orderItemQuantity != 0) {
-            orderItemQuantityP =
-                `<div>
+        if (order.userID) {
+            let orderItemQuantityP;
+            const orderItemQuantity = order.orderItemQuantity - 1;
+            if (orderItemQuantity != 0) {
+                orderItemQuantityP =
+                    `<div>
                         <span class="order-name">Và ${orderItemQuantity} cuốn sách khác</span>
                     </div>`;
-        }
+            }
 
-        let orderStatusStyle;
-        if (order.orderStatus >= 3) {
-            orderStatusStyle = `style="opacity: 0.5;" disabled="disabled"`;
-        }
+            let orderStatusStyle;
+            if (order.orderStatus >= 3) {
+                orderStatusStyle = `style="opacity: 0.5;" disabled="disabled"`;
+            }
 
-        const orderItem = document.createElement("div");
-        orderItem.className = "order-card";
-        orderItem.innerHTML =
-            `<div class="order-image">
+            const orderItem = document.createElement("div");
+            orderItem.className = "order-card";
+            orderItem.innerHTML =
+                `<div class="order-image">
                     <img src="${order.orderFirstBook.bookImage}" alt="Product img">
                 </div>
                 <div class="order-details">
@@ -85,7 +86,7 @@ function displayOrder(orderData) {
                     ${orderItemQuantityP !== undefined ? orderItemQuantityP : ''}
                     <div>
                         <span style="font-weight: bold;">Giá:</span>
-                        <span class="order-price">${formatNumber(order.orderTotal)} ₫</span>
+                        <span class="order-price">${formatNumberToCurrency(order.orderTotal)} ₫</span>
                     </div>
                     <div>
                         <span style="font-weight: bold;">Trạng thái đơn hàng:</span>
@@ -102,6 +103,7 @@ function displayOrder(orderData) {
                     </div>
                 </div>`;
 
-        orderList.appendChild(orderItem);
+            orderList.appendChild(orderItem);
+        }
     });
 }

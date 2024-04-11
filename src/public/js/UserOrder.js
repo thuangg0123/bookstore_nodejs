@@ -1,5 +1,5 @@
 import { getOrderList } from './OrderAPI.js';
-import { formatNumber, formatDate, formatOrderStatus } from './format.js';
+import { formatNumberToCurrency, formatDate, formatOrderStatus } from './Format.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const response = await getOrderList();
@@ -37,7 +37,7 @@ function displayOrder(orderData) {
                                 <h3>${order.orderFirstBook.bookName}</h3>
                                 ${orderItemQuantityP !== undefined ? orderItemQuantityP : ''}
                             </div>
-                            <p>${formatNumber(order.orderTotal + 25000)} đ</p>
+                            <p>${formatNumberToCurrency(order.orderTotal + 25000)} đ</p>
                         </div>
                     </div>
                 </div>

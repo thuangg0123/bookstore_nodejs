@@ -15,8 +15,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script type="module" src="/js/validate.js"></script>
-    <script src="/js/sidebar.js"></script>
+    <script type="module" src="/js/Validate.js"></script>
+    <script src="/js/Sidebar.js"></script>
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
 </head>
 
@@ -71,86 +71,30 @@
             <form action="" class="form-container" method="post">
                 <div class="form-group">
                     <label for="accountName">Tên đăng nhập: </label>
-                    <input type="text" name="accountID" id="accountID" class="accountName" th:value="${account.userID}"
-                        readonly>
+                    <input type="text" name="accountID" id="accountID" class="accountName" readonly>
                 </div>
                 <div class="form-group">
                     <label for="accountName">Họ và tên: </label>
-                    <input type="text" name="accountName" id="accountName" class="accountName"
-                        th:value="${account.userName}">
+                    <input type="text" name="accountName" id="accountName" class="accountName">
                 </div>
                 <div class="form-group">
                     <label for="accountPhone">Số điện thoại: </label>
-                    <input type="text" name="accountPhone" id="accountPhone" class="accountPhone"
-                        th:value="${account.userPhone}">
+                    <input type="text" name="accountPhone" id="accountPhone" class="accountPhone">
                 </div>
                 <div class="form-group">
                     <label for="accountAdress">Địa chỉ:</label>
-                    <input type="text" name="accountAdress" id="accountAdress" class="accountAdress"
-                        th:value="${account.userAddress}">
+                    <input type="text" name="accountAdress" id="accountAdress" class="accountAdress">
                 </div>
                 <div class="button-container">
-                    <button class="btn account-save-button" type="button" onclick="changeInfo()">Lưu</button>
-                    <button class="btn account-cancel-button" type="button" onclick="back()">Hủy</button>
+                    <button class="btn account-save-button" type="button">Lưu</button>
+                    <button class="btn account-cancel-button" type="button">Hủy</button>
                 </div>
             </form>
         </div>
     </div>
 </body>
 
-<script>
-    function back() {
-        window.location.href = "/quantri/taikhoan";
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        loadAccount();
-    });
-
-    const userID = document.getElementById("accountID");
-    const userName = document.getElementById("accountName");
-    const userPhone = document.getElementById("accountPhone");
-    const userAddress = document.getElementById("accountAdress");
-
-    async function loadAccount() {
-        const urlParts = window.location.pathname.split('/');
-        const accountID = urlParts[urlParts.length - 1];
-
-        const response = await apiRequest("GET", `/account/${accountID}`);
-        if (response.success) {
-            const accountData = response.data;
-
-            userID.value = accountData.userID;
-            userName.value = accountData.userName;
-            userPhone.value = accountData.userPhone;
-            userAddress.value = accountData.userAddress;
-        } else if (response === "401") {
-
-        }
-    }
-
-    async function changeInfo() {
-        const accountID = userID.value;
-        const accountName = userName.value;
-        const accountPhone = userPhone.value;
-        const accountAddress = userAddress.value;
-
-        const account = {
-            userID: accountID,
-            userName: accountName,
-            userPhone: accountPhone,
-            userAddress: accountAddress
-        };
-
-        const response = await apiRequest("PUT", `/account/${accountID}`, account);
-        if (response.success) {
-            window.location.href = "/quantri/taikhoan";
-        } else if (response === "500") {
-            alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
-        }
-    }
-</script>
-<script src="/js/sidebar.js"></script>
+<script type="module" src="/js/AdminAccountEdit.js"></script>
 <script>
     var sidebar = document.getElementById("sidebarAccount");
     sidebar.classList.add('active');

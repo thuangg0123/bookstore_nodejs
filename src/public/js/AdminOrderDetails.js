@@ -1,4 +1,4 @@
-import {getOrderDetails} from './OrderDetailsAPI.js'
+import { getOrderDetails } from './OrderDetailsAPI.js';
 import { formatNumberToCurrency, formatOrderStatus } from './Format.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -16,11 +16,14 @@ function displayOrderDetails(orderData) {
     const order = orderData.orderID;
     const user = order.userID;
 
+    if(user) {
+        document.getElementById('userName').innerText = user.userName;
+        document.getElementById('userPhone').innerText = user.userPhone;
+        document.getElementById('userAddress').innerText = user.userAddress;
+    }
+
     document.getElementById('order-id').innerText = `Mã đơn hàng: ${order.orderID}`;
     document.getElementById('order-state').innerText = formatOrderStatus(order.orderStatus);
-    document.getElementById('userName').innerText = user.userName;
-    document.getElementById('userPhone').innerText = user.userPhone;
-    document.getElementById('userAddress').innerText = user.userAddress;
 
     const orderItemList = orderData.orderItem;
     const orderProductList = document.getElementById('order-product-info');

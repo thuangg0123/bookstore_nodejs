@@ -19,8 +19,10 @@ const getAllOrder = async (req, res) => {
         const response = [];
         orderData.forEach(order => {
             if (role === 'user') {
-                if (order.userID._id.toString() === userID) {
-                    response.push(order);
+                if(order.userID !== null) {
+                    if (order.userID._id.toString() === userID) {
+                        response.push(order);
+                    }
                 }
             } else {
                 response.push(order);

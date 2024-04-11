@@ -15,8 +15,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script type="module" src="/js/validate.js"></script>
-    <script src="/js/sidebar.js"></script>
+    <script type="module" src="/js/Validate.js"></script>
+    <script src="/js/Sidebar.js"></script>
 
     <title>Nhà sách trực tuyến TikiTaka- Admin</title>
 </head>
@@ -68,115 +68,57 @@
 
     <div class="container-edit">
         <h2>Chỉnh Sửa Sản Phẩm</h2>
-        <form th:action="'/quantri/sanpham/chinhsua/' + ${book.bookID}" class="form-container" method="post"
+        <form action="" class="form-container" method="post"
             enctype="multipart/form-data">
             <div class="form-group">
                 <label for="add_image">Hình Ảnh:</label>
                 <input type="file" name="image" id="image" class="add_image" accept="image/*"
                     onchange="validateImageFile()">
-                <input type="text" name="path" id="path" th:value="${book.bookImage}" style="display: none;">
+                <input type="text" name="path" id="path" style="display: none;">
                 <div id="error-message"></div>
             </div>
             <div class="form-group">
                 <label for="add_name">Tên:</label>
-                <input type="text" name="name" id="name" class="add_name" required th:value="${book.bookName}">
+                <input type="text" name="name" id="name" class="add_name" required>
             </div>
             <div class="form-group">
                 <label for="add_price">Giá (vnđ):</label>
-                <input type="text" name="price" id="price" class="add_price" required oninput="formatNumber(this)"
-                    th:value="${book.bookPrice}">
+                <input type="text" name="price" id="price" class="add_price" required oninput="formatNumberToCurrency(this)">
             </div>
             <div class="form-group">
                 <label for="add_author">Tác Giả:</label>
-                <input type="text" name="author" id="author" class="add_author" th:value="${book.bookAuthor}">
+                <input type="text" name="author" id="author" class="add_author">
             </div>
             <div class="form-group">
                 <label for="add_publisher">Nhà xuất bản:</label>
-                <input type="text" name="publisher" id="publisher" class="add_publisher"
-                    th:value="${book.bookPublisher}">
+                <input type="text" name="publisher" id="publisher" class="add_publisher">
             </div>
             <div class="form-group">
                 <label for="add_weight">Trọng Lượng (kg):</label>
-                <input type="number" name="weight" id="weight" class="add_weight" th:value="${book.bookWeight}">
+                <input type="number" name="weight" id="weight" class="add_weight">
             </div>
             <div class="form-group">
                 <label for="add_size">Kích Thước:</label>
-                <input type="text" name="size" id="size" class="add_size" th:value="${book.bookSize}">
+                <input type="text" name="size" id="size" class="add_size">
             </div>
             <div class="form-group">
                 <label for="add_size">Số tồn kho:</label>
-                <input type="number" name="stock" id="stock" class="add_size" th:value="${book.bookStock}">
+                <input type="number" name="stock" id="stock" class="add_size">
             </div>
             <div class="form-group">
                 <label for="add_size">Giới thiệu:</label>
-                <input type="text" name="introduction" id="introduction" class="add_size"
-                    th:value="${book.bookIntroduction}">
+                <input type="text" name="introduction" id="introduction" class="add_size">
             </div>
             <div class="button-container">
-                <button class="button add-button" type="button" onclick="editBook()">Lưu</button>
+                <button class="button add-button" type="button">Lưu</button>
                 <button class="button cancel-button">Hủy</button>
             </div>
         </form>
     </div>
 </body>
 
-<script src="/js/manageProduct.js"></script>
-<script>
-    const urlParts = window.location.pathname.split('/');
-    const bookID = urlParts[urlParts.length - 1];
+<script type="module" src="/js/AdminProductEdit.js"></script>
 
-    const bookImage = document.getElementById("image");
-    const bookName = document.getElementById("name");
-    const bookPriceString = document.getElementById("price");
-    const bookAuthor = document.getElementById("author");
-    const bookPublisher = document.getElementById("publisher");
-    const bookWeight = document.getElementById("weight");
-    const bookSize = document.getElementById("size");
-    const bookStock = document.getElementById("stock");
-    const bookIntroduction = document.getElementById("introduction");
-
-    document.addEventListener("DOMContentLoaded", async function () {
-        if (bookID) {
-            const response = await apiRequest("GET", `/book/${bookID}`);
-            const bookData = response.data;
-            displayProductDetails(bookData);
-        }
-    });
-
-    function displayProductDetails(book) {
-        bookName.value = book.bookName;
-        bookPriceString.value = book.bookPrice;
-        bookAuthor.value = book.bookAuthor;
-        bookPublisher.value = book.bookPublisher;
-        bookWeight.value = book.bookWeight;
-        bookStock.value = book.bookStock;
-        bookSize.value = book.bookSize;
-        bookIntroduction.value = book.bookIntroduction;
-    }
-
-    async function editBook() {
-        const bookPrice = bookPriceString.value.replace(" ", "");
-
-        const book = {
-            bookName: bookName.value,
-            bookPrice: bookPrice,
-            bookAuthor: bookAuthor.value,
-            bookPublisher: bookPublisher.value,
-            bookWeight: bookWeight.value,
-            bookSize: bookSize.value,
-            bookStock: bookStock.value,
-            bookIntroduction: bookIntroduction.value,
-        };
-
-        const response = await apiRequest('PUT', `/book/${bookID}`, book);
-        if (response.success) {
-            window.location.href = `/quantri/sanpham/${bookID}`;
-        } else if (response === "500") {
-            alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
-        }
-    }
-</script>
-<script src="/js/sidebar.js"></script>
 <script>
     var sidebar = document.getElementById("sidebarProduct");
     sidebar.classList.add('active');
