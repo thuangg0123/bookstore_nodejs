@@ -26,6 +26,7 @@ async function registerEvent() {
     const response = await register(account);
 
     if (response.success) {
+        alert("Đăng kí thành công");
         window.location.href = "/trangchu";
     } else if (response === "400") {
         alert(`Tài khoản ${userID} đã tồn tại`);
