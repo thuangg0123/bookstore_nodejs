@@ -66,7 +66,7 @@ async function editBookEvent() {
         bookIntroduction: bookIntroduction.value,
     };
 
-    const response = await editBook(bookID, book);
+    const response = await editBook(book);
     if (response.success) {
         window.location.href = `/quantri/sanpham/${bookID}`;
     } else if (response === "500") {
