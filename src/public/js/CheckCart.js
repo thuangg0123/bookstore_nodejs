@@ -69,7 +69,7 @@ function addToCart() {
     const bookStock = document.getElementById("quantityInput").max;
 
     for (i = 0; i < cart.length; i++) {
-        if (cart[i].ID === bookID) {
+        if (cart[i].bookID === bookID) {
             var book = cart[i];
             book.SoLuong = Number(book.SoLuong) + Number(quantity);
             if (book.SoLuong >= bookStock) {
