@@ -68,17 +68,17 @@
 
     <div class="container-add">
         <h2>Thêm sản phẩm</h2>
-        <form action="/quantri/sanpham/them" class="form-container" method="post" enctype="multipart/form-data">
+        <form action="" class="form-container" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <div style="display: flex; width: 100%; justify-content: space-between;">
-                    <div style="width: 70%;">
+                    <div style="width: 50%;">
                         <label for="add_image">Hình Ảnh:</label>
                         <input type="file" name="image" id="image" class="add_image" accept="image/*" required>
                     </div>
                     <div id="imagePreview" class="image-preview"></div>
                 </div>
-                <div id="error-message"></div>
             </div>
+            <div id="error-message"></div>
             <div class="form-group">
                 <label for="add_name">Tên:</label>
                 <input type="text" name="name" id="name" class="add_name" value="" required>
@@ -112,8 +112,8 @@
                 <input type="text" name="introduction" id="introduction" class="add_size" value="">
             </div>
             <div class="button-container">
-                <button class="btn add-button" type="submit">Thêm</button>
-                <button class="btn cancel-button" id="cancel-button">Hủy</button>
+                <button class="btn add-button" type="button">Thêm</button>
+                <button class="btn cancel-button" id="cancel-button" type="button">Hủy</button>
             </div>
         </form>
     </div>
@@ -125,21 +125,6 @@
 <script>
     var sidebar = document.getElementById("sidebarProduct");
     sidebar.classList.add('active');
-
-    document.getElementById('image').addEventListener('change', function (event) {
-        var file = event.target.files[0];
-        var reader = new FileReader();
-
-        reader.onload = function (event) {
-            var imgElement = document.createElement('img');
-            imgElement.src = event.target.result;
-            document.getElementById('imagePreview').innerHTML = '';
-            document.getElementById('imagePreview').appendChild(imgElement);
-        };
-
-        reader.readAsDataURL(file);
-    });
-
 </script>
 
 </html>

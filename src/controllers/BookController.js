@@ -94,7 +94,7 @@ const addBook = async (req, res) => {
         const newBook = new BOOK({
             bookID: req.body.bookID,
             bookName: req.body.bookName,
-            bookImage: req.file ? req.file.path.replace(/\\/g, "/") : "/img/product/demo-color.png",
+            bookImage: "/img/product/Image_not_available.png",
             bookAuthor: req.body.bookAuthor,
             bookPrice: req.body.bookPrice,
             bookStock: req.body.bookStock,
@@ -123,25 +123,20 @@ const addBook = async (req, res) => {
 const uploadBookImage = async (req, res) => {
     try {
         const { bookID } = req.params;
-        if (!req.files || req.files.length === 0) {
-            throw new Error("No images uploaded");
-        }
+        const fileName = req.files[0].filename;
 
-        const imagesPaths = req.files.map(file => file.path.replace(/\\/g, '/'));
-        const response = await BOOK.findByIdAndUpdate(
-            bookID,
-            {
-                $push:
-                    { images: { $each: imagesPaths } },
-                bookImage: imagesPaths[0]
-            },
-            { new: true }
-        );
+        console.log(bookID);
+        console.log(fileName);
+        const imagesPaths = `/img/product/${fileName}`;
+
+        const book = await BOOK.findById(bookID);
+        book.bookImage = imagesPaths;
+        await book.save();
 
         return res.status(200).json({
             success: true,
             message: `Successfully updated images for book with id: ${bookID}`,
-            data: response
+            data: book
         });
     } catch (error) {
         return res.status(500).json({

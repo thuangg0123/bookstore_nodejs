@@ -1,5 +1,5 @@
 import { getBook } from './api/BookAPI.js';
-import { formatNumberToCurrency } from './Format.js';
+import { formatNumberToCurrency } from './Formatter.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const urlParts = window.location.pathname.split('/');

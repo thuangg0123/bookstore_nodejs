@@ -33,4 +33,18 @@ const formatOrderStatus = (orderStatus) => {
     }
 }
 
-export { formatNumberToCurrency, formatDate, formatOrderStatus };
+const formatNumberInput = (input) => {
+    let inputValue = input.value;
+
+    // Loại bỏ tất cả các ký tự không phải số
+    inputValue = inputValue.replace(/[^0-9]/g, '');
+
+    // Thêm dấu cách hàng triệu
+    if (inputValue.length > 3) {
+        inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    }
+
+    input.value = inputValue;
+}
+
+export { formatNumberToCurrency, formatDate, formatOrderStatus, formatNumberInput };

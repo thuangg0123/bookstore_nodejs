@@ -1,5 +1,5 @@
 import { getOrderDetails } from './api/OrderDetailsAPI.js';
-import { formatNumberToCurrency, formatOrderStatus } from './Format.js';
+import { formatNumberToCurrency, formatOrderStatus } from './Formatter.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const urlParts = window.location.pathname.split('/');
@@ -33,11 +33,11 @@ function displayOrderDetails(orderData) {
         orderItemDiv.className = "order-product-info-item";
         orderItemDiv.innerHTML =
             `<img src="${book.bookImage}" alt="Product Image">
-                <div class="order-product-info-description">
-                    <h3>${book.bookName}</h3>
-                    <p>Số lượng: ${orderItem.quantity}</p>
-                    <p>Giá: ${formatNumberToCurrency(book.bookPrice)}</p>
-                </div>`;
+            <div class="order-product-info-description">
+                <h3>${book.bookName}</h3>
+                <p>Số lượng: ${orderItem.quantity}</p>
+                <p>Giá: ${formatNumberToCurrency(book.bookPrice)}</p>
+            </div>`;
 
         orderProductList.appendChild(orderItemDiv);
     });

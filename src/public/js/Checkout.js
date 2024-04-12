@@ -30,7 +30,7 @@ async function checkout() {
     const response = await getCurrentAccount();
     if (response.success) {
         const accountData = response.data;
-        if(accountData.isAdmin) {
+        if (accountData.isAdmin) {
             alert("Vui lòng không dùng tài khoản quản trị để đặt hàng");
             return;
         }
@@ -41,13 +41,13 @@ async function checkout() {
     const productPrice = parseInt(productPriceString);
 
     const phone = document.getElementById("phone").value;
-    if(!phone) {
+    if (!phone) {
         alert("Vui lòng nhập số điện thoại để đặt hàng");
         return;
     }
 
     const address = document.getElementById("address").value;
-    if(!address) {
+    if (!address) {
         alert("Vui lòng nhập địa chỉ để đặt hàng");
         return;
     }

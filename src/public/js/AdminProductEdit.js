@@ -1,5 +1,6 @@
-import { getBook, editBook } from './api/BookAPI.js';
-import { formatNumber, validateImageFile } from './CheckProduct.js';
+import { getBook, editBook, uploadImage } from './api/BookAPI.js';
+import { formatNumberInput } from './Formatter.js';
+import { validateImageFile, loadImagePreview } from './ImageProcessor.js';
 
 const urlParts = window.location.pathname.split('/');
 const bookID = urlParts[urlParts.length - 1];
@@ -12,6 +13,8 @@ const bookWeight = document.getElementById("weight");
 const bookSize = document.getElementById("size");
 const bookStock = document.getElementById("stock");
 const bookIntroduction = document.getElementById("introduction");
+
+let isChangeImage = false;
 
 document.addEventListener("DOMContentLoaded", async function () {
     if (bookID) {
@@ -33,15 +36,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     if (bookPriceString) {
-        bookPriceString.addEventListener("input", () => formatNumber(bookPriceString));
+        bookPriceString.addEventListener("input", () => formatNumberInput(bookPriceString));
     }
 
     if (bookImage) {
         bookImage.addEventListener("change", validateImageFile);
+        bookImage.addEventListener("change", loadImagePreview);
+        bookImage.addEventListener("change", () => {
+            isChangeImage = true;
+        });
     }
 });
 
 function displayProductDetails(book) {
+    const imagePreview = `<img src="${book.bookImage}">`;
+    document.getElementById('imagePreview').innerHTML = imagePreview;
+
     bookName.value = book.bookName;
     bookPriceString.value = book.bookPrice;
     bookAuthor.value = book.bookAuthor;
@@ -68,7 +78,23 @@ async function editBookEvent() {
 
     const response = await editBook(book);
     if (response.success) {
-        window.location.href = `/quantri/sanpham/${bookID}`;
+        const bookID = response.data.bookID
+
+        if (isChangeImage) {
+            const _id = response.data._id;
+
+            const formData = new FormData();
+            formData.append('images', bookImage.files[0]);
+
+            const uploadResponse = await uploadImage(_id, formData);
+            if (uploadResponse.success) {
+                window.location.href = `/quantri/sanpham/${bookID}`;
+
+            } else {
+                alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
+            }
+        }
+
     } else if (response === "500") {
         alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
     }

@@ -1,5 +1,6 @@
-import { addBook } from './api/BookAPI.js';
-import { formatNumber, validateImageFile } from './CheckProduct.js';
+import { addBook, uploadImage } from './api/BookAPI.js';
+import { formatNumberInput } from './Formatter.js';
+import { validateImageFile, loadImagePreview } from './ImageProcessor.js';
 
 document.addEventListener("DOMContentLoaded", function () {
     const cancelBtn = document.getElementById("cancel-button")
@@ -16,12 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const priceInput = document.getElementById("price");
     if (priceInput) {
-        priceInput.addEventListener("input", () => formatNumber(priceInput));
+        priceInput.addEventListener("input", () => formatNumberInput(priceInput));
     }
 
     const imageInput = document.getElementById("image");
     if (imageInput) {
         imageInput.addEventListener("change", validateImageFile);
+        imageInput.addEventListener("change", loadImagePreview);
     }
 });
 
@@ -57,16 +59,11 @@ async function addBookEvent() {
             const formData = new FormData();
             formData.append('images', bookImage);
 
-            const uploadResponse = await fetch(`http://localhost:8080/api/book/upload-image/${_id}`, {
-                method: 'PUT',
-                body: formData,
-            });
-
-            const uploadData = await uploadResponse.json();
-            if (uploadData.success) {
+            const uploadResponse = await uploadImage(_id, formData);
+            if (uploadResponse.success) {
                 window.location.href = `/quantri/sanpham/${bookID}`;
             } else {
-                alert("Upload ảnh không thành công");
+                alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
             }
         } else if (response === "500") {
             alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");

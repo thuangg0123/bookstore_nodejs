@@ -1,5 +1,5 @@
 import { getOrderList } from './api/OrderAPI.js';
-import { formatNumberToCurrency, formatDate, formatOrderStatus } from './Format.js';
+import { formatNumberToCurrency, formatDate, formatOrderStatus } from './Formatter.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const response = await getOrderList();

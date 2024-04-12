@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     const deleteBtn = document.querySelectorAll(".btn-delete-account");
-    console.log(deleteBtn);
     deleteBtn.forEach(btn => {
         btn.addEventListener("click", deleteAccountEvent);
     })

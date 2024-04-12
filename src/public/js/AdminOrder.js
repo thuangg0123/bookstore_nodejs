@@ -1,5 +1,5 @@
 import { getOrderList, updateOrderStatus } from './api/OrderAPI.js';
-import { formatNumberToCurrency, formatOrderStatus } from './Format.js';
+import { formatNumberToCurrency, formatOrderStatus } from './Formatter.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
     const response = await getOrderList();
@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 function openUpdateStatusModal(event) {
     const clickedButton = event.currentTarget;
-    console.log(clickedButton);
     document.getElementById("ID").value = clickedButton.id;
     const updateStatusModal = document.getElementById('updateStatusModal')
     updateStatusModal.style.display = 'block';

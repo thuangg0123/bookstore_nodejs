@@ -14,18 +14,19 @@ const validateImageFile = () => {
         }
     }
 }
-const formatNumber = (input) => {
-    let inputValue = input.value;
 
-    // Loại bỏ tất cả các ký tự không phải số
-    inputValue = inputValue.replace(/[^0-9]/g, '');
+function loadImagePreview(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
 
-    // Thêm dấu cách hàng triệu
-    if (inputValue.length > 3) {
-        inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-    }
+    reader.onload = function (event) {
+        var imgElement = document.createElement('img');
+        imgElement.src = event.target.result;
+        document.getElementById('imagePreview').innerHTML = '';
+        document.getElementById('imagePreview').appendChild(imgElement);
+    };
 
-    input.value = inputValue;
+    reader.readAsDataURL(file);
 }
 
-export { validateImageFile, formatNumber };
+export { validateImageFile, loadImagePreview };

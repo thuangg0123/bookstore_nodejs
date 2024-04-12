@@ -31,4 +31,9 @@ async function deleteBook() {
     return response;
 }
 
-export { getBookList, getBook, addBook, editBook, deleteBook };
+async function uploadImage(_id, image) {
+    const response = await apiRequest("PUT", `/book/upload-image/${_id}`, image);
+    return response;
+}
+
+export { getBookList, getBook, addBook, editBook, deleteBook, uploadImage };
