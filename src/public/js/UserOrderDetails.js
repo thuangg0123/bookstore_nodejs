@@ -1,11 +1,8 @@
-import { getOrderDetails } from './OrderDetailsAPI.js'
+import { getOrderDetails } from './api/OrderDetailsAPI.js'
 import { formatNumberToCurrency, formatOrderStatus } from './Format.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
-    const urlParts = window.location.pathname.split('/');
-    const orderID = urlParts[urlParts.length - 1];
-
-    const response = await getOrderDetails(orderID);
+    const response = await getOrderDetails();
     if (response.success) {
         const orderData = response.data;
         displayOrderDetails(orderData);

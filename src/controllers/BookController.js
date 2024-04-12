@@ -39,7 +39,7 @@ const getBook = async (req, res) => {
 const deleteBook = async (req, res) => {
     const { bookID } = req.params;
     try {
-        const response = await BOOK.findOneAndDelete(bookID);
+        const response = await BOOK.findOneAndDelete({bookID});
         return res.status(200).json({
             success: response ? true : false,
             data: response ? `Successfully deleted book with id: ${bookID}` : `Unable to delete book with id: ${bookID}`

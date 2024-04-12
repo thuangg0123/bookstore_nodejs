@@ -11,6 +11,7 @@ export const apiRequest = async (method, path, body = null) => {
   if (body !== null) {
     options.body = JSON.stringify(body);
   }
+  console.log(API_URL + path);  console.log(options);
 
   try {
     const response = await fetch(API_URL + path, options);

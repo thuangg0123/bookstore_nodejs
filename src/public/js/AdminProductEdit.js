@@ -25,15 +25,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         editBtn.addEventListener("click", editBookEvent);
     }
 
-    const cancelBtn = document.querySelector(".account-cancel-button");
+    const cancelBtn = document.querySelector(".cancel-button");
     if (cancelBtn) {
         cancelBtn.addEventListener("click", () => {
-            window.location.href = "/quantri/taikhoan";
+            window.location.href = `/quantri/sanpham/${bookID}`;
         });
     }
 
     if (bookPriceString) {
-        bookPriceString.addEventListener("input", formatNumber);
+        bookPriceString.addEventListener("input", () => formatNumber(bookPriceString));
     }
 
     if (bookImage) {

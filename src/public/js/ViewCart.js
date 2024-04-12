@@ -2,6 +2,9 @@ import { getBook } from './api/BookAPI.js';
 import { formatNumberToCurrency } from './Format.js';
 
 document.addEventListener("DOMContentLoaded", function () {
+    const deleteBtn = document.getElementById("deleteSelected");
+    deleteBtn.addEventListener('click', () => deleteAllCart());
+
     const cartEmpty = document.getElementById("container-cart-empty");
     const cartBody = document.getElementById("cart-body");
     const cartJSON = localStorage.getItem("cart");
@@ -13,10 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
             cartEmpty.style.display = "none";
             viewCart(cart);
         } else {
-            goShopping(cartBody, cartEmpty)
+            goShopping(cartBody, cartEmpty);
         }
     } else {
-        goShopping(cartBody, cartEmpty)
+        goShopping(cartBody, cartEmpty);
     }
 });
 
@@ -150,8 +153,10 @@ function totalPrice(productPrice) {
 }
 
 function deleteAllCart() {
-    localStorage.removeItem("cart");
-    location.reload(true);
+    if (confirm(`Bạn muốn xóa tất cả sản phẩm khỏi giỏ hàng?`) == true) {
+        localStorage.removeItem("cart");
+        location.reload(true);
+    }
 }
 
 function removeBookFromLocalStorage(bookId) {

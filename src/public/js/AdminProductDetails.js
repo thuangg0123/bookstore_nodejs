@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (bookData.length !== 0) {
         displayBookDetails(bookData);
     }
+
+    const deleteBtn = document.getElementById("btn-delete-product");
+    deleteBtn.addEventListener('click', () => deleteProduct())
 });
 
 function displayBookDetails(book) {
@@ -69,7 +72,7 @@ function displayBookDetails(book) {
                     <a href="/quantri/sanpham/chinhsua/${book.bookID}">
                         <button class="btn btn-edit-product" onclick="">Chỉnh sửa thông tin</button>
                     </a>
-                    <button class="btn btn-delete-product" id="btn-delete-product" onclick="deleteProduct()">Xóa</button>
+                    <button class="btn btn-delete-product" id="btn-delete-product">Xóa</button>
                 </div>
             </div>`;
 
