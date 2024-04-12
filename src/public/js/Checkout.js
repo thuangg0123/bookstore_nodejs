@@ -111,6 +111,7 @@ function checkItem(cart) {
         // Create table cell for product detail
         const detailCell = document.createElement('td');
         detailCell.className = 'checkout-product-item-detail';
+        detailCell.style.width = "300px"
         const productName = document.createElement('div');
         productName.className = 'checkout-product-item-name';
         productName.textContent = bookData.bookName;
