@@ -5,8 +5,8 @@ const secretKey = 'mySecretKey123!@#';
 
 const getAllAccount = async (req, res) => {
     try {
-        const accountData = await ACCOUNT.find();
-        const response = accountData.filter(account => !account.isAdmin);
+        const accountData = await ACCOUNT.find().select("-userPassword");
+        const response = accountData.filter(account => !account.isAdmin).select("-userPassword");
 
         return res.status(200).json({
             success: true,
@@ -25,7 +25,7 @@ const getAllAccount = async (req, res) => {
 const getAccount = async (req, res) => {
     const { accountID } = req.params;
 
-    const response = await ACCOUNT.findOne({ userID: accountID });
+    const response = await ACCOUNT.findOne({ userID: accountID }).select("-userPassword");
 
     if (!response) {
         return res.status(404).json({
@@ -42,7 +42,7 @@ const getAccount = async (req, res) => {
 const getCurrentAccount = async (req, res) => {
     const userID = req.userID;
 
-    const response = await ACCOUNT.findById(userID);
+    const response = await ACCOUNT.findById(userID).select("-userPassword");
 
     if (!response) {
         return res.status(401).json({
@@ -155,8 +155,6 @@ const updateAccount = async (req, res) => {
         });
     }
 };
-
-
 
 const logout = async (req, res) => {
     try {

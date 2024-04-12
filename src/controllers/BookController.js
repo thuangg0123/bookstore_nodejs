@@ -39,7 +39,7 @@ const getBook = async (req, res) => {
 const deleteBook = async (req, res) => {
     const { bookID } = req.params;
     try {
-        const response = await BOOK.findOneAndDelete({bookID});
+        const response = await BOOK.findOneAndDelete({ bookID });
         return res.status(200).json({
             success: response ? true : false,
             data: response ? `Successfully deleted book with id: ${bookID}` : `Unable to delete book with id: ${bookID}`
@@ -87,8 +87,6 @@ const addBook = async (req, res) => {
 
         req.body.bookID = bookID;
 
-        console.log("req.body", req.body)
-
         if (!req.body.bookPublisher) req.body.bookPublisher = "Không rõ";
         if (!req.body.bookWeight) req.body.bookWeight = 0.0;
         if (!req.body.bookSize) req.body.bookSize = "0x0cm";
@@ -106,8 +104,6 @@ const addBook = async (req, res) => {
             bookWeight: req.body.bookWeight,
             bookSize: req.body.bookSize,
         });
-
-        console.log("newBook", newBook)
 
         await newBook.save();
 

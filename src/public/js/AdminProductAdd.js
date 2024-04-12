@@ -51,13 +51,23 @@ async function addBookEvent() {
     try {
         const response = await addBook(book);
         if (response.success) {
-            const bookID = response.dataProduct.bookID;
             const _id = response.dataProduct._id;
-            const image = bookImage;
+            const bookID = response.dataProduct.bookID
 
-            //code upload hình ảnh ở đây
+            const formData = new FormData();
+            formData.append('images', bookImage);
 
-            window.location.href = `/quantri/sanpham/${bookID}`;
+            const uploadResponse = await fetch(`http://localhost:8080/api/book/upload-image/${_id}`, {
+                method: 'PUT',
+                body: formData,
+            });
+
+            const uploadData = await uploadResponse.json();
+            if (uploadData.success) {
+                window.location.href = `/quantri/sanpham/${bookID}`;
+            } else {
+                alert("Upload ảnh không thành công");
+            }
         } else if (response === "500") {
             alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
         }
