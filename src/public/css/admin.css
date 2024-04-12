@@ -61,7 +61,7 @@ body {
     border: none;
     padding: 8px 16px;
     /* margin: 0px 10px; */
-    margin-right: 10px;
+    /* margin-left: 10px; */
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -253,13 +253,14 @@ nav {
 .account-actions {
     display: flex;
     margin-top: 10px;
+    gap: 10px;
     justify-content: flex-end;
 }
 
-.product-actions button:not(:last-child),
+/* .product-actions button:not(:last-child),
 .order-actions button:not(:last-child) {
     margin-right: 10px;
-}
+} */
 
 .btn-edit-product,
 .btn-view-product,
@@ -369,7 +370,7 @@ nav {
 
 .container-edit,
 .container-add {
-    max-width: 800px;
+    max-width: 650px;
     margin: 50px auto;
     background-color: #fff;
     padding: 20px;
@@ -622,7 +623,7 @@ select:focus {
 .account-actions {
     align-items: center;
     justify-content: flex-end;
-    gap: 10px;
+    /* gap: 10px; */
 }
 
 .btn-edit-account,
@@ -652,9 +653,9 @@ select:focus {
     text-align: right;
 }
 
-.account-actions button {
+/* .account-actions button {
     margin-left: 10px;
-}
+} */
 
 .account-save-button {
     background-color: #45a049;
