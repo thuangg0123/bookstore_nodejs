@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const saveBtn = document.querySelector(".account-save-button");
     if (saveBtn) {
-        saveBtn.addEventListener("click", changeInfo);
+        saveBtn.addEventListener("click", () => changeInfo());
     }
 
     loadAccount();
@@ -53,6 +53,7 @@ async function changeInfo() {
 
     const response = await editAccount(account);
     if (response.success) {
+        alert(`Chỉnh sửa thông tin tài khoản ${accountID} thành công`);
         window.location.href = "/quantri/taikhoan";
     } else if (response === "500") {
         alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
