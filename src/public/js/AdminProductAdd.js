@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const priceInput = document.getElementById("price");
     if (priceInput) {
-        priceInput.addEventListener("input", formatNumber);
+        priceInput.addEventListener("input", () => formatNumber(priceInput));
     }
 
     const imageInput = document.getElementById("image");
@@ -37,21 +37,19 @@ async function addBookEvent() {
     const bookStock = document.getElementById("stock").value;
     const bookIntroduction = document.getElementById("introduction").value;
 
-    const formData = new FormData();
-    formData.append("image", bookImage);
-    formData.append("name", bookName);
-    formData.append("price", bookPrice);
-    formData.append("author", bookAuthor);
-    formData.append("publisher", bookPublisher);
-    formData.append("weight", bookWeight);
-    formData.append("size", bookSize);
-    formData.append("stock", bookStock);
-    formData.append("introduction", bookIntroduction);
+    const book = {
+        bookName: bookName,
+        bookPrice: bookPrice,
+        bookAuthor: bookAuthor,
+        bookPublisher: bookPublisher,
+        bookWeight: bookWeight,
+        bookSize: bookSize,
+        bookStock: bookStock,
+        bookIntroduction: bookIntroduction,
+    };
 
     try {
-        const response = await addBook(formData);
-        console.log(response)
-
+        const response = await addBook(book);
         if (response.success) {
             const bookID = response.dataProduct.bookID;
             const _id = response.dataProduct._id;
@@ -59,7 +57,7 @@ async function addBookEvent() {
 
             //code upload hình ảnh ở đây
 
-            // window.location.href = `/quantri/sanpham/${bookID}`;
+            window.location.href = `/quantri/sanpham/${bookID}`;
         } else if (response === "500") {
             alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
         }

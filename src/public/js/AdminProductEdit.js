@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     if (bookPriceString) {
-        bookPriceString.addEventListener("input", formatNumber);
+        bookPriceString.addEventListener("input", () => formatNumber(bookPriceString));
     }
 
     if (bookImage) {
