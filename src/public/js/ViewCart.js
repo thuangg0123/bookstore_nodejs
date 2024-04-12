@@ -153,9 +153,10 @@ function totalPrice(productPrice) {
 }
 
 function deleteAllCart() {
-    
-    localStorage.removeItem("cart");
-    location.reload(true);
+    if (confirm(`Bạn muốn xóa tất cả sản phẩm khỏi giỏ hàng?`) == true) {
+        localStorage.removeItem("cart");
+        location.reload(true);
+    }
 }
 
 function removeBookFromLocalStorage(bookId) {
