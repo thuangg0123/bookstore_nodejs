@@ -83,6 +83,7 @@ const createOrder = async (req, res) => {
             data: populatedOrder
         });
     } catch (error) {
+        console.log(error.message);
         return res.status(500).json({
             success: false,
             message: 'An error occurred, please try again later...',
