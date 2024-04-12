@@ -23,7 +23,7 @@ async function editBook(book) {
     return response;
 }
 
-async function deleteBook(book) {
+async function deleteBook() {
     const urlParts = window.location.pathname.split('/');
     const bookID = urlParts[urlParts.length - 1];
 
