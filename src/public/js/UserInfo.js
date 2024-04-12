@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const saveBtn = document.getElementById("saveBtn");
     if (saveBtn) {
-        saveBtn.addEventListener("click", changeInfo);
+        saveBtn.addEventListener("click", () => changeInfo());
     }
 });
 
@@ -35,6 +35,7 @@ async function changeInfo() {
 
     const response = await editAccount(account);
     if (response.success) {
+        alert("Chỉnh sửa thành công");
         loadAccount();
     } else if (response === "500") {
         alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
