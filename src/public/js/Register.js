@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const registerButton = document.getElementById("registerButton");
 
     if (registerButton) {
-        loginButton.addEventListener("click", registerEvent);
+        registerButton.addEventListener("click", registerEvent);
     }
 });
 
