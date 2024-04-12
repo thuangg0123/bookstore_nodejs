@@ -1367,10 +1367,13 @@ body {
 
 .table-total-container {
     margin: 20px auto;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .total-table {
-    width: 100%;
+    /* width: 100%; */
+    width: 61%;
     border-collapse: collapse;
 }
 
@@ -1449,6 +1452,7 @@ body {
 .menu-items.active {
     display: block;
     transform: translateX(0);
+    z-index: 100;
 }
 
 .menu-items a {
@@ -1462,8 +1466,42 @@ body {
     background-color: #f0f0f0;
 }
 
+.hamburger-menu{
+    display: none;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Màu nền là màu đen có độ trong suốt */
+    z-index: 99;
+    /* Sắp xếp phía trên cùng */
+}
+
+.overlay.active{
+    display: block;
+}
+
+.slideshow {
+    position: relative;
+    z-index: -1;
+}
+
 /* Responsive */
-/* @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
+    .hamburger-menu{
+        display: block;
+    }
+
+    .hamburger-menu .fa-bars{
+        font-size: 30px;
+    }
+
     .logo {
         width: 100px;
     }
@@ -1517,4 +1555,4 @@ body {
     .footer-info-item{
         padding: 0;
     }
-} */
+}
