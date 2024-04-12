@@ -71,9 +71,9 @@ function addToCart() {
     for (i = 0; i < cart.length; i++) {
         if (cart[i].bookID === bookID) {
             var book = cart[i];
-            book.SoLuong = Number(book.SoLuong) + Number(quantity);
-            if (book.SoLuong >= bookStock) {
-                book.SoLuong = bookStock;
+            book.quantity = Number(book.quantity) + Number(quantity);
+            if (book.quantity >= bookStock) {
+                book.quantity = bookStock;
                 alert("Đã vượt số lượng tối đa");
             }
             cart[i] = book;
