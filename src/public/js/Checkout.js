@@ -26,15 +26,32 @@ async function loadAccount() {
     }
 }
 
-async function checkout(event) {
-    event.preventDefault();
+async function checkout() {
+    const response = await getCurrentAccount();
+    if (response.success) {
+        const accountData = response.data;
+        if(accountData.isAdmin) {
+            alert("Vui lòng không dùng tài khoản quản trị để đặt hàng");
+            return;
+        }
+    }
 
     let productPriceString = document.getElementById('divThanhTien').innerText;
     productPriceString = productPriceString.replace(/[.,₫]/g, '');
     const productPrice = parseInt(productPriceString);
 
     const phone = document.getElementById("phone").value;
+    if(!phone) {
+        alert("Vui lòng nhập số điện thoại để đặt hàng");
+        return;
+    }
+
     const address = document.getElementById("address").value;
+    if(!address) {
+        alert("Vui lòng nhập địa chỉ để đặt hàng");
+        return;
+    }
+
     const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
 
     const cartJSON = localStorage.getItem("cart");
