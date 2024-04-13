@@ -124,9 +124,6 @@ const uploadBookImage = async (req, res) => {
     try {
         const { bookID } = req.params;
         const fileName = req.files[0].filename;
-
-        console.log(bookID);
-        console.log(fileName);
         const imagesPaths = `/img/product/${fileName}`;
 
         const book = await BOOK.findById(bookID);
