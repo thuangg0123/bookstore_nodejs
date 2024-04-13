@@ -60,6 +60,8 @@ body {
     color: white;
     border: none;
     padding: 8px 16px;
+    /* margin: 0px 10px; */
+    /* margin-left: 10px; */
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -254,6 +256,11 @@ nav {
     gap: 10px;
     justify-content: flex-end;
 }
+
+/* .product-actions button:not(:last-child),
+.order-actions button:not(:last-child) {
+    margin-right: 10px;
+} */
 
 .btn-edit-product,
 .btn-view-product,
@@ -616,6 +623,7 @@ select:focus {
 .account-actions {
     align-items: center;
     justify-content: flex-end;
+    /* gap: 10px; */
 }
 
 .btn-edit-account,
@@ -644,6 +652,10 @@ select:focus {
 .account-actions {
     text-align: right;
 }
+
+/* .account-actions button {
+    margin-left: 10px;
+} */
 
 .account-save-button {
     background-color: #45a049;
@@ -686,15 +698,29 @@ select:focus {
     width: 100%;
 }
 
-.image-preview {
-    width: 40%;
-    height: 200px;
-    border: 1px solid #ccc;
-    margin-top: 10px;
-}
+@media screen and (max-width: 768px) {
 
-.image-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: scale-down;
+    .container-m-product,
+    .container-m-order,
+    .container-m-account {
+        font-size: 14px;
+    }
+
+    .productDetailContent_product-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .productDetailContent_product-image {
+        margin-right: 0;
+    }
+
+    .productDetailContent_product-image img {
+        width: 250px;
+    }
+
+    .modal-content {
+        width: 75%;
+        font-size: 14px;
+    }
 }
