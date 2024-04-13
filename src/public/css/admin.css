@@ -724,3 +724,65 @@ select:focus {
         font-size: 14px;
     }
 }
+
+@media screen and (max-width: 575px) {
+    .welcome-message {
+        font-size: 21px;
+    }
+
+    .content{
+        text-align: center;
+    }
+
+    .search-container{
+        display: none;
+    }
+
+    .sidebar a, .container-m-account, .container-product-card, .container-m-order, .productDetailContent_product-container, .container-edit, #orderStatus{
+        font-size: 13px;
+    }
+
+    .btn{
+        font-size: 10px;
+    }
+
+    .container-m-product h1, .container-m-order h1, .container-m-account h1{
+        font-size: 21px;
+    }
+
+    #imagePreview{
+        width: 50px;
+    }
+
+    .form-container{
+        padding: 20px;
+        width: unset;
+    }
+
+    .container-edit, .container-add {
+        background-color: unset;
+    }
+
+    .container-edit{
+        padding: 0;
+    }
+
+    #updateStatusForm{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #updateStatusForm label{
+        font-size: 13px;
+    }
+
+    .modal-content h2{
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .edit-account{
+        width: 100%;
+    }
+}

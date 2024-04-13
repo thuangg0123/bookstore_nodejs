@@ -1681,4 +1681,73 @@ body {
     .payment-method-box h2 {
         font-size: 15px;
     }
+
+    .product-info h1 {
+        font-size: 21px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .product-price-cart {
+        display: none;
+    }
+
+    .product-details h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 10px;
+        width: 140px;
+    }
+
+    .product-image {
+        height: 60px;
+    }
+
+    .product-total {
+        font-size: 10px;
+    }
+
+    .quantity input {
+        width: 20px;
+    }
+
+    .form-group-info input,
+    .product-description h3,
+    .order-item,
+    .order-details-container,
+    .user-info-table,
+    .order-product-info,
+    .order-product-info-description h3, .checkout-product-item {
+        font-size: 13px;
+    }
+
+    .back-to-orders {
+        font-size: 10px;
+    }
+
+    .order-container-state {
+        gap: 5px;
+        font-size: 11px;
+    }
+
+    .checkout-product-item-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 13px;
+        width: 140px;
+    }
+
+    .checkout-product-item-img img {
+        max-width: 70px;
+    }
+
+    .order-header span{
+        margin-bottom: 0;
+    }
+
+    .welcome-message{
+        font-size: 21px;
+    }
 }
