@@ -186,6 +186,7 @@ body {
 }
 
 .box-search span {
+    top: 3px;
     position: absolute;
     right: 3px;
     cursor: pointer;
@@ -1372,7 +1373,6 @@ body {
 }
 
 .total-table {
-    /* width: 100%; */
     width: 61%;
     border-collapse: collapse;
 }
@@ -1488,6 +1488,32 @@ body {
 .slideshow {
     position: relative;
     z-index: -1;
+}
+
+.search-result {
+    position: absolute;
+    width: calc(100% - 40px);
+    background: #e1e1e1;
+    top: 100%;
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+
+.seach-item a{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #000;
+}
+
+.product-search-img img{
+    width: 50px;
+}
+
+.product-search-name{
+    font-size: 11px;
 }
 
 /* Responsive */

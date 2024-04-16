@@ -1,4 +1,5 @@
 import { getCurrentAccount, logout } from './api/AccountAPI.js';
+import { searchBooks } from './api/BookAPI.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
     const userOptionsSection = document.getElementById("userOptionsSection");
@@ -39,3 +40,48 @@ function setEventLogout() {
         }
     }
 }
+
+const searchResult = document.getElementById("searchResult");
+searchResult.style.display = "none";
+
+let timeId;
+async function handleSearchBooks() {
+    const query = document.getElementById("searchInput").value.trim()
+    if (!query) {
+        displaySearchResult([]);
+        return
+    }
+    clearTimeout(timeId)
+    timeId = setTimeout(async () => {
+        try {
+            const response = await searchBooks(query);
+            displaySearchResult(response)
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    }, 1000);
+}
+
+function displaySearchResult(products) {
+    if (products.length === 0) {
+        searchResult.style.display = "none";
+    } else {
+        searchResult.style.display = "block";
+        searchResult.innerHTML = '';
+        products.forEach(product => {
+            const productItem = document.createElement("div");
+            productItem.className = "seach-item";
+            productItem.innerHTML = `
+                <a href="danhsach/sach/${product.bookID}">
+                    <div class="product-search-img">
+                        <img src="${product.bookImage}" alt="${product.bookName}">
+                    </div>
+                    <h3 class="product-search-name">${product.bookName}</h3>
+                </a> 
+            `;
+            searchResult.appendChild(productItem);
+        });
+    }
+}
+
+window.handleSearchBooks = handleSearchBooks;

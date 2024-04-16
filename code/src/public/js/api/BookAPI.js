@@ -36,4 +36,9 @@ async function uploadImage(_id, image) {
     return response;
 }
 
-export { getBookList, getBook, addBook, editBook, deleteBook, uploadImage };
+async function searchBooks(query) {
+    const response = await apiRequest("GET", `/book/search-books?query=${query}`);
+    return response;
+}
+
+export { getBookList, getBook, addBook, editBook, deleteBook, uploadImage, searchBooks };

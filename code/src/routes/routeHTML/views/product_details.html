@@ -28,8 +28,11 @@
                 <a href="/trangchu"><img src="/img/logo/logo.png" alt="" class="logo"></a>
             </div>
             <div class="box-search">
-                <input type="text" placeholder="Tìm kiếm">
-                <span><i class="fas fa-search"></i></span>
+                <div>
+                    <input type="text" placeholder="Tìm kiếm" id="searchInput" oninput="handleSearchBooks()">
+                    <span><i class="fas fa-search"></i></span>
+                </div>
+                <div id="searchResult" class="search-result"></div>
             </div>
             <div class="user-cart-container">
                 <div class="cart-item">

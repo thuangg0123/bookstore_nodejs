@@ -144,6 +144,25 @@ const uploadBookImage = async (req, res) => {
     }
 };
 
+const searchBooks = async (req, res) => {
+    try {
+        const { query } = req.query;
+
+        const regex = new RegExp(query, 'i')
+
+        const response = await BOOK.find({
+            $or: [
+                { bookName: regex }
+            ]
+        })
+
+        res.json(response);
+    } catch (error) {
+        console.error('Error searching books:', error);
+        res.status(500).json({ error: 'Error searching books' });
+    }
+}
+
 module.exports = {
-    getAllBook, getBook, deleteBook, updateBook, addBook, uploadBookImage
+    getAllBook, getBook, deleteBook, updateBook, addBook, uploadBookImage, searchBooks
 };
