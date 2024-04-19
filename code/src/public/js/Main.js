@@ -42,6 +42,7 @@ function setEventLogout() {
 }
 
 const searchResult = document.getElementById("searchResult");
+const bgOverlay = document.getElementById("bg-overlay")
 searchResult.style.display = "none";
 
 let timeId;
@@ -63,16 +64,22 @@ async function handleSearchBooks() {
 }
 
 function displaySearchResult(products) {
+    bgOverlay.addEventListener("click", function () {
+        searchResult.style.display = "none";
+        bgOverlay.style.display = "none";
+    });
     if (products.length === 0) {
         searchResult.style.display = "none";
+        bgOverlay.style.display = "none"
     } else {
         searchResult.style.display = "block";
+        bgOverlay.style.display = "block"
         searchResult.innerHTML = '';
         products.forEach(product => {
             const productItem = document.createElement("div");
             productItem.className = "seach-item";
             productItem.innerHTML = `
-                <a href="danhsach/sach/${product.bookID}">
+                <a href="/danhsach/sach/${product.bookID}">
                     <div class="product-search-img">
                         <img src="${product.bookImage}" alt="${product.bookName}">
                     </div>
