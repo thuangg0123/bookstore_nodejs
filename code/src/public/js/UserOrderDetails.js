@@ -16,8 +16,8 @@ function displayOrderDetails(orderData) {
     document.getElementById('order-id').innerText = `Mã đơn hàng: ${order.orderID}`;
     document.getElementById('order-state').innerText = formatOrderStatus(order.orderStatus);
     document.getElementById('userName').innerText = user.userName;
-    document.getElementById('userPhone').innerText = user.userPhone;
-    document.getElementById('userAddress').innerText = user.userAddress;
+    document.getElementById('userPhone').innerText = order.orderPhone;
+    document.getElementById('userAddress').innerText = order.orderAddress;
 
     const orderItemList = orderData.orderItem;
     const orderProductList = document.getElementById('order-product-info');
