@@ -3,7 +3,7 @@
 Công nghệ và công cụ:
 
 - Ngôn ngữ lập trình: HTML, CSS, JavaScript
-- Framework: NodeJS, ExpressJS, Mongoose
+- Framework: NodeJS, ExpressJS, Mongoose, JWT
 - Cơ sở dữ liệu: MongoDB
 
 Đây là dự án nhỏ nhằm tìm hiểu về cách phát triển trang web với NodeJS. Với các chức năng chính:
