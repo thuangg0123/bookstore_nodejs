@@ -1,4 +1,4 @@
-import { getCurrentAccount } from './api/AccountAPI.js';
+import { getCurrentAccount, editAccount } from './api/AccountAPI.js';
 import { createOrder } from './api/OrderAPI.js';
 import { createOrderDetails } from './api/OrderDetailsAPI.js';
 import { getBook } from './api/BookAPI.js';
@@ -40,6 +40,12 @@ async function checkout() {
     productPriceString = productPriceString.replace(/[.,₫]/g, '');
     const productPrice = parseInt(productPriceString);
 
+    const name = document.getElementById("name").value;
+    if (!name) {
+        alert("Vui lòng nhập tên người nhận để đặt hàng");
+        return;
+    }
+
     const phone = document.getElementById("phone").value;
     if (!phone) {
         alert("Vui lòng nhập số điện thoại để đặt hàng");
@@ -76,6 +82,7 @@ async function checkout() {
 
         const detailResponse = await createOrderDetails(orderDetails);
         if (detailResponse.success) {
+            changeInfo();
             localStorage.removeItem("cart")
             window.location.href = `/taikhoan/donhang/${orderResponse.data.orderID}`;
         } else if (detailResponse === "500") {
@@ -85,6 +92,20 @@ async function checkout() {
     } else if (orderResponse === "500") {
         alert("Server hiện đang gặp lỗi, vui lòng thử lại sau");
     }
+}
+
+async function changeInfo() {
+    const userName = document.getElementById("name").value;
+    const userPhone = document.getElementById("phone").value;
+    const userAddress = document.getElementById("address").value;
+
+    const account = {
+        userName: userName,
+        userPhone: userPhone,
+        userAddress: userAddress
+    };
+
+    await editAccount(account);
 }
 
 function getCart() {
