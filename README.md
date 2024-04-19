@@ -1,13 +1,11 @@
 # bookstore_nodejs
 
 Công nghệ và công cụ:
-
 - Ngôn ngữ lập trình: HTML, CSS, JavaScript
 - Framework: NodeJS, ExpressJS, Mongoose, JWT
 - Cơ sở dữ liệu: MongoDB
 
 Đây là dự án nhỏ nhằm tìm hiểu về cách phát triển trang web với NodeJS. Với các chức năng chính:
-
 - User:
   - Trang chủ
   - Tìm kiếm sản phẩm
@@ -30,3 +28,12 @@ Công nghệ và công cụ:
   - Xem danh sách tài khoản
   - Xóa tài khoản người dùng
   - Chỉnh sửa thông tin tài khoản
+
+Hướng dẫn cài đặt:
+1. Cài đặt các thư viên: npm i
+2. Chạy dự án: npm start
+3. Nhập các dữ liệu trong folder "data" vào MongoDB
+4. Chạy thử dự án (có 3 tài khoản demo):
+  - Tài khoản user1 (mật khẩu: 1)
+  - Tài khoản user2 (mật khẩu: 1)
+  - Tài khoản admin (mật khẩu: 1)
